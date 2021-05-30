@@ -8,10 +8,10 @@ namespace Projekat.Model
 {
     public class Adresa
     {
-        private string Ulica { get; set; }
+        public string Ulica { get; set; }
 
-        private string Grad { get; set; }
-        private int Broj { get; set; }
+        public string Grad { get; set; }
 
+        public int Broj { get; set; }
     }
 }

@@ -8,10 +8,16 @@ namespace Projekat.Model
 {
     public class Zadatak
     {
-        private int Id { get; set; }
-        private string Status { get; set; }
-        private Dictionary<int,Ponuda> Ponude { get; set; }
+        public int Id { get; set; }
 
+        public string Naziv { get; set; }
 
+        public string Opis { get; set; }
+
+        public string Status { get; set; }
+
+        public List<Ponuda> IzabranePonude { get; set; }
+
+        public List<Komentar> Komentari { get; set; }
     }
 }

@@ -8,17 +8,30 @@ namespace Projekat.Model
 {
     public class Dogadjaj
     {
-        private int Id { get; set; }
-        private double Budzet { get; set; }
-        private DateTime DatumOdrzavanja { get; set; }
-        private string VrstaProslave { get; set; }
-        private string Tema { get; set; }
-        private string Napomena { get; set; }
-        private string Status { get; set; }
-        private bool BudzetPromenljiv { get; set; }
-        private Dictionary<int,Zadatak> Zadaci { get; set; }
+        public int Id { get; set; }
 
+        public double Budzet { get; set; }
 
+        public int BrojGostiju { get; set; }
 
+        public DateTime DatumOdrzavanja { get; set; }
+
+        public string VrstaProslave { get; set; }
+
+        public string Tema { get; set; }
+
+        public string Napomena { get; set; }
+
+        public string Status { get; set; }
+
+        public bool BudzetPromenljiv { get; set; }
+
+        public List<Zadatak> Zadaci { get; set; }
+
+        public string DodatniZahtevi { get; set; }
+
+        public Organizator Organizator { get; set; }
+
+        public List<Ponuda> PrihvacenePonude { get; set; }
     }
 }

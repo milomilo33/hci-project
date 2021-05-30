@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,28 +9,30 @@ namespace Projekat.Model
 {
     public abstract class Korisnik
     {
-            private string Email { get; set; }
+        [Key]
+        public string Email { get; set; }
 
-            private string Lozinka { get; set; }
+        public string Lozinka { get; set; }
 
-            private string Ime { get; set; }
-            private string Prezime { get; set; }
-            private string BrojTelefona { get; set; }
+        public string Ime { get; set; }
 
-            private Adresa Adresa { get; set; }
+        public string Prezime { get; set; }
 
+        public string BrojTelefona { get; set; }
+
+        public Adresa Adresa { get; set; }
     }
 
-    public class Organizator :Korisnik
+    public class Organizator : Korisnik
     {
-       Dictionary<int,Dogadjaj> Dogadjaji { get; set; }
+        public List<Dogadjaj> Dogadjaji { get; set; }
     }
 
-    public class Klijent: Korisnik
+    public class Klijent : Korisnik
     {
-        Dictionary<int, Dogadjaj> Dogadjaji { get; set; }
+        public List<Dogadjaj> Dogadjaji { get; set; }
     }
-    public class Administrator:Korisnik
+    public class Administrator : Korisnik
     {
 
     }

@@ -8,13 +8,20 @@ namespace Projekat.Model
 {
     public class Saradnik
     {
-        private string Naziv { get; set; }
-        private Adresa Adresa { get; set; }
-        private string Tip { get; set; }
-        private string BrojTelefona { get; set; }
+        public int Id;
 
-        private Dictionary<int,Dogadjaj> Dogadjaji { get; set; }
+        public string Naziv { get; set; }
 
+        public Adresa Adresa { get; set; }
 
+        public string Opis { get; set; }
+
+        public string Tip { get; set; }
+
+        public string BrojTelefona { get; set; }
+
+        public List<Dogadjaj> Dogadjaji { get; set; }
+
+        public List<Ponuda> Ponude { get; set; }
     }
 }

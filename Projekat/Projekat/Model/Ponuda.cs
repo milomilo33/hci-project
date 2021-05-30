@@ -8,9 +8,16 @@ namespace Projekat.Model
 {
     public class Ponuda
     {
-        private enum STATUS { PRIHVACENA, ODBIJENA, NACEKANJU}
-        private int Id { get; set; }
-        private double Cena { get; set; }
-        private STATUS Status { get; set; }
+        public enum STATUS { PRIHVACENA, ODBIJENA, NA_CEKANJU }
+
+        public int Id { get; set; }
+
+        public double Cena { get; set; }
+
+        public STATUS Status { get; set; }
+
+        public string Opis { get; set; }
+
+        // treba dodati slike za ponude
     }
 }

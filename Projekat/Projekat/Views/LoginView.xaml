@@ -55,5 +55,9 @@
         <Label Grid.Row="4" Grid.Column="1">Lozinka</Label>
         <TextBox Grid.Row="5" Grid.Column="1"></TextBox>
         <Button Grid.Row="7" Command="{Binding LoginCommand}" Grid.Column="1">Prijava</Button>
+        <Label Grid.Row ="9" Grid.Column="1">
+
+            <Hyperlink Command="{Binding RegistrationCommand}">Nemate nalog? Registrujte se</Hyperlink>
+        </Label>
     </Grid>
 </UserControl>

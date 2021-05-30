@@ -14,6 +14,7 @@ namespace Projekat.ViewModels
         private readonly NavigationStore _navigationStore;
 
         private ICommand _loginCommand;
+        private ICommand _registrationCommand;
 
         public ICommand LoginCommand
         {
@@ -31,6 +32,22 @@ namespace Projekat.ViewModels
 
             _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel();
         }
+
+        public ICommand RegistrationCommand
+        {
+            get
+            {
+                if (_registrationCommand == null)
+                    _registrationCommand = new RelayCommand(_registrationCommand => Registration());
+                return _registrationCommand;
+            }
+        }
+        private void Registration()
+        {
+
+            _navigationStore.CurrentViewModel = new RegistrationViewModel();
+        }
+
 
         public LoginViewModel(NavigationStore navigationStore)
         {

@@ -1,4 +1,6 @@
-﻿using Projekat.Stores;
+﻿using Projekat.Data;
+using Projekat.Model;
+using Projekat.Stores;
 using Projekat.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -25,6 +27,28 @@ namespace Projekat
                 DataContext = new MainViewModel(navigationStore)
             };
             MainWindow.Show();
+
+            //using (var db = new DatabaseContext())
+            //{
+            //    //Administrator a = new Administrator();
+            //    //a.BrojTelefona = "069222222";
+            //    //a.Email = "example@mail.com";
+            //    //a.Ime = "Nikola";
+            //    //a.Prezime = "Nikolic";
+            //    //a.Lozinka = "123";
+            //    //db.Administratori.Add(a);
+            //    //db.SaveChanges();
+
+            //    //Organizator a = new Organizator();
+            //    //a.BrojTelefona = "069222222";
+            //    //a.Email = "organizator@mail.com";
+            //    //a.Ime = "Nikola";
+            //    //a.Prezime = "Nikolic";
+            //    //a.Lozinka = "123";
+            //    //a.Dogadjaji = new List<Dogadjaj>();
+            //    //db.Organizatori.Add(a);
+            //    //db.SaveChanges();
+            //}
 
             base.OnStartup(e);
         }

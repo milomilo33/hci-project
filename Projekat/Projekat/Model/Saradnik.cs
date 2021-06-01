@@ -8,7 +8,7 @@ namespace Projekat.Model
 {
     public class Saradnik
     {
-        public int Id;
+        public int Id { get; set; }
 
         public string Naziv { get; set; }
 

@@ -1,4 +1,6 @@
 ﻿using Projekat.Commands;
+using Projekat.Data;
+using Projekat.Model;
 using Projekat.Stores;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,28 @@ namespace Projekat.ViewModels
     public class LoginViewModel : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
+
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set
+            {
+                _email = value;
+                OnPropertyChanged(nameof(Email));
+            }
+        }
+
+        private string _lozinka;
+        public string Lozinka
+        {
+            get => _lozinka;
+            set
+            {
+                _lozinka = value;
+                OnPropertyChanged(nameof(Lozinka));
+            }
+        }
 
         private ICommand _loginCommand;
         private ICommand _registrationCommand;
@@ -28,9 +52,47 @@ namespace Projekat.ViewModels
 
         private void LoginUser()
         {
-            //KorisnikStore...
+            using (var db = new DatabaseContext())
+            {
+                foreach (Korisnik k in db.Korisnici)
+                {
+                    if (k.Email.Equals(Email))
+                    {
+                        if (!k.Lozinka.Equals(Lozinka))
+                        {
+                            Console.WriteLine("Nevalidna lozinka");
+                            return;
+                        }
 
-            _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel();
+                        KorisnikStore korisnikStore = KorisnikStore.Instance;
+                        korisnikStore.TrenutniKorisnik = k;
+
+                        if (k.GetType() == typeof(Administrator))
+                        {
+                            Console.WriteLine("Administrator");
+                            return;
+                        }
+                        else if (k.GetType() == typeof(Klijent))
+                        {
+                            Console.WriteLine("Klijent");
+                            return;
+                        }
+                        else if (k.GetType() == typeof(Organizator))
+                        {
+                            Console.WriteLine("Organizator");
+                            _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+                            return;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Login error");
+                            return;
+                        }
+                    }
+                }
+
+                Console.WriteLine("Nepostojeci korisnik");
+            }
         }
 
         public ICommand RegistrationCommand

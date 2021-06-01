@@ -8,6 +8,8 @@ namespace Projekat.Model
 {
     public class Adresa
     {
+        public int Id { get; set; }
+
         public string Ulica { get; set; }
 
         public string Grad { get; set; }

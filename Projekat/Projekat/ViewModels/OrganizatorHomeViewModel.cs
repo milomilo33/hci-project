@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projekat.Stores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +9,11 @@ namespace Projekat.ViewModels
 {
     public class OrganizatorHomeViewModel : ViewModelBase
     {
-        public OrganizatorHomeViewModel()
-        {
+        private readonly NavigationStore _navigationStore;
 
+        public OrganizatorHomeViewModel(NavigationStore navigationStore)
+        {
+            _navigationStore = navigationStore;
         }
     }
 }

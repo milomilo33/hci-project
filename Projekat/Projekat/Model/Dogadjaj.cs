@@ -32,6 +32,6 @@ namespace Projekat.Model
 
         public Organizator Organizator { get; set; }
 
-        public List<Ponuda> PrihvacenePonude { get; set; }
+        public List<Predlog> PrihvaceniPredlozi { get; set; }
     }
 }

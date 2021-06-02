@@ -16,7 +16,7 @@ namespace Projekat.Model
 
         public string Status { get; set; }
 
-        public List<Ponuda> IzabranePonude { get; set; }
+        public List<Predlog> IzabraniPredlozi { get; set; }
 
         public List<Komentar> Komentari { get; set; }
     }

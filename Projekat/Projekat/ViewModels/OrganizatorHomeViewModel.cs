@@ -36,5 +36,25 @@ namespace Projekat.ViewModels
             _navigationStore.CurrentViewModel = new PregledPonudaViewModel(_navigationStore);
         }
 
+        
+
+
+       private ICommand _pregledDogadjajaCommand;
+
+        public ICommand PregledDogadjajaCommand
+        {
+            get
+            {
+                if (_pregledDogadjajaCommand == null)
+                    _pregledDogadjajaCommand = new RelayCommand(_pregledPonudaCommand => PregledajDogadjaje());
+                return _pregledDogadjajaCommand;
+            }
+        }
+
+        private void PregledajDogadjaje()
+        {
+
+            _navigationStore.CurrentViewModel = new OrganizatorEventTableViewModel();
+        }
     }
 }

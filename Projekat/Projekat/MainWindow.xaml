@@ -22,6 +22,9 @@
             <DataTemplate DataType="{x:Type viewmodels:PregledPonudaViewModel}">
                 <views:PregledPonuda />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:OrganizatorEventTableViewModel}">
+                <views:OrganizatorEventTable />
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

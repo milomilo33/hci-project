@@ -75,6 +75,7 @@ namespace Projekat.ViewModels
                         else if (k.GetType() == typeof(Klijent))
                         {
                             Console.WriteLine("Klijent");
+                            _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
                             return;
                         }
                         else if (k.GetType() == typeof(Organizator))

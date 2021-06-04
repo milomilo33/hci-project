@@ -6,12 +6,23 @@
         xmlns:local="clr-namespace:Projekat"
         xmlns:viewmodels="clr-namespace:Projekat.ViewModels"
         xmlns:views="clr-namespace:Projekat.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="600">
+        Title="MainWindow" Height="720" Width="1280">
     <ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewmodels:OrganizatorHomeViewModel}">
                 <views:OrganizatorHomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentHomeViewModel}">
+                <views:KlijentHomeView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
                 <views:LoginView />
@@ -21,6 +32,9 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:PregledPonudaViewModel}">
                 <views:PregledPonuda />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentPregledOrganizatoraViewModel}">
+                <views:KlijentPregledOrganizatoraView />
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

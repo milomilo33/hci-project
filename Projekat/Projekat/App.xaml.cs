@@ -22,6 +22,7 @@ namespace Projekat
             NavigationStore navigationStore = new NavigationStore();
             navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
 
+
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(navigationStore)
@@ -37,7 +38,7 @@ namespace Projekat
                 a.Ime = "Nikola";
                 a.Prezime = "Nikolic";
                 a.Lozinka = "123";
-                db.Administratori.Add(a);
+                //db.Administratori.Add(a);
                 //db.SaveChanges();
 
                 Organizator o = new Organizator();
@@ -113,15 +114,15 @@ namespace Projekat
                 o.Dogadjaji.Add(d1);
                 o.Dogadjaji.Add(d2);
 
-                db.Organizatori.Add(o);
+                //db.Organizatori.Add(o);
 
-                db.Dogadjaji.Add(d1);
-                db.Dogadjaji.Add(d2);
+                //db.Dogadjaji.Add(d1);
+                //db.Dogadjaji.Add(d2);
                 /*
                 db.Ponude.Add(p1);
                 db.Ponude.Add(p2); */
 
-                db.SaveChanges();
+                //db.SaveChanges();
 
 
 

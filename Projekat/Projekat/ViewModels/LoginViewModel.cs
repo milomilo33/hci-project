@@ -93,7 +93,7 @@ namespace Projekat.ViewModels
                 }
 
                 Console.WriteLine("Nepostojeci korisnik");
-            }
+            } 
         }
 
         public ICommand RegistrationCommand

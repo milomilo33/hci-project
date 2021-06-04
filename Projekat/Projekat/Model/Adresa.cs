@@ -15,6 +15,7 @@ namespace Projekat.Model
         public string Grad { get; set; }
 
         public int Broj { get; set; }
+
         public string Drzava { get; set; }
     }
 }

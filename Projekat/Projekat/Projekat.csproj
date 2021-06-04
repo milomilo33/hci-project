@@ -121,37 +121,28 @@
     <Compile Include="Service\PonudaService.cs" />
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
-	<Compile Include="ViewModels\AdminHomeViewModel.cs" />
-	<Compile Include="ViewModels\DetailsViewModel.cs" />
-	<Compile Include="ViewModels\EventListViewModel.cs" />
-	<Compile Include="ViewModels\LoginViewModel.cs" />
-	<Compile Include="ViewModels\KlijentHomeViewModel.cs" />
-	<Compile Include="ViewModels\KlijentPregledOrganizatoraViewModel.cs" />
+    <Compile Include="ViewModels\AdminHomeViewModel.cs" />
+    <Compile Include="ViewModels\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\EventListViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\KlijentHomeViewModel.cs" />
+    <Compile Include="ViewModels\KlijentPregledOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorEventTableViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorHomeViewModel.cs" />
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-	<Compile Include="Views\AdminHomeView.xaml.cs">
-		<DependentUpon>AdminHomeView.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Views\Details.xaml.cs">
-		<DependentUpon>Details.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Views\EventItem.xaml.cs">
-		<DependentUpon>EventItem.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Views\EventListView.xaml.cs">
-		<DependentUpon>EventListView.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Views\KlijentHomeView.xaml.cs">
-		<DependentUpon>KlijentHomeView.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Views\KlijentPregledOrganizatoraView.xaml.cs">
-		<DependentUpon>KlijentPregledOrganizatoraView.xaml</DependentUpon>
-	</Compile>
-	<Compile Include="Views\LoginView.xaml.cs">
+    <Compile Include="Views\Details.xaml.cs">
+      <DependentUpon>Details.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KlijentHomeView.xaml.cs">
+      <DependentUpon>KlijentHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KlijentPregledOrganizatoraView.xaml.cs">
+      <DependentUpon>KlijentPregledOrganizatoraView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrganizatorEventTable.xaml.cs">
@@ -179,30 +170,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-	<Page Include="Views\AdminHomeView.xaml">
-		<SubType>Designer</SubType>
-		<Generator>MSBuild:Compile</Generator>
-	</Page>
-	<Page Include="Views\Details.xaml">
-		<SubType>Designer</SubType>
-		<Generator>MSBuild:Compile</Generator>
-	</Page>
-	<Page Include="Views\EventItem.xaml">
-		<SubType>Designer</SubType>
-		<Generator>MSBuild:Compile</Generator>
-	</Page>
-	<Page Include="Views\EventListView.xaml">
-		<SubType>Designer</SubType>
-		<Generator>MSBuild:Compile</Generator>
-	</Page>
-	<Page Include="Views\KlijentHomeView.xaml">
-		<SubType>Designer</SubType>
-		<Generator>MSBuild:Compile</Generator>
-	</Page>
-	<Page Include="Views\KlijentPregledOrganizatoraView.xaml">
-		<SubType>Designer</SubType>
-		<Generator>MSBuild:Compile</Generator>
-	</Page>
+    <Page Include="Views\Details.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KlijentHomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KlijentPregledOrganizatoraView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

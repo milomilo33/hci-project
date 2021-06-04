@@ -132,7 +132,7 @@
                                     Adresa
                                 </TextBlock>
                                 <TextBlock>
-                                    <Run Text="{Binding Adresa.Ulica}"/>, <Run Text="{Binding Adresa.Grad}" />, <Run Text="{Binding Adresa.Broj}" />
+                                    <Run Text="{Binding Adresa.Ulica}"/> <Run Text="{Binding Adresa.Broj}" />, <Run Text="{Binding Adresa.Grad}" />, <Run Text="{Binding Adresa.Drzava}" />
                                 </TextBlock>
                                 <TextBlock FontWeight="ExtraBold" FontSize="16" Margin="0,10,0,10">
                                     E-mail adresa

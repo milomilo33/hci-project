@@ -36,12 +36,12 @@
             <DataTemplate DataType="{x:Type viewmodels:OrganizatorEventTableViewModel}">
                 <views:OrganizatorEventTable />
             </DataTemplate>
-            <DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">
+            <!--<DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">
                 <views:AdminHomeView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:EventListViewModel}">
                 <views:EventListView />
-            </DataTemplate>
+            </DataTemplate>-->
             <DataTemplate DataType="{x:Type viewmodels:KlijentPregledOrganizatoraViewModel}">
                 <views:KlijentPregledOrganizatoraView />
             </DataTemplate>

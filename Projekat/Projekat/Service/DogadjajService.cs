@@ -19,7 +19,7 @@ namespace Projekat.Service
 
 			dogadjaj = (Dogadjaj)(from d in context.Dogadjaji.Include("Organizator")
 								  where d.Id.Equals(id)
-								  select d);
+								  select d).FirstOrDefault();
 
 
 			return dogadjaj;
@@ -39,9 +39,13 @@ namespace Projekat.Service
 
 		public ObservableCollection<Dogadjaj> sviDogadjajiZaOrganizatora(String email)
 		{
-			
+
 			ObservableCollection<Dogadjaj> dogadjaji = new ObservableCollection<Dogadjaj>();
-			
+			using (var db = new DatabaseContext())
+			{
+				dogadjaji = new ObservableCollection<Dogadjaj>(db.Dogadjaji.Include("Organizator").Where(d=>d.Organizator.Email.Equals(email)));
+			}
+
 			return dogadjaji;
 
 		}

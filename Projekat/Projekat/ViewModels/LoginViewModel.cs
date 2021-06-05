@@ -108,7 +108,7 @@ namespace Projekat.ViewModels
         private void Registration()
         {
 
-            _navigationStore.CurrentViewModel = new RegistrationViewModel();
+            _navigationStore.CurrentViewModel = new RegistrationViewModel(_navigationStore);
         }
 
 

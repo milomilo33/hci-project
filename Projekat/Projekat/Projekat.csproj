@@ -118,21 +118,29 @@
     <Compile Include="Service\DogadjajService.cs" />
     <Compile Include="Service\IDogadjajService.cs" />
     <Compile Include="Service\IPonudaService.cs" />
+    <Compile Include="Service\IZadatakService.cs" />
     <Compile Include="Service\PonudaService.cs" />
+    <Compile Include="Service\ZadatakService.cs" />
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
+    <Compile Include="ViewModels\KreiranjeZadatkaViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\KlijentHomeViewModel.cs" />
     <Compile Include="ViewModels\KlijentPregledOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\OrganizatorDodeljeniDogadjajiViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorEventTableViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorHomeViewModel.cs" />
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
+    <Compile Include="ViewModels\TaskViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\CreateTask.xaml.cs">
+      <DependentUpon>CreateTask.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Details.xaml.cs">
       <DependentUpon>Details.xaml</DependentUpon>
     </Compile>
@@ -145,6 +153,9 @@
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OrganizatorDodeljeniDogadjaji.xaml.cs">
+      <DependentUpon>OrganizatorDodeljeniDogadjaji.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\OrganizatorEventTable.xaml.cs">
       <DependentUpon>OrganizatorEventTable.xaml</DependentUpon>
     </Compile>
@@ -156,6 +167,9 @@
     </Compile>
     <Compile Include="Views\RegistrationView.xaml.cs">
       <DependentUpon>RegistrationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TaskView.xaml.cs">
+      <DependentUpon>TaskView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -170,6 +184,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\CreateTask.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Details.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -186,6 +204,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\OrganizatorDodeljeniDogadjaji.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OrganizatorEventTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -199,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RegistrationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TaskView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

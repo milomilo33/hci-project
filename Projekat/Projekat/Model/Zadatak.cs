@@ -18,6 +18,10 @@ namespace Projekat.Model
 
         public List<Predlog> IzabraniPredlozi { get; set; }
 
-        public List<Komentar> Komentari { get; set; }
+        //public List<Komentar> Komentari { get; set; }
+
+        public Dogadjaj Dogadjaj { get; set; }
+
+        public Boolean Glavni { get; set; }
     }
 }

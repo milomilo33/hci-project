@@ -3,65 +3,84 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
       xmlns:local="clr-namespace:Projekat.Views"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="500">
+   <!-- <UserControl.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6" />
+                </Style>
+            </Style.Resources>
+        </Style>
 
-    <Grid Background="#FFDADADA">
-        <Border Margin="10" MinWidth="440" Background="White" VerticalAlignment="Center" Padding="10" CornerRadius="10" MaxWidth="800">
-            <Border.Effect>
-                <DropShadowEffect BlurRadius="30" Color="LightGray" ShadowDepth="0"/>
-            </Border.Effect>
-            <StackPanel>
-                <TextBlock Text="Registracija" FontSize="20" FontWeight="Bold" Margin="150 0 0 10"/>
+    </UserControl.Resources>-->
+    <DockPanel>
 
-                <TextBox materialDesign:HintAssist.Hint="Ime" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0 0"/>
-                <TextBox materialDesign:HintAssist.Hint="Prezime" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0 0"/>
-                <TextBox materialDesign:HintAssist.Hint="E-mail" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0 0"/>
-                <PasswordBox materialDesign:HintAssist.Hint="Lozinka" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Margin="0 0"/>
-                <PasswordBox materialDesign:HintAssist.Hint="Ponovljena lozinka" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Margin="0 0"/>
-                <TextBox materialDesign:HintAssist.Hint="Ulica" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0 0"/>
-                <TextBox materialDesign:HintAssist.Hint="Broj" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0 0"/>
-                <TextBox materialDesign:HintAssist.Hint="Grad" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0 0"/>
-                <StackPanel Orientation="Horizontal">
-                    <Button  Background="#2E7D32" Width="180" Content="Registruj" Margin="0 10 0 0"/>
-                    <Button  Background="#D50000"  Width="180" Content="Odustani" Margin="80 10 0 0"/>
-                </StackPanel>
-            </StackPanel>
-        </Border>
-    </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
 
-    <!--<Grid Background="White">
-        <TextBlock Height="33" HorizontalAlignment="Left" Margin="300,10,0,0" Name="textBlockHeader" Text="Registracija" FontSize="20" VerticalAlignment="Top" Width="200" />
-        <Grid Margin="40,50,40,23" Background="LightSkyBlue" Height="410" VerticalAlignment="Bottom" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="252*" />
-                   <RowDefinition Height="12*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="1.5*" />
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
 
-          
-            <TextBlock Height="33" HorizontalAlignment="Left" Margin="100,70,0,0" Name="textBlockFirstname" Text="Ime:" VerticalAlignment="Top" Width="70" />
-            <TextBlock Height="33" HorizontalAlignment="Left" Margin="330,70,0,0" Name="textBlockLastName" Text="Prezime:" VerticalAlignment="Top" Width="70" />
-            <TextBlock Height="33" HorizontalAlignment="Left" Margin="100,130,0,0" Name="textBlockEmailId" Text="E-mail" VerticalAlignment="Top" Width="70" />
-            <TextBlock Height="33" HorizontalAlignment="Left" Margin="100,190,0,0" Name="textBlockPassword" Text="Lozinka:" VerticalAlignment="Top" Width="70"  />
-            <TextBlock Height="33" HorizontalAlignment="Left" Margin="330,190,0,0" Name="textBlockConfirmPwd" Text="Ponovljena lozinka:" VerticalAlignment="Top" Width="120"  />
-            <TextBlock Height="33" HorizontalAlignment="Left" Margin="100,250,0,0" Name="textBlockAddress" Text="Ulica:" VerticalAlignment="Top" Width="70" />
-            <TextBlock Height="33" HorizontalAlignment="Left" Margin="330,250,0,0" Name="textBlockNumber" Text="Broj:" VerticalAlignment="Top" Width="100" />
-            <TextBlock Height="33" HorizontalAlignment="Left" Margin="100,310,0,0" Name="textBlockCity" Text="Grad:" VerticalAlignment="Top" Width="70" />
-            <TextBlock Height="33" HorizontalAlignment="Left" Margin="330,310,0,0" Name="textBlockCountry" Text="Država:" VerticalAlignment="Top" Width="100" />
-            <TextBox Height="33" HorizontalAlignment="Left" Margin="170,70,0,0" Name="textBoxFirstName" VerticalAlignment="Top" Width="130" />
-            <TextBox Height="33" HorizontalAlignment="Left" Margin="400,70,0,0" Name="textBoxLastName" VerticalAlignment="Top" Width="170" />
-            <TextBox Height="33" HorizontalAlignment="Left" Margin="170,130,0,0" Name="textBoxEmail" VerticalAlignment="Top" Width="399" />
-            <PasswordBox Height="33" HorizontalAlignment="Left" Margin="170,190,0,0" Name="passwordBox1" VerticalAlignment="Top" Width="130" />
-            <PasswordBox Height="33" HorizontalAlignment="Left" Margin="400,190,0,0" Name="passwordBoxConfirm" VerticalAlignment="Top" Width="170" />
-            <TextBox Height="33" HorizontalAlignment="Left" Margin="170,250,0,0" Name="textBoxAddress" VerticalAlignment="Top" Width="130" />
-            <TextBox Height="33" HorizontalAlignment="Left" Margin="400,250,0,0" Name="textBoxNumber" VerticalAlignment="Top" Width="170" />
-            <TextBox Height="33" HorizontalAlignment="Left" Margin="170,310,0,0" Name="textBoxCity" VerticalAlignment="Top" Width="130" />
-            <TextBox Height="33" HorizontalAlignment="Left" Margin="400,310,0,0" Name="textBoxCountry" VerticalAlignment="Top" Width="170" />
-            <Button Content="Registruj" Height="33" HorizontalAlignment="Left" Margin="170,370,0,0" Name="Submit" VerticalAlignment="Top" Width="180"/>
-           
-            <Button Content="Odustani" Height="33" HorizontalAlignment="Right" Margin="0,370,150,0" Name="button3" VerticalAlignment="Top" Width="180"/>
+            <TextBlock  Grid.Row="0" Grid.ColumnSpan="10" TextAlignment="Center" Text="Registracija" FontSize="20" FontWeight="Bold" />
+            <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Ime</TextBlock>
+            <TextBox  Grid.Row="2" Grid.Column="1" Text="{Binding Ime}"   BorderBrush="Gray" BorderThickness="1"/>
+            
+            <TextBlock Grid.Row="1" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Prezime</TextBlock>
+            <TextBox  Grid.Row="2" Grid.Column="3"   Text="{Binding Prezime}" BorderBrush="Gray" BorderThickness="1"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Email adresa</TextBlock>
+            <TextBox  Grid.Row="5" Grid.Column="1"   Text="{Binding Email}" BorderBrush="Gray" BorderThickness="1"/>
+
+            <TextBlock Grid.Row="4" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Broj telefona</TextBlock>
+            <TextBox  Grid.Row="5" Grid.Column="3"  Text="{Binding BrojTelefona}" BorderBrush="Gray" BorderThickness="1"/>
+
+            <TextBlock Grid.Row="7" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Lozinka</TextBlock>
+            <PasswordBox Grid.Row="8" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" />
+
+            <TextBlock Grid.Row="7" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Ponovljena lozinka</TextBlock>
+            <PasswordBox Grid.Row="8" Grid.Column="3"  BorderBrush="Gray" BorderThickness="1" />
+
+            <TextBlock Grid.Row="10" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Ulica</TextBlock>
+            <TextBox Grid.Row="11" Grid.Column="1"  Text="{Binding Ulica}" BorderBrush="Gray" BorderThickness="1"  />
+            
+            <TextBlock Grid.Row="10" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Broj</TextBlock>
+            <TextBox Grid.Row="11" Grid.Column="3"   Text="{Binding Broj}"  BorderBrush="Gray" BorderThickness="1"/>
+
+            <TextBlock Grid.Row="13" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Grad</TextBlock>
+            <TextBox Grid.Row="14" Grid.Column="1"   Text="{Binding Grad}" BorderBrush="Gray" BorderThickness="1"/>
+
+            <TextBlock Grid.Row="13" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Država</TextBlock>
+            <TextBox Grid.Row="14" Grid.Column="3"   Text="{Binding Drzava}"  BorderBrush="Gray" BorderThickness="1"/>
+             <Button Grid.Row="16" Grid.Column="1" Content="Registruj" Height="33" HorizontalAlignment="Left" Name="Submit"  Width="180"/>
+            <Button Grid.Row="16" Grid.Column="3" Content="Odustani" Height="33" HorizontalAlignment="Right"  Name="Cancel"  Width="180" Command="{Binding CancelCommand}"/>
+            
         </Grid>
-    </Grid>-->
+    </DockPanel>
+
 </UserControl>

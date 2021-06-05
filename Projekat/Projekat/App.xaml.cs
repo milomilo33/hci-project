@@ -28,6 +28,7 @@ namespace Projekat
             };
             MainWindow.Show();
             
+            /*
             using (var db = new DatabaseContext())
             {
                 
@@ -77,16 +78,16 @@ namespace Projekat
                 p2.Saradnik = s1;
                 p1.Saradnik = s1;
 
-                /*
+                
                 db.Ponude.Add(p1);
-                db.Ponude.Add(p2); */
+                db.Ponude.Add(p2); 
                 
                 db.SaveChanges();
 
 
 
 
-            } 
+            }  */
 
             base.OnStartup(e);
         }

@@ -116,15 +116,21 @@
     <Compile Include="Data\DatabaseContext.cs" />
     <Compile Include="Model\Predlog.cs" />
     <Compile Include="Service\IPonudaService.cs" />
+    <Compile Include="Service\ISaradnikService.cs" />
     <Compile Include="Service\PonudaService.cs" />
+    <Compile Include="Service\SaradnikService.cs" />
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="ViewModels\DodajPonuduViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorHomeViewModel.cs" />
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\DodajPonudu.xaml.cs">
+      <DependentUpon>DodajPonudu.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -150,6 +156,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DodajPonudu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

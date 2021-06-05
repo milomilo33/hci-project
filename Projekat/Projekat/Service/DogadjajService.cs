@@ -56,9 +56,7 @@ namespace Projekat.Service
 				db.SaveChanges();
 
 			}
-
-
-
 		}
+
 	}
 }

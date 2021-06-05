@@ -121,7 +121,10 @@
     <Compile Include="Service\PonudaService.cs" />
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="ViewModels\AddOrganizatorViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
+    <Compile Include="ViewModels\AdminPonudeEventTableViewModel.cs" />
+    <Compile Include="ViewModels\AdminPregledOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -133,8 +136,20 @@
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="Views\AddOrganizator.xaml.cs">
+      <DependentUpon>AddOrganizator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminHomeView.xaml.cs">
+      <DependentUpon>AdminHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminPregledOrganizatoraView.xaml.cs">
+      <DependentUpon>AdminPregledOrganizatoraView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Details.xaml.cs">
       <DependentUpon>Details.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventListView.xaml.cs">
+      <DependentUpon>EventListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KlijentHomeView.xaml.cs">
       <DependentUpon>KlijentHomeView.xaml</DependentUpon>
@@ -170,9 +185,25 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddOrganizator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminHomeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AdminPregledOrganizatoraView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Details.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EventListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\KlijentHomeView.xaml">
       <SubType>Designer</SubType>

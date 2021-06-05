@@ -70,6 +70,7 @@ namespace Projekat.ViewModels
                         if (k.GetType() == typeof(Administrator))
                         {
                             Console.WriteLine("Administrator");
+                            _navigationStore.CurrentViewModel = new AdminHomeViewModel(_navigationStore);
                             return;
                         }
                         else if (k.GetType() == typeof(Klijent))

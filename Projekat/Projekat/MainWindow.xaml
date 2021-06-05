@@ -45,6 +45,9 @@
             <DataTemplate DataType="{x:Type viewmodels:KlijentPregledOrganizatoraViewModel}">
                 <views:KlijentPregledOrganizatoraView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentKreiranjeDogadjajaViewModel}">
+                <views:KlijentKreiranjeDogadjajaView />
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

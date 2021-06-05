@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace Projekat.Views
 {
 	/// <summary>
-	/// Interaction logic for PregledPonuda.xaml
+	/// Interaction logic for DodajPonudu.xaml
 	/// </summary>
-	public partial class PregledPonuda : UserControl
+	public partial class DodajPonudu : UserControl
 	{
-		public PregledPonuda()
+		public DodajPonudu()
 		{
 			InitializeComponent();
 		}
-
-		
 	}
 }

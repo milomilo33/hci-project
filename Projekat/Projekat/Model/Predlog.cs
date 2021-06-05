@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,10 +15,9 @@ namespace Projekat.Model
 
 		public Ponuda Ponuda { get; set;}
 
+		[Required]
 		public Zadatak Zadatak { get; set; }
 
 		public STATUS Status { get; set; }
-
-		
 	}
 }

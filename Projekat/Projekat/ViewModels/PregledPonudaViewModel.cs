@@ -46,7 +46,7 @@ namespace Projekat.ViewModels
 		public PregledPonudaViewModel(NavigationStore navigationStore)
 		{
 			_navigationStore = navigationStore;
-
+			DogadjajService d = new DogadjajService();
 			Ponude = PonudaService.svePonude();
 
 		}

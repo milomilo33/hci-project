@@ -115,24 +115,62 @@
     </ApplicationDefinition>
     <Compile Include="Data\DatabaseContext.cs" />
     <Compile Include="Model\Predlog.cs" />
+    <Compile Include="Service\DogadjajService.cs" />
+    <Compile Include="Service\IDogadjajService.cs" />
     <Compile Include="Service\IPonudaService.cs" />
     <Compile Include="Service\ISaradnikService.cs" />
     <Compile Include="Service\PonudaService.cs" />
     <Compile Include="Service\SaradnikService.cs" />
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
-    <Compile Include="ViewModels\DodajPonuduViewModel.cs" />
+
+    <Compile Include="ViewModels\DodajPonuduViewModel.cs" 
+    <Compile Include="ViewModels\AddOrganizatorViewModel.cs" />
+    <Compile Include="ViewModels\AdminHomeViewModel.cs" />
+    <Compile Include="ViewModels\AdminPonudeEventTableViewModel.cs" />
+    <Compile Include="ViewModels\AdminPregledOrganizatoraViewModel.cs" />
+    <Compile Include="ViewModels\DetailsViewModel.cs" />
+    <Compile Include="ViewModels\EventListViewModel.cs" />
+
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\KlijentHomeViewModel.cs" />
+    <Compile Include="ViewModels\KlijentPregledOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\OrganizatorEventTableViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorHomeViewModel.cs" />
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+
     <Compile Include="Views\DodajPonudu.xaml.cs">
       <DependentUpon>DodajPonudu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddOrganizator.xaml.cs">
+      <DependentUpon>AddOrganizator.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminHomeView.xaml.cs">
+      <DependentUpon>AdminHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminPregledOrganizatoraView.xaml.cs">
+      <DependentUpon>AdminPregledOrganizatoraView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Details.xaml.cs">
+      <DependentUpon>Details.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EventListView.xaml.cs">
+      <DependentUpon>EventListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KlijentHomeView.xaml.cs">
+      <DependentUpon>KlijentHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KlijentPregledOrganizatoraView.xaml.cs">
+      <DependentUpon>KlijentPregledOrganizatoraView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrganizatorEventTable.xaml.cs">
+      <DependentUpon>OrganizatorEventTable.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\OrganizatorHomeView.xaml.cs">
       <DependentUpon>OrganizatorHomeView.xaml</DependentUpon>
@@ -156,11 +194,44 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+
     <Page Include="Views\DodajPonudu.xaml">
+       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddOrganizator.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminHomeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AdminPregledOrganizatoraView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Details.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EventListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\KlijentHomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KlijentPregledOrganizatoraView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizatorEventTable.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -211,7 +282,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\staff-member-staff-event-organizer.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

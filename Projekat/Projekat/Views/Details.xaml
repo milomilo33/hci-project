@@ -1,0 +1,67 @@
+﻿<Window x:Class="Projekat.Views.Details"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Projekat.Views"
+        xmlns:viewModel="clr-namespace:Projekat.ViewModels"
+        mc:Ignorable="d"
+        Title="Detalji dogadjaja" Height="350" Width="455">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <viewModel:DetailsViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1.5*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.5*" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Organizator</TextBlock>
+            <TextBox  Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="4" Height="25" Text="{Binding Organizator}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1" />
+            <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center"  >Vrsta proslave</TextBlock>
+            <TextBox  Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" Height="25" Text="{Binding Vrsta, Mode=OneWay}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBlock Grid.Row="3" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Budžet ( RSD )</TextBlock>
+            <TextBox  Grid.Row="4" Grid.Column="1"  Grid.ColumnSpan="4" Height="25" Text="{Binding Budzet, Mode=OneWay}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBlock Grid.Row="3" Grid.Column="6" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center"> Tema</TextBlock>
+            <TextBox  Grid.Row="4" Grid.Column="6" Grid.ColumnSpan="2" Height="25" Text="{Binding Tema, Mode=OneWay}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Datum održavanja</TextBlock>
+            <TextBox  Grid.Row="6" Grid.Column="1" Height="25" Text="{Binding DatumOdrzavanja, Mode=OneWay}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBlock Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center"> Broj gostiju</TextBlock>
+            <TextBox  Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Height="25" Text="{Binding BrojGostiju, Mode=OneWay}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBlock Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center"> Mesto održavanja</TextBlock>
+            <TextBox  Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="2" Height="25" Text="{Binding MestoOdrzavanja, Mode=OneWay}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBlock Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center">Dodatne napomene</TextBlock>
+            <TextBox  Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="7" Height="40" Text="{Binding Napomene, Mode=OneWay}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1"/>
+        </Grid>
+    </DockPanel>
+</Window>

@@ -1,0 +1,62 @@
+﻿<Window x:Class="Projekat.Views.KlijentKreiranjeDogadjajaDialog"
+        x:Name="KreiranjeDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Projekat.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewmodels="clr-namespace:Projekat.ViewModels"
+        xmlns:converters="clr-namespace:Projekat.Converters"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterOwner"
+        mc:Ignorable="d"
+        Title="" Height="400" Width="400">
+
+    <Window.Resources>
+        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+    </Window.Resources>
+
+    <Window.DataContext>
+        <viewmodels:KlijentKreiranjeDogadjajaDialogViewModel/>
+    </Window.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.5*"/>
+        </Grid.RowDefinitions>
+
+        <materialDesign:PackIcon Grid.Row="1" 
+                                Kind="CheckCircleOutline" 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Center" 
+                                Height="30" Width="30"
+                                Visibility="{Binding IsError, Converter={StaticResource InverseBoolToVisConverter}}"/>
+
+        <materialDesign:PackIcon Grid.Row="1" 
+                                Kind="CloseCircleOutline" 
+                                VerticalAlignment="Center" 
+                                HorizontalAlignment="Center"
+                                Height="25" Width="25"
+                                Visibility="{Binding IsError, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+
+        <TextBlock Grid.Row="3" Margin="10,0,0,0" Text="{Binding Message}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <Button Content="Zatvori" Grid.Row="5" Width="100" Height="25" FontSize="13" 
+                Command="{Binding ZatvoriCommand, Mode=OneWay}" 
+                CommandParameter="{Binding ElementName=KreiranjeDialog}"/>
+    </Grid>
+</Window>

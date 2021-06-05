@@ -1,11 +1,15 @@
 ﻿using Projekat.Commands;
+using Projekat.Data;
 using Projekat.Model;
 using Projekat.Stores;
+using Projekat.Views;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Projekat.ViewModels
@@ -17,9 +21,24 @@ namespace Projekat.ViewModels
         public KlijentKreiranjeDogadjajaViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
+
+            using (var db = new DatabaseContext())
+            {
+                List<string> sveVrsteProslave = new List<string>();
+
+                foreach (Dogadjaj d in db.Dogadjaji)
+                {
+                    sveVrsteProslave.Add(d.VrstaProslave);
+                }
+                sveVrsteProslave = sveVrsteProslave.Distinct().ToList();
+
+                SveVrsteProslave = new ObservableCollection<string>(sveVrsteProslave);
+            }
+
+            BudzetPromenljiv = true;
         }
 
-        public string _vrsta;
+        private string _vrsta;
         public string Vrsta
         {
             get { return _vrsta; }
@@ -30,7 +49,7 @@ namespace Projekat.ViewModels
             }
         }
 
-        public string _tema;
+        private string _tema;
         public string Tema
         {
             get { return _tema; }
@@ -41,7 +60,7 @@ namespace Projekat.ViewModels
             }
         }
 
-        public Organizator _organizator;
+        private Organizator _organizator;
         public Organizator Organizator
         {
             get { return _organizator; }
@@ -52,7 +71,7 @@ namespace Projekat.ViewModels
             }
         }
 
-        public string _imeOrganizatora;
+        private string _imeOrganizatora;
         public string ImeOrganizatora
         {
             get { return _imeOrganizatora; }
@@ -63,8 +82,8 @@ namespace Projekat.ViewModels
             }
         }
 
-        public double _budzet;
-        public double Budzet
+        private int _budzet;
+        public int Budzet
         {
             get { return _budzet; }
             set
@@ -74,7 +93,7 @@ namespace Projekat.ViewModels
             }
         }
 
-        public bool _budzetPromenljiv;
+        private bool _budzetPromenljiv;
         public bool BudzetPromenljiv
         {
             get { return _budzetPromenljiv; }
@@ -85,8 +104,8 @@ namespace Projekat.ViewModels
             }
         }
 
-        public string _datum;
-        public string DatumOdrzavanja
+        private DateTime? _datum;
+        public DateTime? DatumOdrzavanja
         {
             get { return _datum; }
             set
@@ -96,8 +115,8 @@ namespace Projekat.ViewModels
             }
         }
 
-        public double _broj;
-        public double BrojGostiju
+        private int _broj;
+        public int BrojGostiju
         {
             get { return _broj; }
             set
@@ -107,7 +126,7 @@ namespace Projekat.ViewModels
             }
         }
 
-        public string _dodatniZahtevi;
+        private string _dodatniZahtevi;
         public string DodatniZahtevi
         {
             get { return _dodatniZahtevi; }
@@ -118,7 +137,7 @@ namespace Projekat.ViewModels
             }
         }
 
-        public string _mesto;
+        private string _mesto;
         public string MestoOdrzavanja
         {
             get { return _mesto; }
@@ -127,6 +146,172 @@ namespace Projekat.ViewModels
                 _mesto = value;
                 OnPropertyChanged(nameof(MestoOdrzavanja));
             }
+        }
+
+        public ObservableCollection<string> SveVrsteProslave { get; set; }
+
+        private bool _dodavanjeMode;
+        public bool DodavanjeMode
+        {
+            get { return _dodavanjeMode; }
+            set
+            {
+                _dodavanjeMode = value;
+                OnPropertyChanged(nameof(DodavanjeMode));
+            }
+        }
+
+        private ICommand _odaberiOrganizatoraCommand;
+
+        public ICommand OdaberiOrganizatoraCommand
+        {
+            get
+            {
+                if (_odaberiOrganizatoraCommand == null)
+                    _odaberiOrganizatoraCommand = new RelayCommand(_odaberiOrganizatoraCommand => OdaberiOrganizatora());
+                return _odaberiOrganizatoraCommand;
+            }
+        }
+
+        public void OdaberiOrganizatora()
+        {
+            _navigationStore.CurrentViewModel = new KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel(_navigationStore, _navigationStore.CurrentViewModel);
+        }
+
+        private ICommand _obrisiOrganizatoraCommand;
+
+        public ICommand ObrisiOrganizatoraCommand
+        {
+            get
+            {
+                if (_obrisiOrganizatoraCommand == null)
+                    _obrisiOrganizatoraCommand = new RelayCommand(_obrisiOrganizatoraCommand => ObrisiOrganizatora());
+                return _obrisiOrganizatoraCommand;
+            }
+        }
+
+        public void ObrisiOrganizatora()
+        {
+            Organizator = null;
+            ImeOrganizatora = null;
+        }
+
+        private ICommand _dodajVrstuCommand;
+
+        public ICommand DodajVrstuCommand
+        {
+            get
+            {
+                if (_dodajVrstuCommand == null)
+                    _dodajVrstuCommand = new RelayCommand(_dodajVrstuCommand => DodajVrstuToggle());
+                return _dodajVrstuCommand;
+            }
+        }
+
+        private void DodajVrstuToggle()
+        {
+            DodavanjeMode = !DodavanjeMode;
+        }
+
+        private ICommand _kreirajDogadjajCommand;
+
+        public ICommand KreirajDogadjajCommand
+        {
+            get
+            {
+                if (_kreirajDogadjajCommand == null)
+                    _kreirajDogadjajCommand = new RelayCommand(window => KreirajDogadjaj((Window) window));
+                return _kreirajDogadjajCommand;
+            }
+        }
+
+        private void KreirajDogadjaj(Window window)
+        {
+            string validationMessage = ValidationMessage();
+
+            if (string.IsNullOrWhiteSpace(validationMessage))
+            {
+                // kreiraj dogadjaj
+
+                Dogadjaj noviDogadjaj = new Dogadjaj();
+                noviDogadjaj.BrojGostiju = BrojGostiju;
+                noviDogadjaj.Budzet = Budzet;
+                noviDogadjaj.BudzetPromenljiv = BudzetPromenljiv;
+                noviDogadjaj.DatumOdrzavanja = (DateTime) DatumOdrzavanja;
+                noviDogadjaj.DodatniZahtevi = DodatniZahtevi;
+                noviDogadjaj.MestoOdrzavanja = MestoOdrzavanja;
+                //noviDogadjaj.Organizator = Organizator;
+                noviDogadjaj.Status = Organizator == null ? "Na čekanju" : "U obradi";
+                noviDogadjaj.Tema = Tema;
+                noviDogadjaj.VrstaProslave = Vrsta;
+
+                Klijent trenutniKlijent = (Klijent) KorisnikStore.Instance.TrenutniKorisnik;
+
+                using (var db = new DatabaseContext())
+                {
+                    db.Dogadjaji.Add(noviDogadjaj);
+                    Klijent dbKlijent = db.Klijenti.SingleOrDefault(k => k.Email.Equals(trenutniKlijent.Email));
+                    //db.Entry(dbKlijent).State = System.Data.Entity.EntityState.Detached;
+                    if (dbKlijent.Dogadjaji == null)
+                    {
+                        dbKlijent.Dogadjaji = new List<Dogadjaj>();
+                    }
+                    if (Organizator != null)
+                    {
+                        noviDogadjaj.Organizator = db.Organizatori.SingleOrDefault(o => o.Email.Equals(Organizator.Email));
+                    }
+                    dbKlijent.Dogadjaji.Add(noviDogadjaj);
+                    db.SaveChanges();
+                }
+
+                KlijentKreiranjeDogadjajaDialog dialog = new KlijentKreiranjeDogadjajaDialog();
+                KlijentKreiranjeDogadjajaDialogViewModel dialogModel = new KlijentKreiranjeDogadjajaDialogViewModel();
+                dialogModel.IsError = false;
+                dialogModel.Message = "Uspešno ste kreirali događaj!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+
+                Povratak();
+            }
+            else
+            {
+                KlijentKreiranjeDogadjajaDialog dialog = new KlijentKreiranjeDogadjajaDialog();
+                KlijentKreiranjeDogadjajaDialogViewModel dialogModel = new KlijentKreiranjeDogadjajaDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = validationMessage;
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+            }
+        }
+
+        private string ValidationMessage()
+        {
+            string message = "";
+
+            if (string.IsNullOrWhiteSpace(Vrsta))
+            {
+                message += "Morate odabrati vrstu proslave!\n\n";
+            }
+            if (string.IsNullOrWhiteSpace(Tema))
+            {
+                message += "Morate uneti temu proslave!\n\n";
+            }
+            if (Budzet <= 0)
+            {
+                message += "Morate navesti validan budžet za događaj!\n\n";
+            }
+            if (DatumOdrzavanja == null)
+            {
+                message += "Morate odabrati datum proslave!\n\n";
+            }
+            if (string.IsNullOrWhiteSpace(MestoOdrzavanja))
+            {
+                message += "Morate navesti mesto održavanja događaja!\n\n";
+            }
+
+            return message;
         }
 
         private ICommand _povratakCommand;

@@ -23,7 +23,6 @@ namespace Projekat.ViewModels
         {
             get
             {
-                Console.WriteLine("AAAAAAA");
                 if (_eventListViewCommand == null)
                     _eventListViewCommand = new RelayCommand(_eventListView => ViewEvents());
                 return _eventListViewCommand;
@@ -34,6 +33,18 @@ namespace Projekat.ViewModels
         private void ViewEvents() 
         {
             _navigationStore.CurrentViewModel = new EventListViewModel(_navigationStore);
+        }
+
+        private ICommand _pregledOrganizatoraCommand;
+        public ICommand PregledOrganizatoraCommand
+        {
+            get
+            {
+                if (_pregledOrganizatoraCommand == null)
+                    _pregledOrganizatoraCommand = new RelayCommand(_pregledOrganizatoraCommand =>
+                                                    _navigationStore.CurrentViewModel = new AdminPregledOrganizatoraViewModel(_navigationStore));
+                return _pregledOrganizatoraCommand;
+            }
         }
     }
 }

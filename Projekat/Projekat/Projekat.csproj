@@ -113,6 +113,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Data\DatabaseContext.cs" />
     <Compile Include="Model\Predlog.cs" />
     <Compile Include="Service\DogadjajService.cs" />
@@ -123,14 +124,18 @@
     <Compile Include="Service\SaradnikService.cs" />
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="Validation\FutureDateValidationRule.cs" />
 
-    <Compile Include="ViewModels\DodajPonuduViewModel.cs" 
+    <Compile Include="ViewModels\DodajPonuduViewModel.cs" />
     <Compile Include="ViewModels\AddOrganizatorViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\AdminPonudeEventTableViewModel.cs" />
     <Compile Include="ViewModels\AdminPregledOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
+    <Compile Include="ViewModels\KlijentKreiranjeDogadjajaDialogViewModel.cs" />
+    <Compile Include="ViewModels\KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel.cs" />
+    <Compile Include="ViewModels\KlijentKreiranjeDogadjajaViewModel.cs" />
 
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\KlijentHomeViewModel.cs" />
@@ -162,6 +167,15 @@
     </Compile>
     <Compile Include="Views\KlijentHomeView.xaml.cs">
       <DependentUpon>KlijentHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KlijentKreiranjeDogadjajaDialog.xaml.cs">
+      <DependentUpon>KlijentKreiranjeDogadjajaDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KlijentKreiranjeDogadjajaOdabirOrganizatoraView.xaml.cs">
+      <DependentUpon>KlijentKreiranjeDogadjajaOdabirOrganizatoraView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\KlijentKreiranjeDogadjajaView.xaml.cs">
+      <DependentUpon>KlijentKreiranjeDogadjajaView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KlijentPregledOrganizatoraView.xaml.cs">
       <DependentUpon>KlijentPregledOrganizatoraView.xaml</DependentUpon>
@@ -220,6 +234,18 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\KlijentHomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KlijentKreiranjeDogadjajaDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KlijentKreiranjeDogadjajaOdabirOrganizatoraView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\KlijentKreiranjeDogadjajaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

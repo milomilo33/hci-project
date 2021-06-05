@@ -8,6 +8,8 @@ namespace Projekat.Model
 {
     public class Zadatak
     {
+        public enum TipZadatka { GLAVNI, DODATNI }
+
         public int Id { get; set; }
 
         public string Naziv { get; set; }
@@ -16,12 +18,18 @@ namespace Projekat.Model
 
         public string Status { get; set; }
 
-        public List<Predlog> IzabraniPredlozi { get; set; }
+        // public List<Predlog> IzabraniPredlozi { get; set; }
+
+        public Predlog IzabraniPredlog { get; set; }
 
         //public List<Komentar> Komentari { get; set; }
 
         public Dogadjaj Dogadjaj { get; set; }
 
         public Boolean Glavni { get; set; }
+
+        public List<Komentar> Komentari { get; set; }
+
+        public TipZadatka Tip { get; set; }
     }
 }

@@ -15,16 +15,14 @@ using System.Windows.Shapes;
 
 namespace Projekat.Views
 {
-	/// <summary>
-	/// Interaction logic for PregledPonuda.xaml
-	/// </summary>
-	public partial class PregledPonuda : UserControl
-	{
-		public PregledPonuda()
-		{
-			InitializeComponent();
-		}
-
-		
-	}
+    /// <summary>
+    /// Interaction logic for EventListView.xaml
+    /// </summary>
+    public partial class EventListView : UserControl
+    {
+        public EventListView()
+        {
+            InitializeComponent();
+        }
+    }
 }

@@ -15,16 +15,14 @@ using System.Windows.Shapes;
 
 namespace Projekat.Views
 {
-	/// <summary>
-	/// Interaction logic for PregledPonuda.xaml
-	/// </summary>
-	public partial class PregledPonuda : UserControl
-	{
-		public PregledPonuda()
-		{
-			InitializeComponent();
-		}
-
-		
-	}
+    /// <summary>
+    /// Interaction logic for AdminHomeView.xaml
+    /// </summary>
+    public partial class AdminHomeView : UserControl
+    {
+        public AdminHomeView()
+        {
+            InitializeComponent();
+        }
+    }
 }

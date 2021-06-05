@@ -14,8 +14,11 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
+
         Title="MainWindow" Height="720" Width="1280">
+
     <ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewmodels:OrganizatorHomeViewModel}">
@@ -33,23 +36,37 @@
             <DataTemplate DataType="{x:Type viewmodels:PregledPonudaViewModel}">
                 <views:PregledPonuda />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:DodajPonuduViewModel}">
+                <views:DodajPonudu/>
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:OrganizatorEventTableViewModel}">
                 <views:OrganizatorEventTable />
             </DataTemplate>
-            <!--<DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">
+            <DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">
                 <views:AdminHomeView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:EventListViewModel}">
                 <views:EventListView />
-            </DataTemplate>-->
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:KlijentPregledOrganizatoraViewModel}">
                 <views:KlijentPregledOrganizatoraView />
             </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewmodels:OrganizatorDodeljeniDogadjajiViewModel}">
                 <views:OrganizatorDodeljeniDogadjaji />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:TaskViewModel}">
                 <views:TaskView />
+             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminPregledOrganizatoraViewModel}">
+                <views:AdminPregledOrganizatoraView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentKreiranjeDogadjajaViewModel}">
+                <views:KlijentKreiranjeDogadjajaView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel}">
+                <views:KlijentKreiranjeDogadjajaOdabirOrganizatoraView />
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

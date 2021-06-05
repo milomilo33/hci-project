@@ -28,7 +28,9 @@ namespace Projekat
                 DataContext = new MainViewModel(navigationStore)
             };
             MainWindow.Show();
+
             
+           
             using (var db = new DatabaseContext())
             {
                /* Adresa adr = new Adresa();
@@ -87,43 +89,7 @@ namespace Projekat
                 o4.Adresa = adr;
                 db.Organizatori.Add(o4);
 
-                //    Klijent k = new Klijent();
-                //    k.BrojTelefona = "069222222";
-                //    k.Email = "klijent@mail.com";
-                //    k.Ime = "Nikola";
-                //    k.Prezime = "Nikolic";
-                //    k.Lozinka = "123";
-                //    k.Dogadjaji = new List<Dogadjaj>();
-                //    k.Adresa = adr;
-                //    db.Klijenti.Add(k);
 
-
-                //    Ponuda p1 = new Ponuda();
-                //    p1.Opis = "Nudimo vam salu sa 200 stolica, cena po stolici 10e";
-                //    p1.Cena = 20000;
-                //    db.Ponude.Add(p1);
-
-
-                //    Ponuda p2 = new Ponuda();
-                //    p2.Opis = "Prostor za izdavanje - jedan dan 100e";
-                //    p2.Cena = 60000;
-                //    db.Ponude.Add(p2);
-
-
-                //    Saradnik s1 = new Saradnik();
-                //    s1.Naziv = "Borsalino";
-                //    s1.Opis = "Nudimo vam izdaju prostora kao i obezbjedjen katering";
-                //    s1.Tip = "Restoran";
-
-                //    List<Ponuda> ponude = new List<Ponuda>();
-                //    ponude.Add(p1);
-                //    ponude.Add(p2);
-                //    s1.Ponude = ponude;
-
-                //    db.Saradnici.Add(s1);
-
-                //    p2.Saradnik = s1;
-                //    p1.Saradnik = s1;
 
                 Zadatak z1 = new Zadatak();
                 z1.Id = 1;
@@ -160,6 +126,48 @@ namespace Projekat
 
 
 
+                Klijent k = new Klijent();
+                k.BrojTelefona = "069222222";
+                k.Email = "klijent@mail.com";
+                k.Ime = "Nikola";
+                k.Prezime = "Nikolic";
+                k.Lozinka = "123";
+                k.Dogadjaji = new List<Dogadjaj>();
+                k.Adresa = adr;
+                db.Klijenti.Add(k);
+
+
+                Ponuda p1 = new Ponuda();
+                p1.Opis = "Nudimo vam salu sa 200 stolica, cena po stolici 10e";
+                p1.Cena = 20000;
+                db.Ponude.Add(p1);
+
+
+                Ponuda p2 = new Ponuda();
+                p2.Opis = "Prostor za izdavanje - jedan dan 100e";
+                p2.Cena = 60000;
+                db.Ponude.Add(p2);
+
+
+                Saradnik s1 = new Saradnik();
+                s1.Naziv = "Borsalino";
+                s1.Opis = "Nudimo vam izdaju prostora kao i obezbjedjen katering";
+                s1.Tip = "Restoran";
+
+                List<Ponuda> ponude = new List<Ponuda>();
+                ponude.Add(p1);
+                ponude.Add(p2);
+                s1.Ponude = ponude;
+
+                db.Saradnici.Add(s1);
+
+                p2.Saradnik = s1;
+                p1.Saradnik = s1;
+                db.Ponude.Add(p1);
+                db.Ponude.Add(p2); 
+                
+
+
                 Dogadjaj d1 = new Dogadjaj();
                 d1.Id = 1;
                 d1.MestoOdrzavanja = "Bašta";
@@ -173,8 +181,10 @@ namespace Projekat
                 d1.DatumOdrzavanja = DateTime.Now;
                 d1.Budzet = 30000;
                 d1.DodatniZahtevi = "nema";
+
                 d1.PrihvaceniPredlozi = null;
                 d1.Zadaci = new List<Zadatak>();
+
 
                 Dogadjaj d2 = new Dogadjaj();
                 d2.Id = 2;
@@ -189,6 +199,7 @@ namespace Projekat
                 d2.DatumOdrzavanja = DateTime.Now;
                 d2.Budzet = 150000;
                 d2.DodatniZahtevi = "nema";
+
                 d2.PrihvaceniPredlozi = null;
                 d2.Zadaci = new List<Zadatak>();
 
@@ -205,21 +216,17 @@ namespace Projekat
                 db.Zadaci.Add(z2);
                 db.Zadaci.Add(z3);
                 db.Zadaci.Add(z4);
-
-                db.Dogadjaji.Add(d1);
-                db.Dogadjaji.Add(d2);
-
-                o.Dogadjaji.Add(d1);
-                o.Dogadjaji.Add(d2);
-
-                //    db.Ponude.Add(p1);
-                //    db.Ponude.Add(p2);
-
                     db.SaveChanges();*/
                
                 } 
 
-                base.OnStartup(e);
+               
+
+
+             
+
+            base.OnStartup(e);
+
         }
     }
 }

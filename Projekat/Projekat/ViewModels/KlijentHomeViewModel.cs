@@ -30,5 +30,18 @@ namespace Projekat.ViewModels
                 return _pregledOrganizatoraCommand;
             }
         }
+
+        private ICommand _kreiranjeDogadjajaCommand;
+
+        public ICommand KreiranjeDogadjajaCommand
+        {
+            get
+            {
+                if (_kreiranjeDogadjajaCommand == null)
+                    _kreiranjeDogadjajaCommand = new RelayCommand(_kreiranjeDogadjajaCommand =>
+                                                    _navigationStore.CurrentViewModel = new KlijentKreiranjeDogadjajaViewModel(_navigationStore));
+                return _kreiranjeDogadjajaCommand;
+            }
+        }
     }
 }

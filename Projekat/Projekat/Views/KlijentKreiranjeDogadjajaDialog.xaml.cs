@@ -10,21 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Projekat.Views
 {
-	/// <summary>
-	/// Interaction logic for PregledPonuda.xaml
-	/// </summary>
-	public partial class PregledPonuda : UserControl
-	{
-		public PregledPonuda()
-		{
-			InitializeComponent();
-		}
-
-		
-	}
+    /// <summary>
+    /// Interaction logic for KlijentKreiranjeDogadjajaDialog.xaml
+    /// </summary>
+    public partial class KlijentKreiranjeDogadjajaDialog : Window
+    {
+        public KlijentKreiranjeDogadjajaDialog()
+        {
+            InitializeComponent();
+        }
+    }
 }

@@ -9,13 +9,13 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Height="30">
+        <Menu DockPanel.Dock="Top" Height="35">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="Dogadjaji"></MenuItem>
+            <MenuItem Header="Događaji"></MenuItem>
             <MenuItem Header="Početna stranica"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
         </Menu>

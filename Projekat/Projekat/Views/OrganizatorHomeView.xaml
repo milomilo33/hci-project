@@ -42,7 +42,11 @@
             <Button Grid.Row="1" Grid.Column="1" Command="{Binding PregledPonudaCommand}">Pregledajte ponude</Button>
             <Button Grid.Row="1" Grid.Column="3">Pregledajte saradnike</Button>
             <Button Grid.Row="1" Grid.Column="5" Command="{Binding PregledDogadjajaCommand}">Izaberite događaj</Button>
+
+            <Button Grid.Row="1" Grid.Column="7" Command="{Binding IzabraniDogadjajiCommand}">Pregledajte izabrane događaje</Button>
+
             <Button Grid.Row="1" Grid.Column="7">Pregledajte izabrane događaje</Button>
+
 
         </Grid>
     </DockPanel>

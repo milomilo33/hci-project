@@ -29,6 +29,11 @@ namespace Projekat
             };
             MainWindow.Show();
 
+            
+            /*
+
+
+
             using (var db = new DatabaseContext())
             {
                 Adresa adr = new Adresa();
@@ -124,6 +129,10 @@ namespace Projekat
 
                 p2.Saradnik = s1;
                 p1.Saradnik = s1;
+                db.Ponude.Add(p1);
+                db.Ponude.Add(p2); 
+                
+                db.SaveChanges();
 
                 Dogadjaj d1 = new Dogadjaj();
                 d1.Id = 1;
@@ -139,6 +148,7 @@ namespace Projekat
                 d1.Budzet = 30000;
                 d1.DodatniZahtevi = "nema";
                 d1.Zadaci = null;
+
 
                 Dogadjaj d2 = new Dogadjaj();
                 d2.Id = 2;
@@ -161,12 +171,13 @@ namespace Projekat
                 o.Dogadjaji.Add(d1);
                 o.Dogadjaji.Add(d2);
 
-                db.Ponude.Add(p1);
-                db.Ponude.Add(p2);
 
                 db.SaveChanges();
 
-            }
+
+            }  */
+ 
+
 
             base.OnStartup(e);
         }

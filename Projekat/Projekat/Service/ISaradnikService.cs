@@ -8,14 +8,15 @@ using System.Threading.Tasks;
 
 namespace Projekat.Service
 {
-	public interface IPonudaService
+	public interface ISaradnikService
 	{
-		ObservableCollection<Ponuda> svePonude();
+		ObservableCollection<Saradnik> sviSaradnici();
 
-		Ponuda getPonuda(int id);
+		Saradnik getSaradnici(int id);
 
-		void RemovePonuda(int id);
+		void RemoveSaradnik(int id);
 
-		Ponuda AddPonuda(Ponuda ponuda);
+		void UpdateSaradnik(Saradnik saradnik);
+
 	}
 }

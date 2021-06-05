@@ -15,7 +15,9 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
         mc:Ignorable="d"
+
         Title="MainWindow" Height="720" Width="1280">
+
     <ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewmodels:OrganizatorHomeViewModel}">
@@ -32,6 +34,10 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:PregledPonudaViewModel}">
                 <views:PregledPonuda />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:DodajPonuduViewModel}">
+                <views:DodajPonudu/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:OrganizatorEventTableViewModel}">
                 <views:OrganizatorEventTable />

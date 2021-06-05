@@ -12,15 +12,32 @@ namespace Projekat.Service
 	class PonudaService : IPonudaService
 	{
 		private static DatabaseContext context = new DatabaseContext();
+
+		public Ponuda AddPonuda(Ponuda ponuda)
+		{
+			Ponuda sacuvana = context.Ponude.Add(ponuda);
+			context.SaveChanges();
+
+			return sacuvana;
+
+		}
+
 		public Ponuda getPonuda(int id)
 		{
 			Ponuda ponuda = new Ponuda();
 
-			ponuda = (Ponuda)(from p in context.Ponude
+			ponuda = (Ponuda)(from p in context.Ponude.Include("Saradnik")
 					 where p.Id.Equals(id)
 					 select p);
-
+			
 			return ponuda;
+		}
+
+		public void RemovePonuda(int id)
+		{
+			var pg = context.Ponude.First(p => p.Id == id);
+			context.Ponude.Remove(pg);
+			context.SaveChanges();
 		}
 
 		public ObservableCollection<Ponuda> svePonude()
@@ -28,7 +45,7 @@ namespace Projekat.Service
 			ObservableCollection<Ponuda> ponude = new ObservableCollection<Ponuda>();
 			using (var db = new DatabaseContext())
 			{
-				ponude = new ObservableCollection<Ponuda>(db.Ponude);
+				ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik"));
 			}
 
 			return ponude;

@@ -27,8 +27,8 @@ namespace Projekat.Service
 			Ponuda ponuda = new Ponuda();
 
 			ponuda = (Ponuda)(from p in context.Ponude.Include("Saradnik")
-					 where p.Id.Equals(id)
-					 select p);
+							  where p.Id.Equals(id) && p.Nevazeca.Equals(false)
+							  select p) ;
 			
 			return ponuda;
 		}
@@ -36,7 +36,7 @@ namespace Projekat.Service
 		public void RemovePonuda(int id)
 		{
 			var pg = context.Ponude.First(p => p.Id == id);
-			context.Ponude.Remove(pg);
+			pg.Nevazeca = true;
 			context.SaveChanges();
 		}
 

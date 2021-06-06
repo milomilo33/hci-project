@@ -29,7 +29,7 @@ namespace Projekat
             };
             MainWindow.Show();
 
-            
+
             /*
 
 
@@ -106,12 +106,14 @@ namespace Projekat
                 Ponuda p1 = new Ponuda();
                 p1.Opis = "Nudimo vam salu sa 200 stolica, cena po stolici 10e";
                 p1.Cena = 20000;
+                p1.Nevazeca = false;
                 db.Ponude.Add(p1);
 
 
                 Ponuda p2 = new Ponuda();
                 p2.Opis = "Prostor za izdavanje - jedan dan 100e";
                 p2.Cena = 60000;
+                p2.Nevazeca = false;
                 db.Ponude.Add(p2);
 
 
@@ -176,7 +178,7 @@ namespace Projekat
 
 
             }  */
- 
+
 
 
             base.OnStartup(e);

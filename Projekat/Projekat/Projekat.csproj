@@ -124,7 +124,7 @@
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
 
-    <Compile Include="ViewModels\DodajPonuduViewModel.cs" 
+    <Compile Include="ViewModels\DodajPonuduViewModel.cs" />
     <Compile Include="ViewModels\AddOrganizatorViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
     <Compile Include="ViewModels\AdminPonudeEventTableViewModel.cs" />

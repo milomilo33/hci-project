@@ -29,7 +29,8 @@ namespace Projekat
             };
             MainWindow.Show();
 
-            
+
+            /*
            
             using (var db = new DatabaseContext())
             {
@@ -77,8 +78,7 @@ namespace Projekat
                  o3.Lozinka = "123";
                  o3.Dogadjaji = new List<Dogadjaj>();
                  o3.Adresa = adr;
-                
-
+               
                  Organizator o4 = new Organizator();
                  o4.BrojTelefona = "069222222";
                  o4.Email = "organizator4@mail.com";
@@ -88,8 +88,6 @@ namespace Projekat
                  o4.Dogadjaji = new List<Dogadjaj>();
                  o4.Adresa = adr;
                  
-
-
 
                  Zadatak z1 = new Zadatak();
                  z1.Id = 1;
@@ -108,12 +106,16 @@ namespace Projekat
                  z2.Status = "U obradi";
 
 
+               
+
+
                  Zadatak z3 = new Zadatak();
                  z3.Id = 3;
-
+                 
                  z3.Naziv = "Restoran";
                  z3.Opis = "Pronaći restoran";
                  z3.Status = "U obradi";
+
 
 
                  Zadatak z4 = new Zadatak();
@@ -123,6 +125,20 @@ namespace Projekat
                  z4.Opis = "Pronaći cvećaru";
                  z4.Status = "U obradi";
 
+
+                Ponuda p1 = new Ponuda();
+                p1.Opis = "Nudimo vam salu sa 200 stolica, cena po stolici 10e";
+                p1.Cena = 20000;
+                p1.Nevazeca = false;
+                db.Ponude.Add(p1);
+                
+                Ponuda p2 = new Ponuda();
+                p2.Opis = "Prostor za izdavanje - jedan dan 100e";
+                p2.Cena = 60000;
+                p2.Nevazeca = false;
+                db.Ponude.Add(p2);
+
+                 
 
 
 
@@ -135,19 +151,6 @@ namespace Projekat
                  k.Dogadjaji = new List<Dogadjaj>();
                  k.Adresa = adr;
                  db.Klijenti.Add(k);
-
-
-                 Ponuda p1 = new Ponuda();
-                 p1.Opis = "Nudimo vam salu sa 200 stolica, cena po stolici 10e";
-                 p1.Cena = 20000;
-                 db.Ponude.Add(p1);
-
-
-                 Ponuda p2 = new Ponuda();
-                 p2.Opis = "Prostor za izdavanje - jedan dan 100e";
-                 p2.Cena = 60000;
-                 db.Ponude.Add(p2);
-
 
                  Saradnik s1 = new Saradnik();
                  s1.Naziv = "Borsalino";
@@ -165,8 +168,6 @@ namespace Projekat
                  p1.Saradnik = s1;
                  db.Ponude.Add(p1);
                  db.Ponude.Add(p2); 
-
-
 
                  Dogadjaj d1 = new Dogadjaj();
                  d1.Id = 1;
@@ -224,9 +225,13 @@ namespace Projekat
                 db.Dogadjaji.Add(d2);
                      db.SaveChanges();
 
-            }
+            
 
 
+
+
+
+            }  */
 
 
 

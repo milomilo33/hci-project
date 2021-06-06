@@ -8,17 +8,28 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="900">
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Height="50">
+        <Menu DockPanel.Dock="Top" Background="LightGray">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="Pregled ponuda"></MenuItem>
-            <MenuItem Header="Početna stranica"></MenuItem>
-            <MenuItem Header="Pomoc" HorizontalAlignment="Right"></MenuItem>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste se vratili na prethodnu stranicu"
+                VerticalAlignment="Center"
+                Command="{Binding PovratakCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                            Kind="ArrowBackCircle" Height="25" Width="25" Margin="0,0,10,0" />
+                    <TextBlock Text="Povratak" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <MenuItem Header="Stavka 1"></MenuItem>
+            <MenuItem Header="Stavka 2"></MenuItem>
+            <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
         </Menu>
-
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="20"/>
@@ -67,21 +78,21 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button BorderBrush="Gray" Background="LightGray" >Izmeni</Button>
+                                <Button >Izmeni</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
-                                <Button  BorderBrush="Gray" Background="LightGray" 
+                                <Button
                                          Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PregledPonuda }}}">Obriši</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Command="{Binding DodajPonuduCommand}" BorderBrush="Gray" Background="LightGray" Grid.Column="1" Grid.Row="3">Dodaj ponudu</Button>
+            <Button Command="{Binding DodajPonuduCommand}"  Grid.Column="1" Grid.Row="3">Dodaj ponudu</Button>
         </Grid>
     </DockPanel>
 </UserControl>

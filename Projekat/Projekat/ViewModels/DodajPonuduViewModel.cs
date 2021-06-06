@@ -91,6 +91,23 @@ namespace Projekat.ViewModels
 			
 		}
 
+		private ICommand _povratakCommand;
+
+		public ICommand PovratakCommand
+		{
+			get
+			{
+				if (_povratakCommand == null)
+					_povratakCommand = new RelayCommand(_povratakCommand => Povratak());
+				return _povratakCommand;
+			}
+		}
+
+		public void Povratak()
+		{
+			_navigationStore.CurrentViewModel = new PregledPonudaViewModel(_navigationStore);
+		}
+
 		private ICommand _dodajCommand;
 
 		public ICommand DodajCommand

@@ -17,24 +17,36 @@
                 </Style>
             </UserControl.Resources>
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Height="50">
+        <Menu DockPanel.Dock="Top" Background="LightGray">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="Dodaj ponudu"></MenuItem>
-            <MenuItem Header="Početna strana"></MenuItem>
-            <MenuItem Header="Pomoc" HorizontalAlignment="Right"></MenuItem>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste se vratili na prethodnu stranicu"
+                VerticalAlignment="Center"
+                Command="{Binding PovratakCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                            Kind="ArrowBackCircle" Height="25" Width="25" Margin="0,0,10,0" />
+                    <TextBlock Text="Povratak" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <MenuItem Header="Dodaj ponudu" FontWeight="DemiBold"></MenuItem>
+            <MenuItem Header="Početna stranica"></MenuItem>
+            <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
         </Menu>
 
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="130"/>
-                <ColumnDefinition Width="20"/>
-                <ColumnDefinition Width="130"/>
-                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="40"/>
@@ -68,8 +80,8 @@
             <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Opis</TextBlock>
             <TextBox  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2" BorderBrush="Gray" BorderThickness="1" Text="{Binding Opis}"/>
            
-            <Button BorderBrush="Gray" Background="LightGray" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Height="35" Command="{Binding DodajCommand}">Dodaj ponudu</Button>
-            <Button BorderBrush="Gray" Background="LightGray" Grid.Column="3" Grid.Row="10" VerticalAlignment="Center" Height="35">Odustani</Button>
+            <Button  Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Height="35" Command="{Binding DodajCommand}">Dodaj ponudu</Button>
+            <Button  Grid.Column="3" Grid.Row="10" VerticalAlignment="Center" Height="35">Odustani</Button>
         </Grid>
     </DockPanel>
 </UserControl>

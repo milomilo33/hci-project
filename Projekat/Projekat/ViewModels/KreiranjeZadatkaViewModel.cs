@@ -105,7 +105,7 @@ namespace Projekat.ViewModels
                 {
                     zadatak.Glavni = false;
                 }
-                zadatak.IzabraniPredlozi = null;
+                
                 dogadjaj = db.Dogadjaji.SingleOrDefault(d => d.Id == IdDogadjaja);
                 zadatak.Dogadjaj = dogadjaj;
                 db.Zadaci.Add(zadatak);

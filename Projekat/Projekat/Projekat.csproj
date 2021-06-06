@@ -160,7 +160,7 @@
 
     <Compile Include="Views\CreateTask.xaml.cs">
       <DependentUpon>CreateTask.xaml</DependentUpon>
-
+    </Compile>
 
     <Compile Include="Views\DodajPonudu.xaml.cs">
       <DependentUpon>DodajPonudu.xaml</DependentUpon>
@@ -232,7 +232,9 @@
     </Compile>
 
     <Page Include="Views\CreateTask.xaml">
-
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
 
     <Page Include="Views\DodajPonudu.xaml">
        <SubType>Designer</SubType>

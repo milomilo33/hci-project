@@ -45,8 +45,6 @@
 
             <Button Grid.Row="1" Grid.Column="7" Command="{Binding IzabraniDogadjajiCommand}">Pregledajte izabrane događaje</Button>
 
-            <Button Grid.Row="1" Grid.Column="7">Pregledajte izabrane događaje</Button>
-
 
         </Grid>
     </DockPanel>

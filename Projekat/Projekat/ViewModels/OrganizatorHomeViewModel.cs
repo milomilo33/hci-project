@@ -56,5 +56,25 @@ namespace Projekat.ViewModels
 
             _navigationStore.CurrentViewModel = new OrganizatorEventTableViewModel();
         }
+
+
+        private ICommand _izabraniDogadjajiCommand;
+
+        public ICommand IzabraniDogadjajiCommand
+        {
+            get
+            {
+                if (_izabraniDogadjajiCommand == null)
+                    _izabraniDogadjajiCommand = new RelayCommand(_izabraniDogadjajiCommand => IzabraniDogadjaji());
+                return _izabraniDogadjajiCommand;
+            }
+        }
+
+        private void IzabraniDogadjaji()
+        {
+
+            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore);
+
+        }
     }
 }

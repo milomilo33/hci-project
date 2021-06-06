@@ -14,6 +14,7 @@
         TextOptions.TextRenderingMode="Auto"        
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
         mc:Ignorable="d"
 
         Title="MainWindow" Height="720" Width="1280">
@@ -51,8 +52,21 @@
             <DataTemplate DataType="{x:Type viewmodels:KlijentPregledOrganizatoraViewModel}">
                 <views:KlijentPregledOrganizatoraView />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:OrganizatorDodeljeniDogadjajiViewModel}">
+                <views:OrganizatorDodeljeniDogadjaji />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:TaskViewModel}">
+                <views:TaskView />
+             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:AdminPregledOrganizatoraViewModel}">
                 <views:AdminPregledOrganizatoraView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentKreiranjeDogadjajaViewModel}">
+                <views:KlijentKreiranjeDogadjajaView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel}">
+                <views:KlijentKreiranjeDogadjajaOdabirOrganizatoraView />
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

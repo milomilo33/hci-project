@@ -17,6 +17,8 @@ namespace Projekat.Model
 
         public Saradnik Saradnik { get; set; }
 
+        public bool Nevazeca { get; set; }
+
         // treba dodati slike za ponude
     }
 }

@@ -43,10 +43,12 @@
                     Command="{Binding PregledOrganizatoraCommand}">Pogledajte organizatore</Button>
             <Button Grid.Column="3" Grid.Row="1" Height="50" 
                     materialDesign:ButtonAssist.CornerRadius="25"
-                    ToolTip="Kliknite da biste videli saradnike">Pogledajte saradnike</Button>
+                    ToolTip="Kliknite da biste videli saradnike"
+                    Command="{Binding PregledSaradnikaCommand}">Pogledajte saradnike</Button>
             <Button Grid.Column="5" Grid.Row="1" Height="50" 
                     materialDesign:ButtonAssist.CornerRadius="25"
-                    ToolTip="Kliknite da biste videli klijente">Pogledajte klijente</Button>
+                    ToolTip="Kliknite da biste videli klijente"
+                     Command="{Binding PregledKlijenataCommand}">Pogledajte klijente</Button>
             <Button Grid.Column="7" Grid.Row="1" Height="50" 
                     materialDesign:ButtonAssist.CornerRadius="25" 
                     ToolTip="Kliknite da biste videli dogadjaje"

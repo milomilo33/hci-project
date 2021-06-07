@@ -62,14 +62,22 @@
             <DataTemplate DataType="{x:Type viewmodels:AdminPregledOrganizatoraViewModel}">
                 <views:AdminPregledOrganizatoraView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminPregledSaradnikaViewModel}">
+                <views:AdminPregledSaradnika />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:KlijentKreiranjeDogadjajaViewModel}">
                 <views:KlijentKreiranjeDogadjajaView />
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel}">
                 <views:KlijentKreiranjeDogadjajaOdabirOrganizatoraView />
             </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewmodels:OrganizatorProfilViewModel}">
                 <views:OrganizatorProfil />
+             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminPregledKlijenataViewModel}">
+                <views:AdminPregledKlijenataView />
+
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

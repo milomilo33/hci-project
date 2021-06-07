@@ -51,7 +51,23 @@ namespace Projekat.ViewModels
 
 		}
 
-		
+		private ICommand _povratakCommand;
+
+		public ICommand PovratakCommand
+		{
+			get
+			{
+				if (_povratakCommand == null)
+					_povratakCommand = new RelayCommand(_povratakCommand => Povratak());
+				return _povratakCommand;
+			}
+		}
+
+		public void Povratak()
+		{
+			_navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+		}
+
 		private ICommand _deleteCommand;
 
 		public ICommand DeleteCommand

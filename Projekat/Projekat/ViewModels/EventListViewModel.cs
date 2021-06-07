@@ -33,6 +33,7 @@ namespace Projekat.ViewModels
         public EventListViewModel(NavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
+
             Dogadjaji = DogadjajService.sviDogadjaji();
         }
 
@@ -109,6 +110,23 @@ namespace Projekat.ViewModels
             details.DataContext = detailsModel;
             details.Show();
 
+        }
+
+        private ICommand _povratakCommand;
+
+        public ICommand PovratakCommand
+        {
+            get
+            {
+                if (_povratakCommand == null)
+                    _povratakCommand = new RelayCommand(_povratakCommand => Povratak());
+                return _povratakCommand;
+            }
+        }
+
+        public void Povratak()
+        {
+          _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
         }
     }
 }

@@ -6,7 +6,7 @@
               xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:local="clr-namespace:Projekat.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1280">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="50">
             <Menu.ItemsPanel>
@@ -26,7 +26,7 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <MenuItem Header="Dodeljeni događaji" FontWeight="DemiBold"></MenuItem>
+            <MenuItem Header="Dodeljeni događaji" FontWeight="DemiBold" Focusable="False" IsEnabled="False"></MenuItem>
             <MenuItem Header="Početna stranica" Command="{Binding PovratakCommand}"
                       ToolTip="Kliknite da biste otišli na početnu stranicu organizatora"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
@@ -84,7 +84,12 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Command="{Binding Path=DataContext.TaskCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}">Zadaci</Button>
+                                <StackPanel>
+                                    <Button Command="{Binding Path=DataContext.TaskCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
+                                            Visibility="{Binding Path=DataContext.IsKlijent, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}, Converter={StaticResource InverseBoolToVisConverter}}">Zadaci</Button>
+                                    <Button Command="{Binding Path=DataContext.PredlogOrganizatoraCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
+                                            Visibility="{Binding Path=DataContext.IsKlijent, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}, Converter={StaticResource BooleanToVisibilityConverter}}">Predlog organizatora</Button>
+                                </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

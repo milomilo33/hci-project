@@ -33,14 +33,35 @@ namespace Projekat.ViewModels
                 OnPropertyChanged(nameof(Dogadjaji));
             }
         }
-        public OrganizatorDodeljeniDogadjajiViewModel(NavigationStore navigationStore)
+        public OrganizatorDodeljeniDogadjajiViewModel(NavigationStore navigationStore, bool isKlijent = false)
         {
             KorisnikStore korisnikStore = KorisnikStore.Instance;
             k = korisnikStore.TrenutniKorisnik;
-            Dogadjaji = DogadjajService.sviDogadjajiZaOrganizatora(k.Email);
-            _navigationStore = navigationStore;
 
+            if (isKlijent)
+            {
+                Dogadjaji = DogadjajService.sviDogadjajiZaKlijenta(k.Email);
+            }
+            else
+            {
+                Dogadjaji = DogadjajService.sviDogadjajiZaOrganizatora(k.Email);
+            }
+
+            _navigationStore = navigationStore;
+            IsKlijent = isKlijent;
         }
+
+        private bool _isKlijent;
+        public bool IsKlijent
+        {
+            get { return _isKlijent; }
+            set
+            {
+                _isKlijent = value;
+                OnPropertyChanged(nameof(IsKlijent));
+            }
+        }
+
         private Dogadjaj _dogadjaj;
         public Dogadjaj SelectedDogadjaj
         {
@@ -69,6 +90,24 @@ namespace Projekat.ViewModels
             tvm.IdDogadjaja = SelectedDogadjaj.Id;
             _navigationStore.CurrentViewModel = tvm;
         }
+
+        private ICommand _predlogOrganizatoraCommand;
+        public ICommand PredlogOrganizatoraCommand
+        {
+            get
+            {
+                if (_predlogOrganizatoraCommand == null)
+                    _predlogOrganizatoraCommand = new RelayCommand(_predlogOrganizatoraCommand => OtvoriPredlogOrganizatora());
+                return _predlogOrganizatoraCommand;
+            }
+        }
+        public void OtvoriPredlogOrganizatora()
+        {
+            // ovde ide prozor predloga
+            _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+        }
+
+
         public ICommand DetailsCommand
         {
             get
@@ -105,11 +144,14 @@ namespace Projekat.ViewModels
 
         public void Povratak()
         {
-            _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
-
-
+            if (IsKlijent)
+            {
+                _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+            }
+            else
+            {
+                _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+            }
         }
-
-
     }
 }

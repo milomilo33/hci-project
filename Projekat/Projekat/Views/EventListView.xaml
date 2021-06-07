@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Projekat.Views"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1280">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="50">
             <Menu.ItemsPanel>
@@ -14,6 +14,20 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
+
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste se vratili na prethodnu stranicu"
+                VerticalAlignment="Center"
+                Command="{Binding PovratakCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                            Kind="ArrowBackCircle" Height="25" Width="25" Margin="0,0,10,0" />
+                    <TextBlock Text="Povratak" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
             <MenuItem Header="Dogadjaji"></MenuItem>
             <MenuItem Header="Početna stranica"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>

@@ -12,6 +12,7 @@ namespace Projekat.Service
     {
         ObservableCollection<Dogadjaj> sviDogadjaji();
         ObservableCollection<Dogadjaj> sviDogadjajiZaOrganizatora(String email);
+        ObservableCollection<Dogadjaj> sviDogadjajiZaKlijenta(String email);
         Dogadjaj getDogadjaj(int id);
         void updateStatus(Dogadjaj dogadjaj);
     }

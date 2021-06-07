@@ -1,0 +1,71 @@
+﻿<Window x:Class="Projekat.Views.AddSaradnik"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Projekat.Views"
+        xmlns:viewModel="clr-namespace:Projekat.ViewModels" 
+        xmlns:controls="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls"
+        mc:Ignorable="d"
+        Title="AddSaradnik" Height="450" Width="800">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+    <DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="1*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.75*" />
+                <RowDefinition Height="0.25*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Naziv</TextBlock>
+            <TextBox  Grid.Row="1" Grid.Column="1" Height="25" Text="{Binding Naziv}" BorderBrush="Gray" BorderThickness="1" />
+            <TextBlock Grid.Row="2" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"  >Opis</TextBlock>
+            <TextBox  Grid.Row="3" Grid.Column="1" Height="25" Text="{Binding Opis}" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Tip</TextBlock>
+            <TextBox  Grid.Row="5" Grid.Column="1" Height="25" Text="{Binding Tip}" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBlock Grid.Row="6" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Broj telefona</TextBlock>
+            <TextBox  Grid.Row="7" Grid.Column="1" Height="25" Text="{Binding BrojTelefona}" BorderBrush="Gray" BorderThickness="1" PreviewTextInput="NumberTextInput"/>
+            <TextBlock Grid.Row="0" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Ulica</TextBlock>
+            <TextBox  Grid.Row="1" Grid.Column="3" Height="25" Width="220" HorizontalAlignment="Left" Text="{Binding Ulica}" BorderBrush="Gray" BorderThickness="1"  />
+            <TextBlock Grid.Row="0" Grid.Column="3" TextAlignment="Left" Width="50" VerticalAlignment="Center" HorizontalAlignment="Right">Broj</TextBlock>
+            <TextBox  Grid.Row="1" Grid.Column="3" Height="25" Width="53" HorizontalAlignment="Right" Text="{Binding Broj}" BorderBrush="Gray" BorderThickness="1" PreviewTextInput="NumberTextInput"  />
+            <TextBlock Grid.Row="2" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Grad</TextBlock>
+            <TextBox  Grid.Row="3" Grid.Column="3" Height="25" HorizontalAlignment="Left" Width="140" Text="{Binding Grad}" BorderBrush="Gray" BorderThickness="1"  />
+            <TextBlock Grid.Row="2" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140">Drzava</TextBlock>
+            <TextBox  Grid.Row="3" Grid.Column="3" Height="25" HorizontalAlignment="Right" Width="140" Text="{Binding Drzava}" BorderBrush="Gray" BorderThickness="1"  />
+            <Border BorderThickness="1" BorderBrush="Gray" Margin="0 10 0 0" Grid.Row="4" Grid.Column="3" Grid.RowSpan="4">
+                <controls:MapControl x:Name="mapControl" DockPanel.Dock="Top" ZoomInteractionMode="GestureAndControl"
+                     TiltInteractionMode="GestureAndControl" MapServiceToken="nbFFVvcrKdFjoGGq17qS~tz3brxF8TVwKHWwrZbEIig~AhYaWDojKBWRKux3ZZ0MOiyBjQbXCfSp62g9NMd1wx1-UZhVfO1sUBL9tP3qEsBG" />
+            </Border>
+            <Button BorderBrush="Blue" Background="LightBlue" Grid.Column="1" Grid.Row="9" Width="150" Content="Dodaj" Command="{Binding AddSaradnikCommand}"/>
+            <Button BorderBrush="Blue" Background="White" Grid.Column="3" Grid.Row="9" Width="150" Content="Odustani"/>
+        </Grid>
+    </DockPanel>
+</Window>

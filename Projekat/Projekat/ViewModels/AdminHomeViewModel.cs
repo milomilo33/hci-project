@@ -46,5 +46,18 @@ namespace Projekat.ViewModels
                 return _pregledOrganizatoraCommand;
             }
         }
+
+        private ICommand _pregledSaradnikaCommand;
+
+        public ICommand PregledSaradnikaCommand
+        {
+            get
+            {
+                if (_pregledSaradnikaCommand == null)
+                    _pregledSaradnikaCommand = new RelayCommand(_pregledSaradnikaCommand =>
+                                                       _navigationStore.CurrentViewModel = new AdminPregledSaradnikaViewModel(_navigationStore));
+                return _pregledSaradnikaCommand;
+            }
+        }
     }
 }

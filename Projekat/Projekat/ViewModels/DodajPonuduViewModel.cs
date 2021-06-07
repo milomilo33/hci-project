@@ -32,7 +32,6 @@ namespace Projekat.ViewModels
 				_saradnik = value;
 				
 				OnPropertyChanged(nameof(Saradnik));
-				Console.WriteLine(Saradnik.Naziv);
 			}
 		}
 		private ObservableCollection<Saradnik> _saradnici;
@@ -56,7 +55,6 @@ namespace Projekat.ViewModels
 			{
 				_cena = value;
 				OnPropertyChanged(nameof(Cena));
-				Console.WriteLine(Cena);
 			}
 		}
 

@@ -87,7 +87,6 @@ namespace Projekat
                 o4.Dogadjaji = new List<Dogadjaj>();
                 o4.Adresa = adr;
 
-
                 Zadatak z1 = new Zadatak();
                 z1.Id = 1;
 
@@ -231,6 +230,10 @@ namespace Projekat
 
                 d3.Zadaci = new List<Zadatak>();
 
+                //    d2.Zadaci = new List<Zadatak>();
+
+                //    d1.Zadaci.Add(z1);
+                //    d1.Zadaci.Add(z2);
 
                 Zadatak z5 = new Zadatak();
                 z5.Id = 5;

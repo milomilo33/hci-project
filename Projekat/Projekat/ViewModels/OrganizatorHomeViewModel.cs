@@ -57,6 +57,24 @@ namespace Projekat.ViewModels
             _navigationStore.CurrentViewModel = new OrganizatorEventTableViewModel();
         }
 
+        private ICommand _pregledSaradnikaCommand;
+
+        public ICommand PregledSaradnikaCommand
+        {
+            get
+            {
+                if (_pregledSaradnikaCommand == null)
+                    _pregledSaradnikaCommand = new RelayCommand(_pregledPonudaCommand => PregledajSaradnike());
+                return _pregledSaradnikaCommand;
+            }
+        }
+
+        private void PregledajSaradnike()
+        {
+
+            _navigationStore.CurrentViewModel = new AdminPregledSaradnikaViewModel(_navigationStore);
+        }
+
 
         private ICommand _izabraniDogadjajiCommand;
 
@@ -74,6 +92,26 @@ namespace Projekat.ViewModels
         {
 
             _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore);
+
+        }
+
+
+        private ICommand _profilCommand;
+
+        public ICommand ProfilCommand
+        {
+            get
+            {
+                if (_profilCommand == null)
+                    _profilCommand = new RelayCommand(_profilCommand => Profil());
+                return _profilCommand;
+            }
+        }
+
+        private void Profil()
+        {
+
+            _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore);
 
         }
     }

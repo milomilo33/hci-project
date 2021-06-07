@@ -9,9 +9,9 @@ using System.Windows.Input;
 
 namespace Projekat.ViewModels
 {
-    public class KlijentKreiranjeDogadjajaDialogViewModel : ViewModelBase
+    public class SuccessOrErrorDialogViewModel : ViewModelBase
     {
-        public KlijentKreiranjeDogadjajaDialogViewModel()
+        public SuccessOrErrorDialogViewModel()
         {
 
         }

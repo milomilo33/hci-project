@@ -282,6 +282,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\DogadjajStatusToKlijentPredlogVisibleBoolean.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Data\DatabaseContext.cs" />
     <Compile Include="Model\Predlog.cs" />
@@ -307,7 +308,8 @@
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
     <Compile Include="ViewModels\KreiranjeZadatkaViewModel.cs" />
-    <Compile Include="ViewModels\KlijentKreiranjeDogadjajaDialogViewModel.cs" />
+    <Compile Include="ViewModels\PregledPredlogaViewModel.cs" />
+    <Compile Include="ViewModels\SuccessOrErrorDialogViewModel.cs" />
     <Compile Include="ViewModels\KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\KlijentKreiranjeDogadjajaViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -355,8 +357,11 @@
     <Compile Include="Views\KlijentHomeView.xaml.cs">
       <DependentUpon>KlijentHomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\KlijentKreiranjeDogadjajaDialog.xaml.cs">
-      <DependentUpon>KlijentKreiranjeDogadjajaDialog.xaml</DependentUpon>
+    <Compile Include="Views\PregledPredlogaView.xaml.cs">
+      <DependentUpon>PregledPredlogaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SuccessOrErrorDialog.xaml.cs">
+      <DependentUpon>SuccessOrErrorDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KlijentKreiranjeDogadjajaOdabirOrganizatoraView.xaml.cs">
       <DependentUpon>KlijentKreiranjeDogadjajaOdabirOrganizatoraView.xaml</DependentUpon>
@@ -445,7 +450,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\KlijentKreiranjeDogadjajaDialog.xaml">
+    <Page Include="Views\PregledPredlogaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SuccessOrErrorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

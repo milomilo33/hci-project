@@ -17,5 +17,10 @@ namespace Projekat.Model
         public int Broj { get; set; }
 
         public string Drzava { get; set; }
+
+        public override string ToString()
+        {
+            return Ulica + " " + Broj + ", " + Grad + ", " + Drzava;
+        }
     }
 }

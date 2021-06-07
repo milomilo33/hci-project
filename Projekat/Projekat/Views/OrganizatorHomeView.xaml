@@ -14,8 +14,8 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="Stavka 1"></MenuItem>
-            <MenuItem Header="Stavka 2"></MenuItem>
+            <MenuItem Header="Početna stranica organizatora" FontWeight="DemiBold"></MenuItem>
+            <MenuItem Header="Profil"></MenuItem>
             <MenuItem Header="Pomoc" HorizontalAlignment="Right"></MenuItem>
         </Menu>
 

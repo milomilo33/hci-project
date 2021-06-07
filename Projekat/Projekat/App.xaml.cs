@@ -30,9 +30,9 @@ namespace Projekat
             MainWindow.Show();
 
 
-
-
-            /*using (var db = new DatabaseContext())
+            
+           /*
+            using (var db = new DatabaseContext())
             {
                 Adresa adr = new Adresa();
                 adr.Broj = 69;
@@ -231,8 +231,8 @@ namespace Projekat
 
 
 
-            }*/
-
+            }  
+            */
 
 
 

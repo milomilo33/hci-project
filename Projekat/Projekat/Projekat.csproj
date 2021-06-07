@@ -317,6 +317,7 @@
     <Compile Include="ViewModels\OrganizatorDodeljeniDogadjajiViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorEventTableViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorHomeViewModel.cs" />
+    <Compile Include="ViewModels\AdminPregledKlijenataViewModel.cs" />
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
@@ -326,6 +327,9 @@
     </Compile>
     <Compile Include="Views\AdminPregledSaradnika.xaml.cs">
       <DependentUpon>AdminPregledSaradnika.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AdminPregledKlijenataView.xaml.cs">
+      <DependentUpon>AdminPregledKlijenataView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CreateTask.xaml.cs">
       <DependentUpon>CreateTask.xaml</DependentUpon>
@@ -402,6 +406,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AdminPregledSaradnika.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AdminPregledKlijenataView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

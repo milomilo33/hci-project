@@ -30,9 +30,11 @@ namespace Projekat
             MainWindow.Show();
 
 
-
-            //using (var db = new DatabaseContext())
-            //{
+            
+           
+            using (var db = new DatabaseContext())
+            {
+                 
             //    Adresa adr = new Adresa();
             //    adr.Broj = 69;
             //    adr.Grad = "Novi Sad";
@@ -201,7 +203,9 @@ namespace Projekat
             //    d2.DodatniZahtevi = "nema";
 
 
+
             //    d2.Zadaci = new List<Zadatak>();
+
 
             //    d1.Zadaci.Add(z1);
             //    d1.Zadaci.Add(z2);

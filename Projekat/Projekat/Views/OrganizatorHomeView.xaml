@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Projekat.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -14,6 +15,23 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
+
+            <MenuItem Header="Stavka 1"></MenuItem>
+            <MenuItem Header="Stavka 2"></MenuItem>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste pogledali svoj profil"
+                VerticalAlignment="Center"
+                Command="{Binding ProfilCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                           Kind="AccountCircle" Height="25" Width="25" Margin="0,0,10,0" />
+                    <TextBlock Text="Profil" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+           
+
             <MenuItem Header="Početna stranica organizatora" FontWeight="DemiBold"></MenuItem>
             <MenuItem Header="Profil"></MenuItem>
             <MenuItem Header="Pomoc" HorizontalAlignment="Right"></MenuItem>
@@ -39,11 +57,11 @@
             </Grid.RowDefinitions>
 
 
-            <Button Grid.Row="1" Grid.Column="1" Command="{Binding PregledPonudaCommand}">Pregledajte ponude</Button>
-            <Button Grid.Row="1" Grid.Column="3">Pregledajte saradnike</Button>
-            <Button Grid.Row="1" Grid.Column="5" Command="{Binding PregledDogadjajaCommand}">Izaberite događaj</Button>
+            <Button Grid.Row="1" Grid.Column="1" materialDesign:ButtonAssist.CornerRadius="25" Command="{Binding PregledPonudaCommand}">Pregledajte ponude</Button>
+            <Button Grid.Row="1" Grid.Column="3" materialDesign:ButtonAssist.CornerRadius="25">Pregledajte saradnike</Button>
+            <Button Grid.Row="1" Grid.Column="5" materialDesign:ButtonAssist.CornerRadius="25" Command="{Binding PregledDogadjajaCommand}">Izaberite događaj</Button>
 
-            <Button Grid.Row="1" Grid.Column="7" Command="{Binding IzabraniDogadjajiCommand}">Pregledajte izabrane događaje</Button>
+            <Button Grid.Row="1" Grid.Column="7" materialDesign:ButtonAssist.CornerRadius="25" Command="{Binding IzabraniDogadjajiCommand}">Pregledajte izabrane događaje</Button>
 
 
         </Grid>

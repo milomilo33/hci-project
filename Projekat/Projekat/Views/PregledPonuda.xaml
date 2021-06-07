@@ -79,15 +79,14 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button >Izmeni</Button>
+                                <Button Command="{Binding Path=DataContext.IzmjenaPonudeCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PregledPonuda }}}">Izmeni</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
-                                <Button
-                                         Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PregledPonuda }}}">Obriši</Button>
+                                <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PregledPonuda }}}">Obriši</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

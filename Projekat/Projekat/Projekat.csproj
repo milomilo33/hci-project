@@ -306,6 +306,7 @@
     <Compile Include="ViewModels\AdminPregledOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
+    <Compile Include="ViewModels\IzmjenaPonudeViewModel.cs" />
     <Compile Include="ViewModels\KreiranjeZadatkaViewModel.cs" />
     <Compile Include="ViewModels\KlijentKreiranjeDogadjajaDialogViewModel.cs" />
     <Compile Include="ViewModels\KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel.cs" />
@@ -351,6 +352,9 @@
     </Compile>
     <Compile Include="Views\EventListView.xaml.cs">
       <DependentUpon>EventListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IzmjenaPonudeView.xaml.cs">
+      <DependentUpon>IzmjenaPonudeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KlijentHomeView.xaml.cs">
       <DependentUpon>KlijentHomeView.xaml</DependentUpon>
@@ -440,6 +444,10 @@
     <Page Include="Views\EventListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\IzmjenaPonudeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\KlijentHomeView.xaml">
       <SubType>Designer</SubType>

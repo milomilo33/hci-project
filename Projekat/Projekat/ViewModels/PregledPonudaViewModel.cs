@@ -3,6 +3,7 @@ using Projekat.Data;
 using Projekat.Model;
 using Projekat.Service;
 using Projekat.Stores;
+using Projekat.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -46,7 +47,6 @@ namespace Projekat.ViewModels
 		public PregledPonudaViewModel(NavigationStore navigationStore)
 		{
 			_navigationStore = navigationStore;
-			DogadjajService d = new DogadjajService();
 			Ponude = PonudaService.svePonude();
 
 		}
@@ -118,6 +118,32 @@ namespace Projekat.ViewModels
 					break;
 				
 			}
+		}
+		private ICommand _izmjenaPonudeCommand;
+		public ICommand IzmjenaPonudeCommand
+		{
+			get
+			{
+				if (_izmjenaPonudeCommand == null)
+					_izmjenaPonudeCommand = new RelayCommand(_izmjenaPonudeCommand => OtvoriIzmjenu());
+				return _izmjenaPonudeCommand;
+			}
+		}
+		public void refresh()
+		{
+			Ponude = PonudaService.svePonude();
+		}
+		public void OtvoriIzmjenu()
+		{
+			IzmjenaPonudeView izmena = new IzmjenaPonudeView(this);
+			IzmjenaPonudeViewModel izmenaModel = new IzmjenaPonudeViewModel();
+			izmenaModel.Id = IzabranaPonuda.Id;
+			izmenaModel.Cena = IzabranaPonuda.Cena.ToString();
+			izmenaModel.Opis = IzabranaPonuda.Opis;
+			izmenaModel.Saradnik = IzabranaPonuda.Saradnik;
+			izmena.DataContext = izmenaModel;
+			izmena.Show();
+
 		}
 	}
 }

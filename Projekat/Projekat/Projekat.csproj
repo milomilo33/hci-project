@@ -297,8 +297,12 @@
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Validation\FutureDateValidationRule.cs" />
+
+    <Compile Include="ViewModels\DialogViewModel.cs" />
+
     <Compile Include="ViewModels\AddSaradnikViewModel.cs" />
     <Compile Include="ViewModels\AdminPregledSaradnikaViewModel.cs" />
+
     <Compile Include="ViewModels\DodajPonuduViewModel.cs" />
     <Compile Include="ViewModels\AddOrganizatorViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
@@ -318,11 +322,23 @@
     <Compile Include="ViewModels\OrganizatorDodeljeniDogadjajiViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorEventTableViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorHomeViewModel.cs" />
+
+    <Compile Include="ViewModels\OrganizatorProfilViewModel.cs" />
+
     <Compile Include="ViewModels\AdminPregledKlijenataViewModel.cs" />
+
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
+
+    <Compile Include="Views\CreateTask.xaml.cs">
+      <DependentUpon>CreateTask.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Dialog.xaml.cs">
+      <DependentUpon>Dialog.xaml</DependentUpon>
+    </Compile>
+
     <Compile Include="Views\AddSaradnik.xaml.cs">
       <DependentUpon>AddSaradnik.xaml</DependentUpon>
     </Compile>
@@ -383,6 +399,9 @@
     <Compile Include="Views\OrganizatorHomeView.xaml.cs">
       <DependentUpon>OrganizatorHomeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OrganizatorProfil.xaml.cs">
+      <DependentUpon>OrganizatorProfil.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PregledPonuda.xaml.cs">
       <DependentUpon>PregledPonuda.xaml</DependentUpon>
     </Compile>
@@ -405,6 +424,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+
     <Page Include="Views\AddSaradnik.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -417,10 +437,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
     <Page Include="Views\CreateTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
+    <Page Include="Views\Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+
     <Page Include="Views\DodajPonudu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -482,6 +509,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OrganizatorHomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizatorProfil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -68,6 +68,9 @@
             <DataTemplate DataType="{x:Type viewmodels:KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel}">
                 <views:KlijentKreiranjeDogadjajaOdabirOrganizatoraView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:OrganizatorProfilViewModel}">
+                <views:OrganizatorProfil />
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

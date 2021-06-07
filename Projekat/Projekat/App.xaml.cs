@@ -33,7 +33,7 @@ namespace Projekat
            
             using (var db = new DatabaseContext())
             {
-                 Adresa adr = new Adresa();
+                 /*Adresa adr = new Adresa();
                  adr.Broj = 69;
                  adr.Grad = "Novi Sad";
                  adr.Ulica = "Bulevar oslobođenja";
@@ -222,7 +222,7 @@ namespace Projekat
                 db.Organizatori.Add(o4);
                 db.Dogadjaji.Add(d1);
                 db.Dogadjaji.Add(d2);
-                     db.SaveChanges();
+                     db.SaveChanges();*/
 
             }
 

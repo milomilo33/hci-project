@@ -119,18 +119,16 @@
     <Compile Include="Service\DogadjajService.cs" />
     <Compile Include="Service\IDogadjajService.cs" />
     <Compile Include="Service\IPonudaService.cs" />
-
     <Compile Include="Service\IZadatakService.cs" />
     <Compile Include="Service\PonudaService.cs" />
     <Compile Include="Service\ZadatakService.cs" />
-
     <Compile Include="Service\ISaradnikService.cs" />
     <Compile Include="Service\PonudaService.cs" />
     <Compile Include="Service\SaradnikService.cs" />
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Validation\FutureDateValidationRule.cs" />
-
+    <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\DodajPonuduViewModel.cs" />
     <Compile Include="ViewModels\AddOrganizatorViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
@@ -138,14 +136,10 @@
     <Compile Include="ViewModels\AdminPregledOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
-
     <Compile Include="ViewModels\KreiranjeZadatkaViewModel.cs" />
-
     <Compile Include="ViewModels\KlijentKreiranjeDogadjajaDialogViewModel.cs" />
     <Compile Include="ViewModels\KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\KlijentKreiranjeDogadjajaViewModel.cs" />
-
-
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\KlijentHomeViewModel.cs" />
     <Compile Include="ViewModels\KlijentPregledOrganizatoraViewModel.cs" />
@@ -153,15 +147,17 @@
     <Compile Include="ViewModels\OrganizatorDodeljeniDogadjajiViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorEventTableViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorHomeViewModel.cs" />
+    <Compile Include="ViewModels\OrganizatorProfilViewModel.cs" />
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-
     <Compile Include="Views\CreateTask.xaml.cs">
       <DependentUpon>CreateTask.xaml</DependentUpon>
     </Compile>
-
+    <Compile Include="Views\Dialog.xaml.cs">
+      <DependentUpon>Dialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DodajPonudu.xaml.cs">
       <DependentUpon>DodajPonudu.xaml</DependentUpon>
     </Compile>
@@ -173,7 +169,6 @@
     </Compile>
     <Compile Include="Views\AdminPregledOrganizatoraView.xaml.cs">
       <DependentUpon>AdminPregledOrganizatoraView.xaml</DependentUpon>
-
     </Compile>
     <Compile Include="Views\Details.xaml.cs">
       <DependentUpon>Details.xaml</DependentUpon>
@@ -208,6 +203,9 @@
     <Compile Include="Views\OrganizatorHomeView.xaml.cs">
       <DependentUpon>OrganizatorHomeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OrganizatorProfil.xaml.cs">
+      <DependentUpon>OrganizatorProfil.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PregledPonuda.xaml.cs">
       <DependentUpon>PregledPonuda.xaml</DependentUpon>
     </Compile>
@@ -230,14 +228,16 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-
     <Page Include="Views\CreateTask.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
+    <Page Include="Views\Dialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DodajPonudu.xaml">
-       <SubType>Designer</SubType>
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddOrganizator.xaml">
@@ -249,7 +249,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AdminPregledOrganizatoraView.xaml">
-
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -294,6 +293,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OrganizatorHomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizatorProfil.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

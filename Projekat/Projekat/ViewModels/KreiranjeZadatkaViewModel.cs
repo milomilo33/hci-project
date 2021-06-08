@@ -99,11 +99,11 @@ namespace Projekat.ViewModels
                 zadatak.Status = "Na čekanju";
                 if(IzabranTip.Equals("Glavni zahtev"))
                 {
-                    zadatak.Glavni = true;
+                    zadatak.Tip = Zadatak.TipZadatka.GLAVNI;
                 }
                 else
                 {
-                    zadatak.Glavni = false;
+                    zadatak.Tip = Zadatak.TipZadatka.DODATNI;
                 }
                 
                 dogadjaj = db.Dogadjaji.SingleOrDefault(d => d.Id == IdDogadjaja);

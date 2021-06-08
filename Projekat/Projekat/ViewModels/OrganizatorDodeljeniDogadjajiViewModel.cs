@@ -83,7 +83,7 @@ namespace Projekat.ViewModels
         }
         public void Tasks()
         {
-            ObservableCollection<Zadatak> zadaci =ZadatakServce.sviZadaciZaDogadjaj(SelectedDogadjaj.Id);
+            ObservableCollection<Zadatak> zadaci = ZadatakServce.sviZadaciZaDogadjaj(SelectedDogadjaj.Id);
             TaskViewModel tvm = new TaskViewModel(_navigationStore);
             tvm.Zadaci = zadaci;
             

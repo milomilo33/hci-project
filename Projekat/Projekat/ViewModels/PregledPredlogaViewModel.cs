@@ -117,13 +117,14 @@ namespace Projekat.ViewModels
                 Dogadjaj dogadjaj = db.Dogadjaji.Include("NerasporedjeniGosti")
                                                 .Include("RasporedSedenja")
                                                 .Include("RasporedSedenja.GostiZaStolom")
+                                                .Include("Zadaci.IzabraniPredlog.Ponuda.Saradnik.Stolovi.GostiZaStolom")
                                                 .SingleOrDefault(d => d.Id == idDogadjaja);
 
                 //if (dogadjaj.NerasporedjeniGosti == null)
                 //{
                 //    dogadjaj.NerasporedjeniGosti = new List<Gost>();
                 //}
-                if (dogadjaj.RasporedSedenja == null)
+                if (dogadjaj.RasporedSedenja == null || dogadjaj.RasporedSedenja.Count() == 0)
                 {
                     List<KapacitetStola> rasporedSedenja = new List<KapacitetStola>();
                     foreach (Zadatak zad in dogadjaj.Zadaci)
@@ -144,12 +145,7 @@ namespace Projekat.ViewModels
                         }
                     }
 
-                    Console.WriteLine("raspored dodje");
                     dogadjaj.RasporedSedenja = rasporedSedenja;
-                }
-                else
-                {
-                    Console.WriteLine(dogadjaj.RasporedSedenja.Count());
                 }
 
                 db.SaveChanges();

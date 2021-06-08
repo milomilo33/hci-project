@@ -33,6 +33,9 @@ namespace Projekat.ViewModels
             }
 
             NerasporedjeniGosti = new ObservableCollection<Gost>(dogadjaj.NerasporedjeniGosti);
+
+
+            RasporedSedenja = new ObservableCollection<KapacitetStola>(dogadjaj.RasporedSedenja);
         }
 
         private ObservableCollection<Gost> _nerasporedjeniGosti;
@@ -44,6 +47,23 @@ namespace Projekat.ViewModels
                 _nerasporedjeniGosti = value;
                 OnPropertyChanged(nameof(NerasporedjeniGosti));
             }
+        }
+
+        private ObservableCollection<KapacitetStola> _rasporedSedenja;
+        public ObservableCollection<KapacitetStola> RasporedSedenja
+        {
+            get { return _rasporedSedenja; }
+            set
+            {
+                _rasporedSedenja = value;
+                OnPropertyChanged(nameof(RasporedSedenja));
+            }
+        }
+
+        public void PropertiesChanged()
+        {
+            //OnPropertyChanged(nameof(RasporedSedenja));
+            //OnPropertyChanged(nameof(NerasporedjeniGosti));
         }
 
         private ICommand _dodajNerasporedjenogGostaCommand;

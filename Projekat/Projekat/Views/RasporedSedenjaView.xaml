@@ -119,6 +119,18 @@
 
                 <ListView.View>
                     <GridView>
+                        <GridView.ColumnHeaderContainerStyle>
+                            <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource {x:Type GridViewColumnHeader}}">
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </GridView.ColumnHeaderContainerStyle>
                         <GridViewColumn Header="Neraspoređeni gosti">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
@@ -186,6 +198,18 @@
 
                             <ListView.View>
                                 <GridView>
+                                    <GridView.ColumnHeaderContainerStyle>
+                                        <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource {x:Type GridViewColumnHeader}}">
+                                            <Setter Property="IsHitTestVisible" Value="False"/>
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </GridView.ColumnHeaderContainerStyle>
                                     <GridViewColumn Header="{Binding Naziv}">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>

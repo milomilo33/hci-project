@@ -32,6 +32,11 @@ namespace Projekat.Views
 
         private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (e.OriginalSource is Path || e.OriginalSource is Grid)
+            {
+                return;
+            }
+
             ListView parent = (ListView)sender;
             dragSource = parent;
             object data = GetDataFromListView(dragSource, e.GetPosition(parent));
@@ -40,7 +45,50 @@ namespace Projekat.Views
             {
                 DragDrop.DoDragDrop(parent, data, DragDropEffects.Move);
             }
+
+            //CommandManager.InvalidateRequerySuggested();
         }
+
+        //private void ItemsList_DragOver(object sender, System.Windows.DragEventArgs e)
+        //{
+        //    ListBox li = sender as ListBox;
+        //    ScrollViewer sv = FindVisualChild<ScrollViewer>(ListView);
+
+        //    double tolerance = 10;
+        //    double verticalPos = e.GetPosition(li).Y;
+        //    double offset = 3;
+
+        //    if (verticalPos < tolerance) // Top of visible list?
+        //    {
+        //        sv.ScrollToVerticalOffset(sv.VerticalOffset - offset); //Scroll up.
+        //    }
+        //    else if (verticalPos > li.ActualHeight - tolerance) //Bottom of visible list?
+        //    {
+        //        sv.ScrollToVerticalOffset(sv.VerticalOffset + offset); //Scroll down.    
+        //    }
+        //}
+
+        //public static childItem FindVisualChild<childItem>(DependencyObject obj) where childItem : DependencyObject
+        //{
+        //    // Search immediate children first (breadth-first)
+        //    for (int i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+        //    {
+        //        DependencyObject child = VisualTreeHelper.GetChild(obj, i);
+
+        //        if (child != null && child is childItem)
+        //            return (childItem)child;
+
+        //        else
+        //        {
+        //            childItem childOfChild = FindVisualChild<childItem>(child);
+
+        //            if (childOfChild != null)
+        //                return childOfChild;
+        //        }
+        //    }
+
+        //    return null;
+        //}
 
         private static object GetDataFromListView(ListView source, Point point)
         {
@@ -74,13 +122,34 @@ namespace Projekat.Views
 
         private void ListView_Drop(object sender, DragEventArgs e)
         {
+            RasporedSedenjaViewModel viewModel = (RasporedSedenjaViewModel)this.DataContext;
+
             ListView parent = (ListView)sender;
+
+            // provera kapaciteta
+            foreach (KapacitetStola ks in viewModel.RasporedSedenja)
+            {
+                if (ks.GostiZaStolom == parent.ItemsSource)
+                {
+                    if (((List<Gost>)parent.ItemsSource).Count() >= ks.Kapacitet)
+                    {
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.Message = $"Sto '{ks.Naziv}' je već popunjen!";
+                        dialog.DataContext = dialogModel;
+                        dialogModel.IsError = true;
+                        dialog.Owner = viewModel._window;
+                        dialog.ShowDialog();
+
+                        return;
+                    }
+                }
+            }
+            
             //object data = e.Data.GetData(typeof(string));
             object data = e.Data.GetData(typeof(Gost));
             ((IList)dragSource.ItemsSource).Remove(data);
             //parent.Items.Add(data);
-
-            RasporedSedenjaViewModel viewModel = (RasporedSedenjaViewModel) this.DataContext;
 
             //var backup = parent.ItemsSource;
             //parent.ItemsSource = null;

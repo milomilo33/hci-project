@@ -284,6 +284,7 @@
     </ApplicationDefinition>
     <Compile Include="Converters\DogadjajStatusToKlijentPredlogVisibleBoolean.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\MultipleCommandParamConverter.cs" />
     <Compile Include="Data\DatabaseContext.cs" />
     <Compile Include="Model\Gost.cs" />
     <Compile Include="Model\KapacitetStola.cs" />
@@ -299,6 +300,8 @@
     <Compile Include="Service\SaradnikService.cs" />
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="Utility\DragDropExtension.cs" />
+    <Compile Include="Utility\ExtensionMethods.cs" />
     <Compile Include="Validation\FutureDateValidationRule.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\AddSaradnikViewModel.cs" />

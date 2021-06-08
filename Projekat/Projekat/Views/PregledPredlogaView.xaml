@@ -106,6 +106,7 @@
             <Button Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Command="{Binding OtvoriRasporedSedenjaCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 materialDesign:ButtonAssist.CornerRadius="6"

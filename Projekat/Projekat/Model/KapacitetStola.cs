@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace Projekat.Model
 {
+    [Serializable]
     public class KapacitetStola
     {
-        public int Id { get; set; }
+        [Key]
+        public int? Id { get; set; }
         public string Naziv { get; set; }
         public int Kapacitet { get; set; }
 

@@ -26,9 +26,9 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <MenuItem Header="Dodeljeni događaji" FontWeight="DemiBold" Focusable="False" IsEnabled="False"></MenuItem>
-            <MenuItem Header="Početna stranica" Command="{Binding PovratakCommand}"
-                      ToolTip="Kliknite da biste otišli na početnu stranicu organizatora"></MenuItem>
+           <!-- <MenuItem Header="Dodeljeni događaji" FontWeight="DemiBold" Focusable="False" IsEnabled="False"></MenuItem> -->
+            <MenuItem Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"
+                      ToolTip="Kliknite da biste otišli na početnu stranicu"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
         </Menu>
         <Grid>

@@ -378,6 +378,9 @@
     <Compile Include="Views\KlijentHomeView.xaml.cs">
       <DependentUpon>KlijentHomeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OrganizatorDodavanjePonude.xaml.cs">
+      <DependentUpon>OrganizatorDodavanjePonude.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PregledPredlogaView.xaml.cs">
       <DependentUpon>PregledPredlogaView.xaml</DependentUpon>
     </Compile>
@@ -486,6 +489,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\KlijentHomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizatorDodavanjePonude.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

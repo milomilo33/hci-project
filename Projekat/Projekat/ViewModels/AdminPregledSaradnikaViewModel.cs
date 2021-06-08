@@ -18,6 +18,8 @@ namespace Projekat.ViewModels
     {
         private readonly NavigationStore _navigationStore;
 
+        private readonly ViewModelBase _previousViewModel;
+
         public ObservableCollection<Saradnik> Saradnici { get; set; }
 
         private Saradnik _selectedSaradnik;
@@ -31,9 +33,10 @@ namespace Projekat.ViewModels
             }
         }
 
-        public AdminPregledSaradnikaViewModel(NavigationStore navigationStore)
+        public AdminPregledSaradnikaViewModel(NavigationStore navigationStore, ViewModelBase previousViewModel)
         {
             _navigationStore = navigationStore;
+            _previousViewModel = previousViewModel;
 
             using (var db = new DatabaseContext())
             {
@@ -80,7 +83,7 @@ namespace Projekat.ViewModels
             }
             catch (Exception) {
                 dialogModel.IsError = true;
-                dialogModel.Message = "Došlo je do greške kod brisanja saradnika!";
+                dialogModel.Message = "Došlo je do greške kod brisanja saradnika\nPokušajte da selektujete saradnika kojeg želite obrisati!";
                 newDialog.DataContext = dialogModel;
                 newDialog.Owner = window;
                 newDialog.ShowDialog();
@@ -101,8 +104,9 @@ namespace Projekat.ViewModels
 
         public void Povratak()
         {
-            _navigationStore.CurrentViewModel = new AdminHomeViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = _previousViewModel;
         }
+
 
         private ICommand _addSaradnikCommand;
         public ICommand AddSaradnikCommand
@@ -153,6 +157,37 @@ namespace Projekat.ViewModels
             AddSaradnik edit = new AddSaradnik(editVM);
             edit.Show();
             Console.WriteLine(editVM.Ulica);
+        }
+
+        private ICommand _pocetnaStranicaCommand;
+
+        public ICommand PocetnaStranicaCommand
+        {
+            get
+            {
+                if (_pocetnaStranicaCommand == null)
+                    _pocetnaStranicaCommand = new RelayCommand(_pocetnaStranicaCommand => PocetnaStrana());
+                return _pocetnaStranicaCommand;
+            }
+        }
+
+        private void PocetnaStrana()
+        {
+            KorisnikStore korisnik = KorisnikStore.Instance;
+            Korisnik k = korisnik.TrenutniKorisnik;
+
+            if (k.GetType() == typeof(Administrator))
+            {
+                _navigationStore.CurrentViewModel = new AdminHomeViewModel(_navigationStore);
+            }
+            else if (k.GetType() == typeof(Organizator))
+            {
+                _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+            }
+            else 
+            {
+                _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+            }
         }
     }
 }

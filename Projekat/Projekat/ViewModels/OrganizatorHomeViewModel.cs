@@ -33,7 +33,7 @@ namespace Projekat.ViewModels
         private void PregledajPonude()
         {
 
-            _navigationStore.CurrentViewModel = new PregledPonudaViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new PregledPonudaViewModel(_navigationStore, _navigationStore.CurrentViewModel);
         }
 
         
@@ -54,7 +54,7 @@ namespace Projekat.ViewModels
         private void PregledajDogadjaje()
         {
 
-            _navigationStore.CurrentViewModel = new OrganizatorEventTableViewModel();
+            _navigationStore.CurrentViewModel = new OrganizatorEventTableViewModel(_navigationStore);
         }
 
         private ICommand _pregledSaradnikaCommand;
@@ -72,7 +72,7 @@ namespace Projekat.ViewModels
         private void PregledajSaradnike()
         {
 
-            _navigationStore.CurrentViewModel = new AdminPregledSaradnikaViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new AdminPregledSaradnikaViewModel(_navigationStore, _navigationStore.CurrentViewModel);
         }
 
 
@@ -91,7 +91,7 @@ namespace Projekat.ViewModels
         private void IzabraniDogadjaji()
         {
 
-            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore, _navigationStore.CurrentViewModel);
 
         }
 
@@ -111,7 +111,7 @@ namespace Projekat.ViewModels
         private void Profil()
         {
 
-            _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore, _navigationStore.CurrentViewModel);
 
         }
     }

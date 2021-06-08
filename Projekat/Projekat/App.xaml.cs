@@ -31,7 +31,7 @@ namespace Projekat
 
 
 
-
+            /*
             using (var db = new DatabaseContext())
             {
                 Adresa adr = new Adresa();
@@ -282,7 +282,7 @@ namespace Projekat
 
                 db.SaveChanges();
             }
-
+            */
 
 
             base.OnStartup(e);

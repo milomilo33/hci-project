@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Projekat.ViewModels
@@ -47,25 +48,43 @@ namespace Projekat.ViewModels
             get
             {
                 if (_deleteCommand == null)
-                    _deleteCommand = new RelayCommand(_deleteCommand => DeleteEvent());
+                    _deleteCommand = new RelayCommand(window => DeleteEvent((Window)window));
                 return _deleteCommand;
             }
         }
 
-        private void DeleteEvent()
+        private void DeleteEvent(Window window)
         {
+            SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
 
-            using (var db = new DatabaseContext())
+            try
             {
-                if (!db.Saradnici.Local.Contains(SelectedSaradnik))
-                    db.Saradnici.Attach(SelectedSaradnik);
-                //db.Dogadjaji.RemoveRange(db.Dogadjaji.Where(d => d.Sa.Email == SelectedSaradnik.Id));
+                using (var db = new DatabaseContext())
+                {
+                    if (!db.Saradnici.Local.Contains(SelectedSaradnik))
+                        db.Saradnici.Attach(SelectedSaradnik);
+                    //db.Dogadjaji.RemoveRange(db.Dogadjaji.Where(d => d.Sa.Email == SelectedSaradnik.Id));
 
 
-                db.Saradnici.Remove(SelectedSaradnik);
-                db.SaveChanges();
+                    db.Saradnici.Remove(SelectedSaradnik);
+                    db.SaveChanges();
+                }
+                Saradnici.Remove(SelectedSaradnik);
+
+                dialogModel.IsError = false;
+                dialogModel.Message = "Uspešno ste obrisali saradnika!";
+                newDialog.DataContext = dialogModel;
+                newDialog.Owner = window;
+                newDialog.ShowDialog();
             }
-            Saradnici.Remove(SelectedSaradnik);
+            catch (Exception) {
+                dialogModel.IsError = true;
+                dialogModel.Message = "Došlo je do greške kod brisanja saradnika!";
+                newDialog.DataContext = dialogModel;
+                newDialog.Owner = window;
+                newDialog.ShowDialog();
+            }
         }
 
         private ICommand _povratakCommand;

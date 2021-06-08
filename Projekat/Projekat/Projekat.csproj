@@ -301,7 +301,9 @@
     <Compile Include="Service\SaradnikService.cs" />
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
+    <Compile Include="Validation\EmptyStringValidationConverter.cs" />
     <Compile Include="Validation\FutureDateValidationRule.cs" />
+    <Compile Include="Validation\StringToDoubleValidationRule.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\AddSaradnikViewModel.cs" />
     <Compile Include="ViewModels\AdminPregledSaradnikaViewModel.cs" />

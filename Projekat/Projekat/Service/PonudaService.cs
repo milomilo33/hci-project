@@ -45,7 +45,7 @@ namespace Projekat.Service
 			ObservableCollection<Ponuda> ponude = new ObservableCollection<Ponuda>();
 			using (var db = new DatabaseContext())
 			{
-				ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik"));
+				ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik").Where(p=> p.Nevazeca == false));
 			}
 
 			return ponude;

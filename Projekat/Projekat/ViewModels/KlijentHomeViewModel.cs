@@ -43,5 +43,17 @@ namespace Projekat.ViewModels
                 return _kreiranjeDogadjajaCommand;
             }
         }
+
+        private ICommand _pregledDogadjajaCommand;
+        public ICommand PregledDogadjajaCommand
+        {
+            get
+            {
+                if (_pregledDogadjajaCommand == null)
+                    _pregledDogadjajaCommand = new RelayCommand(_pregledDogadjajaCommand =>
+                                                    _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore, true));
+                return _pregledDogadjajaCommand;
+            }
+        }
     }
 }

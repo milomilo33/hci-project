@@ -37,7 +37,7 @@ namespace Projekat.Service
 
 		}
 
-		public ObservableCollection<Dogadjaj> sviDogadjajiZaOrganizatora(String email)
+        public ObservableCollection<Dogadjaj> sviDogadjajiZaOrganizatora(String email)
 		{
 
 			ObservableCollection<Dogadjaj> dogadjaji = new ObservableCollection<Dogadjaj>();
@@ -48,6 +48,22 @@ namespace Projekat.Service
 
 			return dogadjaji;
 
+		}
+
+		public ObservableCollection<Dogadjaj> sviDogadjajiZaKlijenta(string email)
+		{
+			ObservableCollection<Dogadjaj> dogadjaji = new ObservableCollection<Dogadjaj>();
+			using (var db = new DatabaseContext())
+			{
+				List<Dogadjaj> dogadjajiZaKlijenta = db.Klijenti.Include("Dogadjaji").Include("Dogadjaji.Organizator").SingleOrDefault(k => k.Email.Equals(email)).Dogadjaji;
+				if (dogadjajiZaKlijenta == null)
+                {
+					dogadjajiZaKlijenta = new List<Dogadjaj>();
+                }
+				dogadjaji = new ObservableCollection<Dogadjaj>(dogadjajiZaKlijenta);
+			}
+
+			return dogadjaji;
 		}
 
 		public void updateStatus(Dogadjaj dogadjaj)

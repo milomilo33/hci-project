@@ -20,7 +20,7 @@ namespace Projekat
         protected override void OnStartup(StartupEventArgs e)
         {
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new AdminHomeViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
 
 
             MainWindow = new MainWindow()
@@ -30,9 +30,9 @@ namespace Projekat
             MainWindow.Show();
 
 
-
-
-            /*using (var db = new DatabaseContext())
+            
+           
+            using (var db = new DatabaseContext())
             {
                 Adresa adr = new Adresa();
                 adr.Broj = 69;
@@ -87,7 +87,6 @@ namespace Projekat
                 o4.Lozinka = "123";
                 o4.Dogadjaji = new List<Dogadjaj>();
                 o4.Adresa = adr;
-
 
                 Zadatak z1 = new Zadatak();
                 z1.Id = 1;
@@ -164,10 +163,7 @@ namespace Projekat
                 s1.Stolovi = stolovi;
                 s1.Naziv = "Borsalino";
                 s1.Opis = "Nudimo vam izdaju prostora kao i obezbjedjen katering";
-                s1.Tip = "Lokal";
-                s1.Adresa = adr;
-                s1.BrojTelefona = "0641234567";
-                s1.BrojMesta = 100;
+                s1.Tip = "Restoran";
 
                 List<Ponuda> ponude = new List<Ponuda>();
                 ponude.Add(p1);
@@ -186,7 +182,7 @@ namespace Projekat
                 d1.MestoOdrzavanja = "Bašta";
                 d1.Napomena = "Nema napomena";
                 d1.Organizator = o;
-                d1.Status = "Na čekanju";
+                d1.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_ORGANIZATOR;
                 d1.VrstaProslave = "18. rodjendan";
                 d1.Tema = "Vrh";
                 d1.BudzetPromenljiv = true;
@@ -204,7 +200,7 @@ namespace Projekat
                 d2.MestoOdrzavanja = "Sala";
                 d2.Napomena = "Nema napomena";
                 d2.Organizator = o;
-                d2.Status = "Na čekanju";
+                d2.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_ORGANIZATOR;
                 d2.VrstaProslave = "Svadba";
                 d2.Tema = "Top";
                 d2.BudzetPromenljiv = true;
@@ -225,6 +221,49 @@ namespace Projekat
                 z3.Dogadjaj = d2;
                 z4.Dogadjaj = d2;
 
+
+                Dogadjaj d3 = new Dogadjaj();
+                d3.Id = 3;
+                d3.MestoOdrzavanja = "Dvoriste";
+                d3.Napomena = "Nema napomena";
+                d3.Organizator = o;
+                d3.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_KLIJENT;
+                d3.VrstaProslave = "Slava";
+                d3.Tema = "Neka tema";
+                d3.BudzetPromenljiv = true;
+                d3.BrojGostiju = 150;
+                d3.DatumOdrzavanja = DateTime.Now;
+                d3.Budzet = 40000;
+                d3.DodatniZahtevi = "nema";
+
+
+                d3.Zadaci = new List<Zadatak>();
+
+                //    d2.Zadaci = new List<Zadatak>();
+
+                //    d1.Zadaci.Add(z1);
+                //    d1.Zadaci.Add(z2);
+
+                Zadatak z5 = new Zadatak();
+                z5.Id = 5;
+                z5.Naziv = "Restoran";
+                z5.Opis = "Pronaći restoran";
+                //z5.Status = "Na čekanju";
+                z5.Dogadjaj = d3;
+                d3.Zadaci.Add(z5);
+                z5.Glavni = true;
+                z5.Tip = Zadatak.TipZadatka.GLAVNI;
+                Predlog pred1 = new Predlog();
+                pred1.Ponuda = p1;
+                //pred1.Status = Predlog.STATUS.
+                pred1.Zadatak = z5;
+                z5.IzabraniPredlog = pred1;
+
+                db.Dogadjaji.Add(d3);
+                db.Zadaci.Add(z5);
+                db.Predlozi.Add(pred1);
+
+
                 db.Zadaci.Add(z1);
                 db.Zadaci.Add(z2);
                 db.Zadaci.Add(z3);
@@ -235,16 +274,9 @@ namespace Projekat
                 db.Organizatori.Add(o4);
                 db.Dogadjaji.Add(d1);
                 db.Dogadjaji.Add(d2);
-                db.SaveChanges();
 
 
-
-
-
-
-
-            }*/
-
+            } 
 
 
 

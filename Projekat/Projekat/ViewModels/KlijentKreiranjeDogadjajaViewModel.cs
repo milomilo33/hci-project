@@ -241,7 +241,7 @@ namespace Projekat.ViewModels
                 noviDogadjaj.DodatniZahtevi = DodatniZahtevi;
                 noviDogadjaj.MestoOdrzavanja = MestoOdrzavanja;
                 //noviDogadjaj.Organizator = Organizator;
-                noviDogadjaj.Status = Organizator == null ? "Na čekanju" : "U obradi";
+                noviDogadjaj.StatusEnum = Organizator == null ? Dogadjaj.STATUS_DOGADJAJA.NEDODELJEN : Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_ORGANIZATOR;
                 noviDogadjaj.Tema = Tema;
                 noviDogadjaj.VrstaProslave = Vrsta;
 
@@ -264,8 +264,8 @@ namespace Projekat.ViewModels
                     db.SaveChanges();
                 }
 
-                KlijentKreiranjeDogadjajaDialog dialog = new KlijentKreiranjeDogadjajaDialog();
-                KlijentKreiranjeDogadjajaDialogViewModel dialogModel = new KlijentKreiranjeDogadjajaDialogViewModel();
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = false;
                 dialogModel.Message = "Uspešno ste kreirali događaj!";
                 dialog.DataContext = dialogModel;
@@ -276,8 +276,8 @@ namespace Projekat.ViewModels
             }
             else
             {
-                KlijentKreiranjeDogadjajaDialog dialog = new KlijentKreiranjeDogadjajaDialog();
-                KlijentKreiranjeDogadjajaDialogViewModel dialogModel = new KlijentKreiranjeDogadjajaDialogViewModel();
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = true;
                 dialogModel.Message = validationMessage;
                 dialog.DataContext = dialogModel;

@@ -1,4 +1,4 @@
-﻿<Window x:Class="Projekat.Views.KlijentKreiranjeDogadjajaDialog"
+﻿<Window x:Class="Projekat.Views.SuccessOrErrorDialog"
         x:Name="KreiranjeDialog"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -24,7 +24,7 @@
     </Window.Resources>
 
     <Window.DataContext>
-        <viewmodels:KlijentKreiranjeDogadjajaDialogViewModel/>
+        <viewmodels:SuccessOrErrorDialogViewModel/>
     </Window.DataContext>
 
     <Grid>

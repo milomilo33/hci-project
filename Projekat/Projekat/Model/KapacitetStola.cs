@@ -9,8 +9,11 @@ namespace Projekat.Model
 {
     public class KapacitetStola
     {
-        [Key]
+        public int Id { get; set; }
         public string Naziv { get; set; }
         public int Kapacitet { get; set; }
+
+        // koristice se samo u rasporedu sedenja
+        public List<Gost> GostiZaStolom { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Projekat.Commands;
+using Projekat.Data;
 using Projekat.Model;
 using Projekat.Stores;
 using System;
@@ -109,6 +110,51 @@ namespace Projekat.ViewModels
         private void OtvoriRasporedSedenja()
         {
             Console.WriteLine("raspored sedenja!");
+
+            using (var db = new DatabaseContext())
+            {
+                int idDogadjaja = Zadaci.First().Dogadjaj.Id;
+                Dogadjaj dogadjaj = db.Dogadjaji.Include("NerasporedjeniGosti")
+                                                .Include("RasporedSedenja")
+                                                .Include("RasporedSedenja.GostiZaStolom")
+                                                .SingleOrDefault(d => d.Id == idDogadjaja);
+
+                //if (dogadjaj.NerasporedjeniGosti == null)
+                //{
+                //    dogadjaj.NerasporedjeniGosti = new List<Gost>();
+                //}
+                if (dogadjaj.RasporedSedenja == null)
+                {
+                    List<KapacitetStola> rasporedSedenja = new List<KapacitetStola>();
+                    foreach (Zadatak zad in dogadjaj.Zadaci)
+                    {
+                        if (zad.Tip == Zadatak.TipZadatka.GLAVNI)
+                        {
+                            List<KapacitetStola> kapacitetiStolovaUPonudi = zad.IzabraniPredlog.Ponuda.Saradnik.Stolovi;
+                            foreach (KapacitetStola ks in kapacitetiStolovaUPonudi)
+                            {
+                                KapacitetStola kapacitetSaGostima = new KapacitetStola();
+                                kapacitetSaGostima.Kapacitet = ks.Kapacitet;
+                                kapacitetSaGostima.Naziv = ks.Naziv;
+                                kapacitetSaGostima.GostiZaStolom = new List<Gost>();
+                                rasporedSedenja.Add(kapacitetSaGostima);
+                            }
+
+                            break;
+                        }
+                    }
+
+                    Console.WriteLine("raspored dodje");
+                    dogadjaj.RasporedSedenja = rasporedSedenja;
+                }
+                else
+                {
+                    Console.WriteLine(dogadjaj.RasporedSedenja.Count());
+                }
+
+                db.SaveChanges();
+                _navigationStore.CurrentViewModel = new RasporedSedenjaViewModel(_navigationStore, _navigationStore.CurrentViewModel, dogadjaj);
+            }
         }
 
         private ICommand _prihvatiPredlogCommand;

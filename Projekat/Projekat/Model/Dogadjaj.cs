@@ -23,6 +23,10 @@ namespace Projekat.Model
 
         public int BrojGostiju { get; set; }
 
+        public List<Gost> NerasporedjeniGosti { get; set; }
+
+        public List<KapacitetStola> RasporedSedenja { get; set; }
+
         public DateTime DatumOdrzavanja { get; set; }
 
         public string VrstaProslave { get; set; }

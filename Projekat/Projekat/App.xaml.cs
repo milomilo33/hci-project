@@ -30,8 +30,8 @@ namespace Projekat
             MainWindow.Show();
 
 
-            
-           
+
+
             using (var db = new DatabaseContext())
             {
                 Adresa adr = new Adresa();
@@ -126,7 +126,7 @@ namespace Projekat
 
 
                 Ponuda p1 = new Ponuda();
-                p1.Opis = "Nudimo vam salu sa 200 stolica, cena po stolici 10e";
+                p1.Opis = "Nudimo vam salu sa 31 stolicom";
                 p1.Cena = 20000;
                 p1.Nevazeca = false;
                 db.Ponude.Add(p1);
@@ -164,6 +164,7 @@ namespace Projekat
                 s1.Naziv = "Borsalino";
                 s1.Opis = "Nudimo vam izdaju prostora kao i obezbjedjen katering";
                 s1.Tip = "Restoran";
+                s1.Adresa = adr;
 
                 List<Ponuda> ponude = new List<Ponuda>();
                 ponude.Add(p1);
@@ -275,8 +276,12 @@ namespace Projekat
                 db.Dogadjaji.Add(d1);
                 db.Dogadjaji.Add(d2);
 
+                k.Dogadjaji.Add(d1);
+                k.Dogadjaji.Add(d2);
+                k.Dogadjaji.Add(d3);
 
-            } 
+                db.SaveChanges();
+            }
 
 
 

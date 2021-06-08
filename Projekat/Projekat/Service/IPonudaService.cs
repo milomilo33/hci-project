@@ -17,5 +17,7 @@ namespace Projekat.Service
 		void RemovePonuda(int id);
 
 		Ponuda AddPonuda(Ponuda ponuda);
+
+		ObservableCollection<Ponuda> svePonudeZaZadatak(int id);
 	}
 }

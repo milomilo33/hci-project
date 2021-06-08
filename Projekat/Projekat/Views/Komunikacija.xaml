@@ -1,0 +1,92 @@
+﻿<Window x:Class="Projekat.Views.Komunikacija"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:viewmodels ="clr-namespace:Projekat.ViewModels"
+        xmlns:local="clr-namespace:Projekat.Views"
+        mc:Ignorable="d"
+        Title="Komentari" Height="500" Width="330">
+    <Window.DataContext>
+        <viewmodels:KomunikacijaViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="Background"  Value="Orange"/>
+                </Style>
+            </Style.Resources>
+        </Style>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+
+        <ListBox ItemsSource="{Binding Komentari}" Grid.Row="1">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Vertical"/>
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+
+            <ListBox.ItemTemplate >
+                <DataTemplate>
+                    <materialDesign:Card
+                        Width="280"
+                        Height="auto"
+                        Padding="3"
+                         UniformCornerRadius="6">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="0.5*"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3"
+                            TextWrapping="Wrap"
+                                    Text="{Binding Sadrzaj}" />
+                            <TextBlock Grid.Row="1" Grid.Column="3"
+                            TextWrapping="Wrap"
+                                    Text="{Binding DatumVremeKomentara}" />
+                            <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}  {1}">
+                                        <Binding Path="Autor.Ime" />
+                                        <Binding Path="Autor.Prezime" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                            
+                        </Grid>
+                    </materialDesign:Card>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBox Grid.Row="3" Width="295" Text="{Binding Sadrzaj, Mode=TwoWay}" ToolTip="Unesite novi komentar">
+        </TextBox>
+        <Button Grid.Row="5" Width="250" Command="{Binding PosaljiCommand}"> Pošalji</Button>
+    </Grid>
+
+</Window>

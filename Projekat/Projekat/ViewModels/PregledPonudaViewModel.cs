@@ -75,7 +75,7 @@ namespace Projekat.ViewModels
 			get
 			{
 				if (_deleteCommand == null)
-					_deleteCommand = new RelayCommand(_deleteCommand => DeletePonuda());
+					_deleteCommand = new RelayCommand(window => DeletePonuda((Window)window));
 				return _deleteCommand;
 			}
 		}
@@ -96,27 +96,45 @@ namespace Projekat.ViewModels
 		{
 			_navigationStore.CurrentViewModel = new DodajPonuduViewModel(_navigationStore);
 		}
-		private void DeletePonuda()
+		private void DeletePonuda(Window window)
 		{
-			
-			MessageBoxResult result = MessageBox.Show("Da li želite obrisati ponudu '" + IzabranaPonuda.Opis+ "'?", "Obriši ponudu", MessageBoxButton.YesNo);
-			switch (result)
-			{
-				case MessageBoxResult.Yes:
-					int id = IzabranaPonuda.Id;
-					bool izbrisanaPonuda = Ponude.Remove(IzabranaPonuda);
+			Dialog dialog = new Dialog();
+			DialogViewModel viewModel = new DialogViewModel();
+			viewModel._message = "Da li želite da obrišete ponudu?";
+			dialog.DataContext = viewModel;
+			dialog.Owner = window;
+			dialog.ShowDialog();
 
-					if (izbrisanaPonuda)
+
+			SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+			SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+
+
+			if (viewModel.odgovor == "Da")
+			{
+				int id = IzabranaPonuda.Id;
+				bool izbrisanaPonuda = Ponude.Remove(IzabranaPonuda);
+
+				if (izbrisanaPonuda)
+				{
+					try
 					{
 						PonudaService.RemovePonuda(id);
-						MessageBox.Show("Uspešno ste obrisali ponudu!", "Ponuda obrisana");
+						dialogModel.IsError = false;
+						dialogModel.Message = "Uspešno ste obrisali ponudu!";
+						newDialog.DataContext = dialogModel;
+						newDialog.Owner = window;
+						newDialog.ShowDialog();
 					}
-					else {
-						MessageBox.Show("Ne postoji ponuda!", "Greška");
+					catch (Exception) 
+					{
+						dialogModel.IsError = true;
+						dialogModel.Message = "Desila se greška kod brisanja ponude!";
+						newDialog.DataContext = dialogModel;
+						newDialog.Owner = window;
+						newDialog.ShowDialog();
 					}
-					
-					break;
-				
+				}
 			}
 		}
 		private ICommand _izmjenaPonudeCommand;

@@ -27,6 +27,7 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <MenuItem Header="Izbor organizatora" FontWeight="Bold" Focusable="False"></MenuItem>
             <MenuItem Header="Početna stranica"
                       ToolTip="Kliknite da biste otišli na početnu stranicu"
                       Command="{Binding PocetnaStranicaCommand}"></MenuItem>

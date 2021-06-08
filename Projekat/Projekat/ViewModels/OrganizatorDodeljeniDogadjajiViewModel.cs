@@ -196,7 +196,7 @@ namespace Projekat.ViewModels
 
         public void Povratak()
         {
-            _navigationStore.CurrentViewModel = _previousModel;
+            _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
         }
 
         private ICommand _pocetnaStranicaCommand;

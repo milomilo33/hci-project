@@ -80,6 +80,7 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <MenuItem Header="Pregled organizatora" FontWeight="Bold" Focusable="False"></MenuItem>
             <MenuItem 
                 ToolTip="Kliknite kako biste otišli na početnu stranicu"
                 Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"></MenuItem>

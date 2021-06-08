@@ -27,7 +27,7 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-
+            <MenuItem Header="Pregled događaja" FontWeight="Bold" Focusable="False"></MenuItem>
            <MenuItem Header="Početna stranica"
                      ToolTip="Kliknite kako biste otišli na početnu stranicu"
                      Command="{Binding PocetnaStranicaCommand}"></MenuItem>
@@ -75,7 +75,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button BorderBrush="Gray" Background="LightGray" Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:EventListView}}}">Detalji</Button>
+                                <Button  Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:EventListView}}}">Detalji</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

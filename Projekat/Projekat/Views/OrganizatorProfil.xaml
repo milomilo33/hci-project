@@ -36,6 +36,7 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <MenuItem Header="Profil korisnika" FontWeight="Bold" Focusable="False"></MenuItem>
             <MenuItem Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"
                       ToolTip="Kliknite da biste otišli na početnu stanicu"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>

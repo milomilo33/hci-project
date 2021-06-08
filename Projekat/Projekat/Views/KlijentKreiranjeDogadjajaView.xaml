@@ -39,6 +39,7 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <MenuItem Header="Kreiranje događaja" FontWeight="Bold" Focusable="False"></MenuItem>
             <MenuItem Header="Početna stranica"
                       ToolTip="Kliknite kako biste otišli na početnu stranicu"
                       Command="{Binding PocetnaStranicaCommand}"></MenuItem>
@@ -103,7 +104,7 @@
                     <TextBlock Text="Obriši" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-
+            
             <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center"  >Vrsta proslave</TextBlock>
 
             <ComboBox

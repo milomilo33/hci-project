@@ -27,6 +27,7 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <MenuItem Header="Pregled saradnika" FontWeight="Bold" Focusable="False"></MenuItem>
             <MenuItem ToolTip="Kliknite kako biste dodali novog saradnika" Command="{Binding AddSaradnikCommand}" Header="Dodaj saradnika"></MenuItem>
             <MenuItem ToolTip="Kliknite kako biste otišli na početnu stranu" Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>

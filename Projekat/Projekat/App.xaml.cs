@@ -20,7 +20,7 @@ namespace Projekat
         protected override void OnStartup(StartupEventArgs e)
         {
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new AdminHomeViewModel(navigationStore);
 
 
             MainWindow = new MainWindow()
@@ -30,9 +30,9 @@ namespace Projekat
             MainWindow.Show();
 
 
-            
-           /*
-            using (var db = new DatabaseContext())
+
+
+            /*using (var db = new DatabaseContext())
             {
                 Adresa adr = new Adresa();
                 adr.Broj = 69;
@@ -153,9 +153,21 @@ namespace Projekat
                 db.Klijenti.Add(k);
 
                 Saradnik s1 = new Saradnik();
+                var stolovi = new List<KapacitetStola>();
+                stolovi.Add(new KapacitetStola { Naziv = "sto1", Kapacitet = 10 });
+                stolovi.Add(new KapacitetStola { Naziv = "sto2", Kapacitet = 8 });
+                stolovi.Add(new KapacitetStola { Naziv = "sto3", Kapacitet = 4 });
+                stolovi.Add(new KapacitetStola { Naziv = "sto4", Kapacitet = 6 });
+                stolovi.Add(new KapacitetStola { Naziv = "sto5", Kapacitet = 2 });
+                stolovi.Add(new KapacitetStola { Naziv = "sto6", Kapacitet = 1 });
+
+                s1.Stolovi = stolovi;
                 s1.Naziv = "Borsalino";
                 s1.Opis = "Nudimo vam izdaju prostora kao i obezbjedjen katering";
-                s1.Tip = "Restoran";
+                s1.Tip = "Lokal";
+                s1.Adresa = adr;
+                s1.BrojTelefona = "0641234567";
+                s1.BrojMesta = 100;
 
                 List<Ponuda> ponude = new List<Ponuda>();
                 ponude.Add(p1);
@@ -231,8 +243,8 @@ namespace Projekat
 
 
 
-            }  
-            */
+            }*/
+
 
 
 

@@ -57,13 +57,15 @@
                                 <RowDefinition
                                             Height="200" />
                                 <RowDefinition
-                                            Height="315" />
+                                            Height="275" />
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
 
-                            <Border BorderThickness="1" BorderBrush="Gray">
+                            <Border BorderThickness="1" BorderBrush="Gray" Width="330" Margin="5 5 5 0" HorizontalAlignment="Center">
                                 <TextBlock Width="350" Background="LightGray" Grid.Row="0" Height="50"
                                        TextAlignment="Center">
                                 <Run Text="{Binding Tip}" FontSize="35"/>
+
                                 </TextBlock>
                             </Border>
                             <Image
@@ -96,10 +98,14 @@
                                     Opis
                                 </TextBlock>
                                 <TextBlock Text="{Binding Opis}" />
-                                <Button Margin="0 15 0 10" Content="Obrisi" 
-                                        Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}">
-                                </Button>
+                                
                             </StackPanel>
+                            <Button Grid.Row="3" Margin="15" Content="Obrisi" HorizontalAlignment="Right" Width="150"
+                                        Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}">
+                            </Button>
+                            <Button Grid.Row="3" Margin="15" Content="Izmeni" HorizontalAlignment="Left" Width="150"
+                                        Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}">
+                            </Button>
                         </Grid>
                     </materialDesign:Card>
                 </DataTemplate>

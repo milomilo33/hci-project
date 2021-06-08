@@ -102,6 +102,38 @@ namespace Projekat.ViewModels
             }
         }
 
+        private ICommand _editOrganizatorCommand;
+        public ICommand EditOrganizatorCommand
+        {
+            get
+            {
+                if (_editOrganizatorCommand == null)
+                    _editOrganizatorCommand = new RelayCommand(_editOrganizatorCommand => EditOrganizatorEvent());
+                return _editOrganizatorCommand;
+            }
+        }
+
+        private void EditOrganizatorEvent()
+        {
+            
+            AddOrganizatorViewModel editVM = new AddOrganizatorViewModel();
+            editVM.Email = SelectedOrganizator.Email;
+            editVM.Ime = SelectedOrganizator.Ime;
+            editVM.Prezime = SelectedOrganizator.Prezime;
+            editVM.Lozinka = SelectedOrganizator.Lozinka;
+            editVM.PonovljenaLozinka = SelectedOrganizator.Lozinka;
+            editVM.BrojTelefona = SelectedOrganizator.BrojTelefona;
+            editVM.Broj = SelectedOrganizator.Adresa.Broj.ToString();
+            editVM.Ulica = SelectedOrganizator.Adresa.Ulica;
+            editVM.Grad = SelectedOrganizator.Adresa.Grad;
+            editVM.Drzava = SelectedOrganizator.Adresa.Drzava;
+            editVM.IsEdit = true;
+            AddOrganizator edit = new AddOrganizator(editVM);
+            edit.Show();
+            Console.WriteLine(editVM.Ulica);
+
+        }
+
         private void AddOrganizatorEvent()
         {
             AddOrganizator add = new AddOrganizator();

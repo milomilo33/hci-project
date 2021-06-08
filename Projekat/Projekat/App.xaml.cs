@@ -31,7 +31,7 @@ namespace Projekat
 
 
 
-            /*
+
             using (var db = new DatabaseContext())
             {
                 Adresa adr = new Adresa();
@@ -95,7 +95,7 @@ namespace Projekat
                 z1.Opis = "Pronaći restoran";
                 z1.Status = "U obradi";
 
-                z1.Glavni = true;
+                z1.Tip = Zadatak.TipZadatka.GLAVNI;
 
                 Zadatak z2 = new Zadatak();
                 z2.Id = 2;
@@ -103,6 +103,8 @@ namespace Projekat
                 z2.Naziv = "Cveće";
                 z2.Opis = "Pronaći cvećaru";
                 z2.Status = "U obradi";
+                
+                z2.Tip = Zadatak.TipZadatka.DODATNI;
 
 
 
@@ -240,10 +242,6 @@ namespace Projekat
 
                 d3.Zadaci = new List<Zadatak>();
 
-                //    d2.Zadaci = new List<Zadatak>();
-
-                //    d1.Zadaci.Add(z1);
-                //    d1.Zadaci.Add(z2);
 
                 Zadatak z5 = new Zadatak();
                 z5.Id = 5;
@@ -252,7 +250,6 @@ namespace Projekat
                 //z5.Status = "Na čekanju";
                 z5.Dogadjaj = d3;
                 d3.Zadaci.Add(z5);
-                z5.Glavni = true;
                 z5.Tip = Zadatak.TipZadatka.GLAVNI;
                 Predlog pred1 = new Predlog();
                 pred1.Ponuda = p1;
@@ -282,7 +279,7 @@ namespace Projekat
 
                 db.SaveChanges();
             }
-            */
+
 
 
             base.OnStartup(e);

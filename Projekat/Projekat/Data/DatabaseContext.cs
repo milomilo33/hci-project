@@ -26,6 +26,8 @@ namespace Projekat.Data
 
         public DbSet<Ponuda> Ponude { get; set; }
 
+        public DbSet<Predlog> Predlozi { get; set; }
+
         public DbSet<Saradnik> Saradnici { get; set; }
 
         public DbSet<Zadatak> Zadaci { get; set; }

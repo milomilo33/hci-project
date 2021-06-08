@@ -1,0 +1,67 @@
+﻿<Window x:Class="Projekat.Views.IzmjenaPonudeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:Projekat.Views"
+        xmlns:viewModel="clr-namespace:Projekat.ViewModels"
+        mc:Ignorable="d"
+        Title="Detalji dogadjaja" Height="350" Width="455">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Window.Resources>
+    <Window.DataContext>
+        <viewModel:IzmjenaPonudeViewModel/>
+    </Window.DataContext>
+    <DockPanel>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="60"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="40"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Saradnik</TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1" TextAlignment="Center" VerticalAlignment="Center" Text="{Binding Saradnik.Naziv, Mode=OneWay}" IsReadOnly="true"/>
+            <TextBlock Grid.Row="1" Grid.Column="3"  TextAlignment="Left" VerticalAlignment="Center">Cena</TextBlock>
+            <TextBox  Grid.Row="2" Grid.Column="3"    BorderBrush="Gray" BorderThickness="1" Text="{Binding Cena, Mode=TwoWay}"
+                      ToolTip="Kliknite da biste izmenili cenu ponude"/>
+            <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Opis</TextBlock>
+            <TextBox  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2" BorderBrush="Gray" BorderThickness="1" Text="{Binding Opis, Mode=OneWay}" IsReadOnly="true"/>
+            <Button  Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Height="35" Command="{Binding IzmjenaCommand}">Izmeni</Button>
+            <Button
+                BorderThickness="0"
+                ToolTip="Kliknite da biste obrisali odabir organizatora ukoliko Vam nije potreban specifičan organizator"
+                VerticalAlignment="Center"
+                materialDesign:ButtonAssist.CornerRadius="6"
+                Grid.Row="10" Grid.Column="3"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                Command="{Binding OdustaniCommand}">Odustani</Button>
+        </Grid>
+    </DockPanel>
+</Window>

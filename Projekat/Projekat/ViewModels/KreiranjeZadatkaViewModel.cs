@@ -119,10 +119,22 @@ namespace Projekat.ViewModels
         }
         public KreiranjeZadatkaViewModel()
         {
-            
+        }
+
+        public KreiranjeZadatkaViewModel(int id)
+        {
+            IdDogadjaja = id;
             ObservableCollection<string> list = new ObservableCollection<string>();
-            list.Add("Glavni zahtev");
-            list.Add("Dodatni zahtev");
+            if (ZadatakService.proveraDaLiPostoji(IdDogadjaja))
+            {
+                list.Add("Glavni zahtev");
+                list.Add("Dodatni zahtev");
+            }
+            else
+            {
+                list.Add("Dodatni zahtev");
+            }
+
             Tipovi = list;
         }
 

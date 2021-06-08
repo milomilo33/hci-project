@@ -1,4 +1,5 @@
 ﻿using Projekat.Commands;
+using Projekat.Data;
 using Projekat.Model;
 using Projekat.Service;
 using Projekat.Stores;
@@ -9,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Projekat.ViewModels
@@ -97,14 +99,56 @@ namespace Projekat.ViewModels
             get
             {
                 if (_predlogOrganizatoraCommand == null)
-                    _predlogOrganizatoraCommand = new RelayCommand(_predlogOrganizatoraCommand => OtvoriPredlogOrganizatora());
+                    _predlogOrganizatoraCommand = new RelayCommand(window => OtvoriPredlogOrganizatora((Window) window));
                 return _predlogOrganizatoraCommand;
             }
         }
-        public void OtvoriPredlogOrganizatora()
+        public void OtvoriPredlogOrganizatora(Window window)
         {
-            // ovde ide prozor predloga
-            _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+            if (SelectedDogadjaj.StatusEnum == Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_ORGANIZATOR)
+            {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Čeka se predlog organizatora.";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+            }
+            else if (SelectedDogadjaj.StatusEnum == Dogadjaj.STATUS_DOGADJAJA.NEDODELJEN)
+            {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Nijedan organizator nije još prihvatio događaj.";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+            }
+            else
+            {
+                // ucitavanje i otvaranje stranice predloga
+
+                using (var db = new DatabaseContext())
+                {
+                    //List<Dogadjaj> dogadjajiZaKlijenta = db.Klijenti.Include("Dogadjaji").Include("Dogadjaji.Organizator").SingleOrDefault(k => k.Email.Equals(email)).Dogadjaji;
+                    //if (dogadjajiZaKlijenta == null)
+                    //{
+                    //    dogadjajiZaKlijenta = new List<Dogadjaj>();
+                    //}
+                    List<Zadatak> zadaci = db.Dogadjaji.Include("Zadaci").
+                                                   Include("Zadaci.IzabraniPredlog").
+                                                   Include("Zadaci.IzabraniPredlog.Ponuda").
+                                                   Include("Zadaci.IzabraniPredlog.Ponuda.Saradnik").
+                                                   Include("Zadaci.IzabraniPredlog.Ponuda.Saradnik.Adresa").
+                                                   SingleOrDefault(d => d.Id == SelectedDogadjaj.Id).
+                                                   Zadaci; 
+                    Predlog predlog = zadaci.Find(z => z.Tip == Zadatak.TipZadatka.GLAVNI).IzabraniPredlog;
+
+                    PregledPredlogaViewModel pregledPredlogaViewModel = new PregledPredlogaViewModel(_navigationStore, predlog, zadaci);
+                    _navigationStore.CurrentViewModel = pregledPredlogaViewModel;
+                }
+            }
         }
 
 
@@ -124,7 +168,10 @@ namespace Projekat.ViewModels
             detailsModel.Vrsta = SelectedDogadjaj.VrstaProslave;
             detailsModel.Budzet = SelectedDogadjaj.Budzet;
             detailsModel.Tema = SelectedDogadjaj.Tema;
-            detailsModel.Organizator = SelectedDogadjaj.Organizator.Ime + " " + SelectedDogadjaj.Organizator.Prezime;
+            if (SelectedDogadjaj.Organizator != null)
+            {
+                detailsModel.Organizator = SelectedDogadjaj.Organizator.Ime + " " + SelectedDogadjaj.Organizator.Prezime;
+            }
             detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd/MM/yyyy HH:mm");
             detailsModel.Napomene = SelectedDogadjaj.Napomena;
             detailsModel.MestoOdrzavanja = SelectedDogadjaj.MestoOdrzavanja;

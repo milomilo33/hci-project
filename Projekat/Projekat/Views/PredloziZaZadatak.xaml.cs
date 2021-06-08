@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Projekat.ViewModels.IzmjenaPonudeViewModel;
 
 namespace Projekat.Views
 {
@@ -22,6 +23,20 @@ namespace Projekat.Views
         public PredloziZaZadatak()
         {
             InitializeComponent();
+            Loaded += Predlozi_Loaded;
+        }
+
+        private void Predlozi_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ICloseWindow vm)
+            {
+                vm.Close += () =>
+                {
+                    this.Close();
+                   
+                };
+            }
+
         }
     }
 }

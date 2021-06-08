@@ -88,6 +88,7 @@
                                     <Button Command="{Binding Path=DataContext.TaskCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
                                             Visibility="{Binding Path=DataContext.IsKlijent, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}, Converter={StaticResource InverseBoolToVisConverter}}">Zadaci</Button>
                                     <Button Command="{Binding Path=DataContext.PredlogOrganizatoraCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                             Visibility="{Binding Path=DataContext.IsKlijent, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}, Converter={StaticResource BooleanToVisibilityConverter}}">Predlog organizatora</Button>
                                 </StackPanel>
                             </DataTemplate>

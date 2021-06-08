@@ -79,6 +79,12 @@
                 <views:AdminPregledKlijenataView />
 
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:PregledPredlogaViewModel}">
+                <views:PregledPredlogaView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:RasporedSedenjaViewModel}">
+                <views:RasporedSedenjaView />
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

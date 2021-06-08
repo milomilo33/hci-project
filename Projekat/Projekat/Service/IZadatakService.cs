@@ -12,6 +12,13 @@ namespace Projekat.Service
     {
         
         ObservableCollection<Zadatak> sviZadaciZaDogadjaj(int id);
+
+        Zadatak getZadatak(int id);
+        Zadatak getZadatakSaPredlogom(int id);
+
+        Boolean proveraGlavniZadatak(int id);
+
+        Boolean proveraDaLiPostoji(int id);
       
     }
 }

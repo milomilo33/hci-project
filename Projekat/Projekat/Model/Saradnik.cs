@@ -23,5 +23,9 @@ namespace Projekat.Model
         public List<Dogadjaj> Dogadjaji { get; set; }
 
         public List<Ponuda> Ponude { get; set; }
+
+        public int BrojMesta { get; set; }
+
+        public List<KapacitetStola> Stolovi { get; set; }
     }
 }

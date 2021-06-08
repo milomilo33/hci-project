@@ -18,6 +18,8 @@
                 </Style>
             </Style.Resources>
         </Style>
+
+        
     </Window.Resources>
     <DockPanel>
         <Grid>
@@ -49,7 +51,18 @@
             <TextBlock Grid.Row="2" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"  >Opis</TextBlock>
             <TextBox  Grid.Row="3" Grid.Column="1" Height="25" Text="{Binding Opis}" BorderBrush="Gray" BorderThickness="1"/>
             <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Tip</TextBlock>
-            <TextBox  Grid.Row="5" Grid.Column="1" Height="25" Text="{Binding Tip}" BorderBrush="Gray" BorderThickness="1"/>
+            
+            <ComboBox SelectionChanged="ComboBox_SelectionChanged" Grid.Row="5" Grid.Column="1" Height="25" Width="150" HorizontalAlignment="Left" BorderBrush="Gray" BorderThickness="1">
+                <ComboBoxItem>Lokal</ComboBoxItem>
+                <ComboBoxItem>Drugo...</ComboBoxItem>
+            </ComboBox>
+            
+            <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Visibility="{Binding Path=IsLokal, FallbackValue=Visible, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Right">Raspored mesta</TextBlock>
+           <!-- <TextBox  Grid.Row="5" Grid.Column="1" Height="25" Width="130" HorizontalAlignment="Right" Visibility="{Binding Path=IsLokal, FallbackValue=Visible, Converter={StaticResource BoolToVis}}" Text="{Binding BrojMesta}" BorderBrush="Gray" BorderThickness="1" PreviewTextInput="NumberTextInput"/>
+-->
+            <Button Grid.Row="5" Grid.Column="1" Width="115" HorizontalAlignment="Right" Height="25" BorderBrush="Orange" Background="White" Command="{Binding FileOpenCommand}" Visibility="{Binding Path=IsLokal, FallbackValue=Visible, Converter={StaticResource BoolToVis}}">Izaberi fajl</Button>
+            <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Visibility="{Binding Path=IsOther, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Right">Naziv tipa</TextBlock>
+            <TextBox  Grid.Row="5" Grid.Column="1" Height="25" Width="130" HorizontalAlignment="Right" Visibility="{Binding Path=IsOther, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}" Text="{Binding Tip}" BorderBrush="Gray" BorderThickness="1"/>
             <TextBlock Grid.Row="6" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Broj telefona</TextBlock>
             <TextBox  Grid.Row="7" Grid.Column="1" Height="25" Text="{Binding BrojTelefona}" BorderBrush="Gray" BorderThickness="1" PreviewTextInput="NumberTextInput"/>
             <TextBlock Grid.Row="0" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Ulica</TextBlock>
@@ -60,12 +73,15 @@
             <TextBox  Grid.Row="3" Grid.Column="3" Height="25" HorizontalAlignment="Left" Width="140" Text="{Binding Grad}" BorderBrush="Gray" BorderThickness="1"  />
             <TextBlock Grid.Row="2" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140">Drzava</TextBlock>
             <TextBox  Grid.Row="3" Grid.Column="3" Height="25" HorizontalAlignment="Right" Width="140" Text="{Binding Drzava}" BorderBrush="Gray" BorderThickness="1"  />
-            <Border BorderThickness="1" BorderBrush="Gray" Margin="0 10 0 0" Grid.Row="4" Grid.Column="3" Grid.RowSpan="4">
-                <controls:MapControl x:Name="mapControl" DockPanel.Dock="Top" ZoomInteractionMode="GestureAndControl"
-                     TiltInteractionMode="GestureAndControl" MapServiceToken="nbFFVvcrKdFjoGGq17qS~tz3brxF8TVwKHWwrZbEIig~AhYaWDojKBWRKux3ZZ0MOiyBjQbXCfSp62g9NMd1wx1-UZhVfO1sUBL9tP3qEsBG" />
+            <Border BorderThickness="1" BorderBrush="Gray" Margin="0 10 0 0" Grid.Row="4" Grid.Column="3" Grid.RowSpan="4" DockPanel.Dock="Top">
+                <controls:MapControl x:Name="mapControl" ZoomInteractionMode="GestureAndControl" 
+                     Loaded="MapControl_Loaded" TiltInteractionMode="GestureAndControl" MapServiceToken="nbFFVvcrKdFjoGGq17qS~tz3brxF8TVwKHWwrZbEIig~AhYaWDojKBWRKux3ZZ0MOiyBjQbXCfSp62g9NMd1wx1-UZhVfO1sUBL9tP3qEsBG">
+                </controls:MapControl>
             </Border>
-            <Button BorderBrush="Blue" Background="LightBlue" Grid.Column="1" Grid.Row="9" Width="150" Content="Dodaj" Command="{Binding AddSaradnikCommand}"/>
-            <Button BorderBrush="Blue" Background="White" Grid.Column="3" Grid.Row="9" Width="150" Content="Odustani"/>
+            <Button Grid.Column="1" Grid.Row="9" Width="150" Content="Dodaj" Command="{Binding AddSaradnikCommand}"/>
+            <Button Grid.Column="1" Grid.Row="9" Width="150" Content="Izmeni" Command="{Binding EditSaradnikCommand}" Visibility="{Binding IsEdit, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}"/>
+            <Button BorderBrush="Blue" Background="White" Grid.Column="3" Grid.Row="9" Width="150" Content="Prikazi adresu" HorizontalAlignment="Left" Click="Load_On_Map"/>
+            <Button BorderBrush="Orange" Background="White" Grid.Column="3" Grid.Row="9" Width="100" Content="Odustani" HorizontalAlignment="Right"/>
         </Grid>
     </DockPanel>
 </Window>

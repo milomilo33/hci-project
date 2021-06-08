@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Projekat.Views
 {
     /// <summary>
-    /// Interaction logic for KlijentKreiranjeDogadjajaDialog.xaml
+    /// Interaction logic for RasporedSedenjaView.xaml
     /// </summary>
-    public partial class KlijentKreiranjeDogadjajaDialog : Window
+    public partial class RasporedSedenjaView : UserControl
     {
-        public KlijentKreiranjeDogadjajaDialog()
+        public RasporedSedenjaView()
         {
             InitializeComponent();
         }

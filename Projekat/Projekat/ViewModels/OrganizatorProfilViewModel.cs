@@ -124,8 +124,8 @@ namespace Projekat.ViewModels
 
         private void Edit(Window window)
         {
-            KlijentKreiranjeDogadjajaDialog dialog = new KlijentKreiranjeDogadjajaDialog();
-            KlijentKreiranjeDogadjajaDialogViewModel dialogModel = new KlijentKreiranjeDogadjajaDialogViewModel();
+            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
             if (organizator.Ime == Ime && organizator.Prezime == Prezime && organizator.BrojTelefona == BrojTelefona
                 && organizator.Adresa.Ulica == Ulica && organizator.Adresa.Broj == Broj &&
                 organizator.Adresa.Drzava == Drzava && organizator.Adresa.Grad == Grad)

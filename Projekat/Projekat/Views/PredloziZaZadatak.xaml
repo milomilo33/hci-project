@@ -18,21 +18,6 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-
-            <Button
-                Background="Transparent"
-                BorderThickness="0"
-                ToolTip="Kliknite da biste se vratili na prethodnu stranicu"
-                VerticalAlignment="Center"
-                Command="{Binding PovratakCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
-                                                            Kind="ArrowBackCircle" Height="25" Width="25" Margin="0,0,10,0" />
-                    <TextBlock Text="Povratak" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-
-            <MenuItem Header="Dogadjaji"></MenuItem>
             <MenuItem Header="Početna stranica"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
         </Menu>
@@ -49,7 +34,8 @@
 
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" BorderBrush="Gray" Background="LightGray" Command="{Binding AcceptCommand}">Prihvati ponudu</Button>
+
+            <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" BorderBrush="Gray" Background="LightGray" Command="{Binding AcceptCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Prihvati ponudu</Button>
             <DataGrid Grid.Row="2"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"
@@ -59,7 +45,8 @@
                       HeadersVisibility="All"
                       IsReadOnly="True"
                       CanUserSortColumns="True"
-                      SelectedItem="{Binding Path=SelectedPonuda}"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding SelectedPonuda}"
                       Background="White">
                 <DataGrid.Columns>
                     <DataGridTextColumn
@@ -68,15 +55,15 @@
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
                     <materialDesign:DataGridTextColumn
                                 Header="Opis ponude"
-                                Binding="{Binding Ponuda.Opis}"
+                                Binding="{Binding Opis}"
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
                     </materialDesign:DataGridTextColumn>
                     <DataGridTextColumn
-                                Binding="{Binding Ponuda.Saradnik.Naziv}"
+                                Binding="{Binding Saradnik.Naziv}"
                                 Header="Saradnik"
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
                     <DataGridTextColumn
-                                Binding="{Binding Ponuda.Cena}"
+                                Binding="{Binding Cena}"
                                 Header="Cena"
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
                 </DataGrid.Columns>

@@ -60,10 +60,6 @@ namespace Projekat.Service
                 {
 					dogadjajiZaKlijenta = new List<Dogadjaj>();
                 }
-				//foreach (Dogadjaj dog in dogadjajiZaKlijenta)
-    //            {
-				//	dog.
-    //            }
 				dogadjaji = new ObservableCollection<Dogadjaj>(dogadjajiZaKlijenta);
 			}
 

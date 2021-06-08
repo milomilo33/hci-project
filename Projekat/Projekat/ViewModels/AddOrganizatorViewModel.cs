@@ -1,9 +1,15 @@
-﻿using Projekat.Commands;
+﻿using Geocoding;
+using Newtonsoft.Json.Linq;
+using Projekat.Commands;
 using Projekat.Data;
 using Projekat.Model;
 using Projekat.Stores;
 using System;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
 
@@ -14,6 +20,20 @@ namespace Projekat.ViewModels
 
         public AddOrganizatorViewModel()
         {
+        }
+
+        
+        public bool EmailValid { get; set; }
+
+        private bool _isEdit;
+        public bool IsEdit 
+        { 
+            get => _isEdit; 
+            set
+            {
+                _isEdit = value;
+                OnPropertyChanged(nameof(IsEdit));
+            }
         }
 
         private bool _emailExists = false;
@@ -159,6 +179,109 @@ namespace Projekat.ViewModels
             }
         }
 
+        private ICommand _editCommand;
+        public ICommand EditCommand
+        {
+            get
+            {
+                if (_editCommand == null)
+                    _editCommand = new RelayCommand(_editCommand => EditEvent());
+                return _editCommand;
+            }
+        }
+
+        private void EditEvent()
+        {
+            using (var db = new DatabaseContext())
+            {
+                if (string.IsNullOrWhiteSpace(Grad) ||
+                                string.IsNullOrWhiteSpace(Ulica) ||
+                                string.IsNullOrWhiteSpace(Broj) ||
+                                string.IsNullOrWhiteSpace(Email) ||
+                                string.IsNullOrWhiteSpace(Ime) ||
+                                string.IsNullOrWhiteSpace(Prezime) ||
+                                string.IsNullOrWhiteSpace(BrojTelefona))
+                {
+                    MessageBox.Show("Morate uneti podatke u sva polja forme.", "Upozorenje!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+
+
+                Organizator organizator = db.Organizatori.Include("Adresa").FirstOrDefault(o => o.Email == Email); 
+                Adresa adresa = organizator.Adresa;
+                Console.WriteLine(Grad);
+                adresa.Grad = Grad;
+                adresa.Ulica = Ulica;
+                int.TryParse(Broj, out int result);
+                if (result == 0)
+                {
+                    return;
+                }
+                adresa.Broj = result;
+                adresa.Drzava = Drzava;
+
+                organizator.Email = Email;
+                organizator.Ime = Ime;
+                organizator.Prezime = Prezime;
+                organizator.Adresa = adresa;
+                organizator.BrojTelefona = BrojTelefona;
+
+                if (Lozinka != PonovljenaLozinka)
+                {
+                    LozinkaCheck = true;
+                    return;
+                }
+                organizator.Lozinka = Lozinka;
+
+
+                db.SaveChanges();
+                EmailExists = false;
+                LozinkaCheck = false;
+                Console.WriteLine("AAAAAAAAADED");
+            }
+        }
+
+        public (double, double) GetLocationFromAddressAsync()
+        {
+            double lat = -1, lon = -1;
+
+            string address = $"{Drzava} {Grad} {Ulica} {Broj}";
+            JArray result;
+
+            string query = $"q={address}&polygon_geojson=1&format=jsonv2&limit=5";
+            var req = (HttpWebRequest)HttpWebRequest.Create("https://nominatim.openstreetmap.org/search.php?" + query);
+            req.Method = "GET";
+            req.UserAgent = ".NET Framework Test Client";
+            using (var resp = req.GetResponse())
+            {
+                var res = new StreamReader(resp.GetResponseStream()).ReadToEnd();
+                result = JArray.Parse(res);
+
+            }
+
+            if (result.IsNullOrEmpty())
+            {
+                return (-1, -1);
+            }
+
+            var properties = result.Children<JObject>().Properties();
+
+            foreach (JProperty property in properties)
+            {
+                if (property.Name == "lat")
+                {
+                    lat = double.Parse(property.Value.ToString());
+                }
+                if (property.Name == "lon")
+                {
+                    lon = double.Parse(property.Value.ToString());
+                }
+            }
+            return (lat, lon);
+
+        }
+
         private void AddEvent()
         {
             using (var db = new DatabaseContext())
@@ -175,6 +298,18 @@ namespace Projekat.ViewModels
                     return;
                 }
 
+                try
+                {
+                    var address = new MailAddress(Email).Address;
+                }
+                catch (FormatException)
+                {
+                    EmailValid = true;
+                    OnPropertyChanged(nameof(EmailValid));
+                    return;
+                }
+
+
                 Organizator organizator = new Organizator();
                 Adresa adresa = new Adresa();
 
@@ -190,6 +325,12 @@ namespace Projekat.ViewModels
 
                 if(db.Organizatori.Any(o => o.Email == Email)) {
                     EmailExists = true;
+                    return;
+                }
+
+                if (GetLocationFromAddressAsync() == (-1, -1))
+                {
+                    System.Windows.MessageBox.Show("Adresa koju ste uneli ne postoji", "Upozorenje!", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
@@ -212,7 +353,9 @@ namespace Projekat.ViewModels
                 db.SaveChanges();
                 EmailExists = false;
                 LozinkaCheck = false;
-                Console.WriteLine("AAAAAAAAADED");
+                EmailValid = false;
+                OnPropertyChanged(nameof(EmailValid));
+                Console.WriteLine("ADDED Organizator");
             }
         }
     }

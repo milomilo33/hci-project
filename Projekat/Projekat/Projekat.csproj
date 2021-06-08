@@ -282,8 +282,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converters\DogadjajStatusToKlijentPredlogVisibleBoolean.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
     <Compile Include="Data\DatabaseContext.cs" />
+    <Compile Include="Model\Gost.cs" />
+    <Compile Include="Model\KapacitetStola.cs" />
     <Compile Include="Model\Predlog.cs" />
     <Compile Include="Service\DogadjajService.cs" />
     <Compile Include="Service\IDogadjajService.cs" />
@@ -302,6 +305,7 @@
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\AddSaradnikViewModel.cs" />
     <Compile Include="ViewModels\AdminPregledSaradnikaViewModel.cs" />
+    <Compile Include="ViewModels\DodajGostaDialogViewModel.cs" />
     <Compile Include="ViewModels\DodajPonuduViewModel.cs" />
     <Compile Include="ViewModels\AddOrganizatorViewModel.cs" />
     <Compile Include="ViewModels\AdminHomeViewModel.cs" />
@@ -311,8 +315,11 @@
     <Compile Include="ViewModels\EventListViewModel.cs" />
     <Compile Include="ViewModels\IzmenaZadatkaViewModel.cs" />
     <Compile Include="ViewModels\KomunikacijaViewModel.cs" />
+    <Compile Include="ViewModels\IzmjenaPonudeViewModel.cs" />
     <Compile Include="ViewModels\KreiranjeZadatkaViewModel.cs" />
-    <Compile Include="ViewModels\KlijentKreiranjeDogadjajaDialogViewModel.cs" />
+    <Compile Include="ViewModels\PregledPredlogaViewModel.cs" />
+    <Compile Include="ViewModels\RasporedSedenjaViewModel.cs" />
+    <Compile Include="ViewModels\SuccessOrErrorDialogViewModel.cs" />
     <Compile Include="ViewModels\KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\KlijentKreiranjeDogadjajaViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -325,6 +332,7 @@
     <Compile Include="ViewModels\OrganizatorProfilViewModel.cs" />
     <Compile Include="ViewModels\AdminPregledKlijenataViewModel.cs" />
     <Compile Include="ViewModels\PredloziZaZadatakViewModel.cs" />
+
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
@@ -347,6 +355,9 @@
     <Compile Include="Views\CreateTask.xaml.cs">
       <DependentUpon>CreateTask.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DodajGostaDialogView.xaml.cs">
+      <DependentUpon>DodajGostaDialogView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DodajPonudu.xaml.cs">
       <DependentUpon>DodajPonudu.xaml</DependentUpon>
     </Compile>
@@ -365,14 +376,24 @@
     <Compile Include="Views\EventListView.xaml.cs">
       <DependentUpon>EventListView.xaml</DependentUpon>
     </Compile>
+
     <Compile Include="Views\IzmenaZadatkaView.xaml.cs">
       <DependentUpon>IzmenaZadatkaView.xaml</DependentUpon>
+   </Compile>
+    <Compile Include="Views\IzmjenaPonudeView.xaml.cs">
+      <DependentUpon>IzmjenaPonudeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KlijentHomeView.xaml.cs">
       <DependentUpon>KlijentHomeView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\KlijentKreiranjeDogadjajaDialog.xaml.cs">
-      <DependentUpon>KlijentKreiranjeDogadjajaDialog.xaml</DependentUpon>
+    <Compile Include="Views\PregledPredlogaView.xaml.cs">
+      <DependentUpon>PregledPredlogaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RasporedSedenjaView.xaml.cs">
+      <DependentUpon>RasporedSedenjaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SuccessOrErrorDialog.xaml.cs">
+      <DependentUpon>SuccessOrErrorDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\KlijentKreiranjeDogadjajaOdabirOrganizatoraView.xaml.cs">
       <DependentUpon>KlijentKreiranjeDogadjajaOdabirOrganizatoraView.xaml</DependentUpon>
@@ -446,6 +467,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
+    <Page Include="Views\DodajGostaDialogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+
     <Page Include="Views\DodajPonudu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -470,7 +497,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+
     <Page Include="Views\IzmenaZadatkaView.xaml">
+  <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\IzmjenaPonudeView.xaml">
+
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -478,7 +511,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\KlijentKreiranjeDogadjajaDialog.xaml">
+    <Page Include="Views\PregledPredlogaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RasporedSedenjaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SuccessOrErrorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -580,6 +621,20 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\saradnik.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="CsvHelper">
+      <Version>27.1.0</Version>
+    </PackageReference>
+    <PackageReference Include="Geocoding.Core">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Geocoding.Microsoft">
+      <Version>4.0.1</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CSV Files\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

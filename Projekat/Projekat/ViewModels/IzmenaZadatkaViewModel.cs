@@ -88,8 +88,8 @@ namespace Projekat.ViewModels
 
         private void Edit(Window window)
         {
-            KlijentKreiranjeDogadjajaDialog dialog = new KlijentKreiranjeDogadjajaDialog();
-            KlijentKreiranjeDogadjajaDialogViewModel dialogModel = new KlijentKreiranjeDogadjajaDialogViewModel();
+            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
             if (zadatak.Opis == Opis && zadatak.Naziv == Naziv)
             {
                 dialogModel.IsError = true;

@@ -1,4 +1,5 @@
 ﻿using Projekat.Commands;
+using Projekat.Data;
 using Projekat.Model;
 using Projekat.Service;
 using Projekat.Stores;
@@ -18,11 +19,13 @@ namespace Projekat.ViewModels
     {
         public ObservableCollection<Zadatak> _zadaci;
         private readonly IZadatakService ZadatakServce = new ZadatakService();
+        private readonly IPonudaService PonudaService = new PonudaService();
         private ICommand _addCommand;
         private ICommand _povratakCommand;
         private ICommand _izmenaCommand;
         private ICommand _komentarCommand;
         private ICommand _prihvatiCommand;
+        private ICommand _sendClientCommand;
 
         public int _idDogadjaja;
         public NavigationStore _navigationStore;
@@ -72,8 +75,7 @@ namespace Projekat.ViewModels
         public void Add()
         {
             CreateTask view = new CreateTask(this);
-            KreiranjeZadatkaViewModel viewModel = new KreiranjeZadatkaViewModel();
-            viewModel.IdDogadjaja = _idDogadjaja;
+            KreiranjeZadatkaViewModel viewModel = new KreiranjeZadatkaViewModel(_idDogadjaja);
             view.DataContext = viewModel;
             view.Show();
 
@@ -129,7 +131,67 @@ namespace Projekat.ViewModels
                 return _prihvatiCommand;
             }
         }
+        public ICommand SendClientCommand
+        {
+            get
+            {
+                if (_sendClientCommand == null)
+                    _sendClientCommand = new RelayCommand(window => Send((Window) window));
+                return _sendClientCommand;
+            }
+        }
 
+        public void Send(Window window)
+        {
+            string s = "";
+            using (var db = new DatabaseContext())
+            {
+                var d = db.Dogadjaji.Find(IdDogadjaja);
+                s = d.Status;
+               
+            }
+            if (s.Equals("Čeka se odgovor klijenta"))
+            {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Predlozi su već poslati klijentu!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+
+            }
+            else
+            {
+
+                if (ZadatakServce.proveraGlavniZadatak(IdDogadjaja))
+                {
+                    using (var db = new DatabaseContext())
+                    {
+                        var d = db.Dogadjaji.Find(IdDogadjaja);
+                        d.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_KLIJENT;
+                        db.SaveChanges();
+                    }
+                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = false;
+                    dialogModel.Message = "Uspešno ste poslali predloge klijentu!";
+                    dialog.DataContext = dialogModel;
+                    dialog.Owner = window;
+                    dialog.ShowDialog();
+                }
+                else
+                {
+                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = "Morate da prihvatite ponudu za glavni zadatak!";
+                    dialog.DataContext = dialogModel;
+                    dialog.Owner = window;
+                    dialog.ShowDialog();
+                }
+            }
+        }
         public void Komentar(Window window)
         {
             Komunikacija view = new Komunikacija();
@@ -142,27 +204,63 @@ namespace Projekat.ViewModels
         }
         public void Izmena(Window window)
         {
-            IzmenaZadatkaView view = new IzmenaZadatkaView(this);
-            IzmenaZadatkaViewModel viewModel = new IzmenaZadatkaViewModel();
-            viewModel._navigationStore = _navigationStore;
-            viewModel.IdDogadjaja = IdDogadjaja;
-            viewModel.zadatak = SelectedZadatak;
-            viewModel.Naziv = SelectedZadatak.Naziv;
-            viewModel.Opis = SelectedZadatak.Opis;
-            view.DataContext = viewModel;
-            view.Owner = window;
-            view.Show();
+            string status = "";
+            using (var db = new DatabaseContext())
+            {
+                var d = db.Dogadjaji.Find(IdDogadjaja);
+                status = d.Status;
+                
+            }
+            if (status.Equals("Čeka se odgovor klijenta"))
+            {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Ne možete da izmenite zadatak, čeka se odgovor klijenta!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
 
+            }
+            else
+            {
+
+                IzmenaZadatkaView view = new IzmenaZadatkaView(this);
+                IzmenaZadatkaViewModel viewModel = new IzmenaZadatkaViewModel();
+                viewModel._navigationStore = _navigationStore;
+                viewModel.IdDogadjaja = IdDogadjaja;
+                viewModel.zadatak = SelectedZadatak;
+                viewModel.Naziv = SelectedZadatak.Naziv;
+                viewModel.Opis = SelectedZadatak.Opis;
+                view.DataContext = viewModel;
+                view.Owner = window;
+                view.Show();
+            }
         }
 
         public void Prihvati(Window window)
         {
-            PredloziZaZadatak view = new PredloziZaZadatak();
-            PredloziZaZadatakViewModel viewModel = new PredloziZaZadatakViewModel();
-           // viewModel.Ponude = 
-           // view.DataContext = viewModel;
-            view.Owner = window;
-            view.Show();
+            var zad = ZadatakServce.getZadatakSaPredlogom(SelectedZadatak.Id);
+            if (zad.IzabraniPredlog != null)
+            {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Već ste prihvatili ponude za ovaj zadatak!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+            }
+            else
+            {
+                PredloziZaZadatak view = new PredloziZaZadatak();
+                PredloziZaZadatakViewModel viewModel = new PredloziZaZadatakViewModel();
+                viewModel.Ponude = PonudaService.svePonudeZaZadatak(SelectedZadatak.Id);
+                viewModel.IdZadatka = SelectedZadatak.Id;
+                view.DataContext = viewModel;
+                view.Owner = window;
+                view.Show();
+            }
 
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Projekat.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,13 @@ namespace Projekat.Views
         public AddOrganizator()
         {
             InitializeComponent();
+        }
+
+        public AddOrganizator(AddOrganizatorViewModel vm)
+        {
+            InitializeComponent();
+            DataContext = vm;
+            
         }
 
         public void NumberTextInput(object sender, TextCompositionEventArgs e)

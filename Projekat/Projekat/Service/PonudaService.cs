@@ -59,12 +59,13 @@ namespace Projekat.Service
 				var zadatak  = db.Zadaci.Find(id);
 				if(zadatak.Tip == Zadatak.TipZadatka.GLAVNI)
                 {
-					//ponude = db.Ponude.Include("Saradnik");
+					
+					ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik").Where(p=> p.Saradnik.Tip.Equals("Lokal")));
                 }
                 else
                 {
-
-                }
+					ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik").Where(p => !p.Saradnik.Tip.Equals("Lokal")));
+				}
 			}
 
 			return ponude;

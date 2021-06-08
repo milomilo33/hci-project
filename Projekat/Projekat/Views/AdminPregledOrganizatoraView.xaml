@@ -60,7 +60,8 @@
                                     <RowDefinition
                                             Height="200" />
                                     <RowDefinition
-                                            Height="300" />
+                                            Height="275" />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
 
                                 <Image
@@ -92,10 +93,14 @@
                                     </TextBlock>
                                     <TextBlock Text="{Binding Email}" />
 
-                                    <Button Content="Obrisi" 
-                                        Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledOrganizatoraView}}}">
-                                    </Button>
+
                                 </StackPanel>
+                                <Button Grid.Row="2" Content="Obrisi" 
+                                        Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledOrganizatoraView}}}" Width="150" HorizontalAlignment="Right" Margin="15">
+                                </Button>
+                                <Button Grid.Row="2" Content="Izmeni" 
+                                        Command="{Binding Path=DataContext.EditOrganizatorCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledOrganizatoraView}}}" Width="150" HorizontalAlignment="Left" Margin="15">
+                                </Button>
                             </Grid>
                         </materialDesign:Card>
                     </DataTemplate>

@@ -76,23 +76,20 @@
                     Header="Naziv saradnika"
                     ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                      />
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Command="{Binding Path=DataContext.IzmjenaPonudeCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PregledPonuda }}}">Izmeni</Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
-                                <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PregledPonuda }}}">Obriši</Button>
+                                <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PregledPonuda }}}"
+                                        ToolTip="Kliknite da biste obrisali ovu ponudu">Obriši</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-            <Button Command="{Binding DodajPonuduCommand}"  Grid.Column="1" Grid.Row="3">Dodaj ponudu</Button>
+            <Button Command="{Binding DodajPonuduCommand}"  
+                    Grid.Column="1" Grid.Row="3"
+                    ToolTip="Kliknite da biste dodali novu ponudu">Dodaj ponudu</Button>
         </Grid>
     </DockPanel>
 </UserControl>

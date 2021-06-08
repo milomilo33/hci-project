@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-             xmlns:local="clr-namespace:Projekat.Views"
+             xmlns:local="clr-namespace:Projekat.Views" 
+             xmlns:val="clr-namespace:Projekat.Validation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
             <UserControl.Resources>
@@ -15,7 +16,14 @@
                         </Style>
                     </Style.Resources>
                 </Style>
-            </UserControl.Resources>
+                <Style TargetType="{x:Type Button}">
+                    <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="6" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+    </UserControl.Resources>
     <DockPanel>
         <Menu DockPanel.Dock="Top" Background="LightGray">
             <Menu.ItemsPanel>
@@ -76,12 +84,51 @@
             SelectedItem="{Binding Saradnik, Mode=TwoWay}">
             </ComboBox>
             <TextBlock Grid.Row="1" Grid.Column="3"  TextAlignment="Left" VerticalAlignment="Center">Cena</TextBlock>
-            <TextBox  Grid.Row="2" Grid.Column="3"    BorderBrush="Gray" BorderThickness="1" Text="{Binding Cena}"/>
+            <TextBox  x:Name="textName1" Grid.Row="2" Grid.Column="3"    BorderBrush="Gray" BorderThickness="1" >
+                <TextBox.Text>
+                    <Binding Path="Cena" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:StringToDoubleValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
             <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Opis</TextBlock>
-            <TextBox  Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2" BorderBrush="Gray" BorderThickness="1" Text="{Binding Opis}"/>
-           
-            <Button  Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Height="35" Command="{Binding DodajCommand}">Dodaj ponudu</Button>
-            <Button  Grid.Column="3" Grid.Row="10" VerticalAlignment="Center" Height="35">Odustani</Button>
+            <TextBox  x:Name="textName2" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2" BorderBrush="Gray" BorderThickness="1" Text="{Binding Opis}"/>
+
+            <Button  Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Height="35" Command="{Binding DodajCommand}" Content="Dodaj" >
+                <Button.Style >
+
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MaterialDesignRaisedButton}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=textName1, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding Text.Length, ElementName=textName2, UpdateSourceTrigger=PropertyChanged}" Value="0">
+                                <Setter Property="IsEnabled" Value="False"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Command="{Binding OdustaniCommand}" Grid.Column="3" Grid.Row="10" VerticalAlignment="Center" Height="35" Style="{StaticResource MaterialDesignRaisedAccentButton}">Odustani</Button>
         </Grid>
     </DockPanel>
 </UserControl>

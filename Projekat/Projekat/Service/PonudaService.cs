@@ -45,10 +45,31 @@ namespace Projekat.Service
 			ObservableCollection<Ponuda> ponude = new ObservableCollection<Ponuda>();
 			using (var db = new DatabaseContext())
 			{
-				ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik"));
+				ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik").Where(p=> p.Nevazeca == false));
 			}
 
 			return ponude;
 		}
-	}
+
+        public ObservableCollection<Ponuda> svePonudeZaZadatak(int id)
+        {
+			ObservableCollection<Ponuda> ponude = new ObservableCollection<Ponuda>();
+			using (var db = new DatabaseContext())
+			{
+				var zadatak  = db.Zadaci.Find(id);
+				if(zadatak.Tip == Zadatak.TipZadatka.GLAVNI)
+                {
+					
+					ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik").Where(p=> p.Saradnik.Tip.Equals("Lokal")));
+                }
+                else
+                {
+					ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik").Where(p => !p.Saradnik.Tip.Equals("Lokal")));
+				}
+			}
+
+			return ponude;
+
+		}
+    }
 }

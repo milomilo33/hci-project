@@ -3,6 +3,7 @@ using Projekat.Data;
 using Projekat.Model;
 using Projekat.Service;
 using Projekat.Stores;
+using Projekat.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -106,6 +107,33 @@ namespace Projekat.ViewModels
 			_navigationStore.CurrentViewModel = new PregledPonudaViewModel(_navigationStore);
 		}
 
+		private ICommand _odustaniCommand;
+		public ICommand OdustaniCommand
+		{
+			get
+			{
+				if (_odustaniCommand == null)
+					_odustaniCommand = new RelayCommand(window => Odustani((Window)window));
+				return _odustaniCommand;
+			}
+		}
+
+		private void Odustani(Window window)
+		{
+
+			Dialog dialog = new Dialog();
+			DialogViewModel viewModel = new DialogViewModel();
+			viewModel._message = "Da li želite da odustanete od dodavanje nove ponude?";
+			dialog.DataContext = viewModel;
+			dialog.Owner = window;
+			dialog.ShowDialog();
+
+			if (viewModel.odgovor == "Da")
+			{
+				Povratak();
+			}
+		}
+
 		private ICommand _dodajCommand;
 
 		public ICommand DodajCommand
@@ -113,44 +141,63 @@ namespace Projekat.ViewModels
 			get
 			{
 				if (_dodajCommand == null)
-					_dodajCommand = new RelayCommand(_dodajCommand => DodajPonudu());
+					_dodajCommand = new RelayCommand(window => DodajPonudu((Window)window));
 				return _dodajCommand;
 			}
 		}
 
-		private void DodajPonudu()
+		private void DodajPonudu(Window window)
 		{
-			NovaPonuda = new Ponuda();
-			NovaPonuda.Cena = double.Parse(Cena);
-			NovaPonuda.Opis = Opis;
-			
-			MessageBoxResult result = MessageBox.Show("Da li želite dodati ponudu '" + NovaPonuda.Opis + "'?", "Dodaj ponudu", MessageBoxButton.YesNo);
-			switch (result)
+
+			Dialog dialog = new Dialog();
+			DialogViewModel viewModel = new DialogViewModel();
+			viewModel._message = "Da li želite da dodate novu ponudu?";
+			dialog.DataContext = viewModel;
+			dialog.Owner = window;
+			dialog.ShowDialog();
+
+			if (viewModel.odgovor == "Da")
 			{
-				case MessageBoxResult.Yes:
-					Ponuda sacuvana = new Ponuda();
-					using (var db = new DatabaseContext())
+				NovaPonuda = new Ponuda();
+				NovaPonuda.Cena = double.Parse(Cena);
+				NovaPonuda.Opis = Opis;
+
+				Ponuda sacuvana = new Ponuda();
+				using (var db = new DatabaseContext())
+				{
+					var resultVar = db.Saradnici.SingleOrDefault(s => s.Id == Saradnik.Id);
+					if (resultVar != null)
 					{
-						var resultVar = db.Saradnici.SingleOrDefault(s => s.Id == Saradnik.Id);
-						if (resultVar != null)
+						NovaPonuda.Saradnik = resultVar;
+						sacuvana = db.Ponude.Add(NovaPonuda);
+						db.SaveChanges();
+
+						SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+						SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+						
+						if (sacuvana != null)
 						{
-							NovaPonuda.Saradnik = resultVar;
-							sacuvana = db.Ponude.Add(NovaPonuda);
-							db.SaveChanges();
+							dialogModel.IsError = false;
+							dialogModel.Message = "Uspešno ste dodali ponudu!";
+							newDialog.DataContext = dialogModel;
+							newDialog.Owner = window;
+							newDialog.ShowDialog();
+							_navigationStore.CurrentViewModel = new PregledPonudaViewModel(_navigationStore);
+						}
+						else
+						{
+							dialogModel.IsError = true;
+							dialogModel.Message = "Desila se greška kod dodavanja nove ponude!";
+							newDialog.DataContext = dialogModel;
+							newDialog.Owner = window;
+							newDialog.ShowDialog();
 						}
 					}
-
-					if (sacuvana != null)
-					{
-						MessageBox.Show("Uspešno ste dodali ponudu!", "Uspeh");
-						_navigationStore.CurrentViewModel = new PregledPonudaViewModel(_navigationStore);
-					}
-					else {
-						MessageBox.Show("Ponuda nije mogla da se doda!", "Greska");
-					}
-					break;
+				}
 
 			}
 		}
+
+		
 	}
 }

@@ -16,6 +16,8 @@ namespace Projekat.ViewModels
     public class OrganizatorProfilViewModel:ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
+        private readonly ViewModelBase _previousViewModel;
+
         private ICommand _editCommand;
         private ICommand _cancelCommand;
         private ICommand _povratakCommand;
@@ -189,9 +191,10 @@ namespace Projekat.ViewModels
 
         }
 
-        public OrganizatorProfilViewModel(NavigationStore navigationStore)
+        public OrganizatorProfilViewModel(NavigationStore navigationStore, ViewModelBase viewModelBase)
         {
             _navigationStore = navigationStore;
+            _previousViewModel = viewModelBase;
             KorisnikStore korisnikStore = KorisnikStore.Instance;
             organizator = LoadOrganizator(korisnikStore.TrenutniKorisnik.Email);
             Email = organizator.Email;
@@ -220,9 +223,37 @@ namespace Projekat.ViewModels
 
         public void Povratak()
         {
+            _navigationStore.CurrentViewModel = _previousViewModel;
+        }
+        private ICommand _pocetnaStranicaCommand;
 
-            _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+        public ICommand PocetnaStranicaCommand
+        {
+            get
+            {
+                if (_pocetnaStranicaCommand == null)
+                    _pocetnaStranicaCommand = new RelayCommand(_pocetnaStranicaCommand => PocetnaStrana());
+                return _pocetnaStranicaCommand;
+            }
         }
 
+        private void PocetnaStrana()
+        {
+            KorisnikStore korisnik = KorisnikStore.Instance;
+            Korisnik k = korisnik.TrenutniKorisnik;
+
+            if (k.GetType() == typeof(Administrator))
+            {
+                _navigationStore.CurrentViewModel = new AdminHomeViewModel(_navigationStore);
+            }
+            else if (k.GetType() == typeof(Organizator))
+            {
+                _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+            }
+            else
+            {
+                _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+            }
+        }
     }
 }

@@ -19,6 +19,8 @@ namespace Projekat.ViewModels
 	{
 		private readonly NavigationStore _navigationStore;
 
+		private readonly ViewModelBase _previousViewModel;
+
 		private readonly IPonudaService PonudaService = new PonudaService();
 
 		private ObservableCollection<Ponuda> _ponude;
@@ -44,9 +46,10 @@ namespace Projekat.ViewModels
 				OnPropertyChanged(nameof(IzabranaPonuda));
 			}
 		}
-		public PregledPonudaViewModel(NavigationStore navigationStore)
+		public PregledPonudaViewModel(NavigationStore navigationStore, ViewModelBase viewModelBase)
 		{
 			_navigationStore = navigationStore;
+			_previousViewModel = viewModelBase;
 			Ponude = PonudaService.svePonude();
 
 		}
@@ -65,7 +68,7 @@ namespace Projekat.ViewModels
 
 		public void Povratak()
 		{
-			_navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+			_navigationStore.CurrentViewModel = _previousViewModel;
 		}
 
 		private ICommand _deleteCommand;
@@ -94,7 +97,12 @@ namespace Projekat.ViewModels
 
 		private void DodajPonuduProzor()
 		{
-			_navigationStore.CurrentViewModel = new DodajPonuduViewModel(_navigationStore);
+			OrganizatorDodavanjePonude view = new OrganizatorDodavanjePonude(this);
+			DodajPonuduViewModel context = new DodajPonuduViewModel();
+			view.DataContext = context;
+			view.Show();
+
+			Ponude = PonudaService.svePonude();
 		}
 		private void DeletePonuda(Window window)
 		{
@@ -162,6 +170,37 @@ namespace Projekat.ViewModels
 			izmena.DataContext = izmenaModel;
 			izmena.Show();
 
+		}
+
+		private ICommand _pocetnaStranicaCommand;
+
+		public ICommand PocetnaStranicaCommand
+		{
+			get
+			{
+				if (_pocetnaStranicaCommand == null)
+					_pocetnaStranicaCommand = new RelayCommand(_pocetnaStranicaCommand => PocetnaStrana());
+				return _pocetnaStranicaCommand;
+			}
+		}
+
+		private void PocetnaStrana()
+		{
+			KorisnikStore korisnik = KorisnikStore.Instance;
+			Korisnik k = korisnik.TrenutniKorisnik;
+
+			if (k.GetType() == typeof(Administrator))
+			{
+				_navigationStore.CurrentViewModel = new AdminHomeViewModel(_navigationStore);
+			}
+			else if (k.GetType() == typeof(Organizator))
+			{
+				_navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+			}
+			else
+			{
+				_navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+			}
 		}
 	}
 }

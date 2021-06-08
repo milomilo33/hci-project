@@ -78,7 +78,7 @@
             <TextBlock Grid.Row="13" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Država</TextBlock>
             <TextBox Grid.Row="14" Grid.Column="3"   Text="{Binding Drzava}"  BorderBrush="Gray" BorderThickness="1"/>
              <Button Grid.Row="16" Grid.Column="1" Content="Registruj" Height="33" HorizontalAlignment="Left" Name="Submit"  Width="180"/>
-            <Button Grid.Row="16" Grid.Column="3" Content="Odustani" Height="33" HorizontalAlignment="Right"  Name="Cancel"  Width="180" Command="{Binding CancelCommand}"/>
+            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="16" Grid.Column="3" Content="Odustani" Height="33" HorizontalAlignment="Right"  Name="Cancel"  Width="180" Command="{Binding CancelCommand}"/>
             
         </Grid>
     </DockPanel>

@@ -355,7 +355,7 @@ namespace Projekat.ViewModels
                 LozinkaCheck = false;
                 EmailValid = false;
                 OnPropertyChanged(nameof(EmailValid));
-                Console.WriteLine("ADDED Organizator");
+               
             }
         }
     }

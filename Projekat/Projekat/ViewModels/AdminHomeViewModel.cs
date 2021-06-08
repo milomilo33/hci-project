@@ -32,7 +32,7 @@ namespace Projekat.ViewModels
 
         private void ViewEvents() 
         {
-            _navigationStore.CurrentViewModel = new EventListViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new EventListViewModel(_navigationStore, _navigationStore.CurrentViewModel);
         }
 
         private ICommand _pregledOrganizatoraCommand;
@@ -55,7 +55,7 @@ namespace Projekat.ViewModels
             {
                 if (_pregledSaradnikaCommand == null)
                     _pregledSaradnikaCommand = new RelayCommand(_pregledSaradnikaCommand =>
-                                                       _navigationStore.CurrentViewModel = new AdminPregledSaradnikaViewModel(_navigationStore));
+                                                       _navigationStore.CurrentViewModel = new AdminPregledSaradnikaViewModel(_navigationStore, _navigationStore.CurrentViewModel));
                 return _pregledSaradnikaCommand;
             }
         }

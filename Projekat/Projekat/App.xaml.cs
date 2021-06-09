@@ -30,7 +30,8 @@ namespace Projekat
             MainWindow.Show();
 
 
-/*
+            /*
+
             using (var db = new DatabaseContext())
             {
                 Adresa adr = new Adresa();
@@ -102,13 +103,21 @@ namespace Projekat
                 z2.Naziv = "Cveće";
                 z2.Opis = "Pronaći cvećaru";
                 z2.Status = "U obradi";
+                
                 z2.Tip = Zadatak.TipZadatka.DODATNI;
+
+
+
+
+
                 Zadatak z3 = new Zadatak();
                 z3.Id = 3;
 
                 z3.Naziv = "Restoran";
                 z3.Opis = "Pronaći restoran";
                 z3.Status = "U obradi";
+
+
 
                 Zadatak z4 = new Zadatak();
                 z4.Id = 4;
@@ -129,6 +138,10 @@ namespace Projekat
                 p2.Cena = 60000;
                 p2.Nevazeca = false;
                 db.Ponude.Add(p2);
+
+
+
+
 
                 Klijent k = new Klijent();
                 k.BrojTelefona = "069222222";
@@ -152,7 +165,7 @@ namespace Projekat
                 s1.Stolovi = stolovi;
                 s1.Naziv = "Borsalino";
                 s1.Opis = "Nudimo vam izdaju prostora kao i obezbjedjen katering";
-                s1.Tip = "Lokal";
+                s1.Tip = "Restoran";
                 s1.Adresa = adr;
 
                 List<Ponuda> ponude = new List<Ponuda>();
@@ -229,28 +242,23 @@ namespace Projekat
 
                 d3.Zadaci = new List<Zadatak>();
 
-                d2.Zadaci = new List<Zadatak>();
-
-                d1.Zadaci.Add(z1);
-                d1.Zadaci.Add(z2);
 
                 Zadatak z5 = new Zadatak();
-                 z5.Id = 5;
-                 z5.Naziv = "Restoran";
-                 z5.Opis = "Pronaći restoran";
-                 z5.Status = "Na čekanju";
-                 z5.Dogadjaj = d3;
-                 d3.Zadaci.Add(z5);
-                 z5.Tip = Zadatak.TipZadatka.GLAVNI;
+                z5.Id = 5;
+                z5.Naziv = "Restoran";
+                z5.Opis = "Pronaći restoran";
+                //z5.Status = "Na čekanju";
+                z5.Dogadjaj = d3;
+                d3.Zadaci.Add(z5);
+                z5.Tip = Zadatak.TipZadatka.GLAVNI;
+                Predlog pred1 = new Predlog();
+                pred1.Ponuda = p1;
+                //pred1.Status = Predlog.STATUS.
+                pred1.Zadatak = z5;
+                z5.IzabraniPredlog = pred1;
 
-                 Predlog pred1 = new Predlog();
-                 pred1.Ponuda = p1;
-                //pred1.Status = Predlog.STATUS;
-                 pred1.Zadatak = z5;
-                 z5.IzabraniPredlog = pred1;
-
-                 db.Dogadjaji.Add(d3);
-                 db.Zadaci.Add(z5);
+                db.Dogadjaji.Add(d3);
+                db.Zadaci.Add(z5);
                 db.Predlozi.Add(pred1);
 
 
@@ -271,8 +279,8 @@ namespace Projekat
 
                 db.SaveChanges();
             }
-*/
 
+            */
 
             base.OnStartup(e);
 

@@ -36,7 +36,8 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <MenuItem Header="Profil" FontWeight="Bold" HorizontalAlignment="Right"></MenuItem>
+            <MenuItem Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"
+                      ToolTip="Kliknite da biste otišli na početnu stanicu"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
         </Menu>
         <Grid>
@@ -94,7 +95,7 @@
 
             <Button Grid.Row="14" Grid.Column="1"  materialDesign:ButtonAssist.CornerRadius="6" Content="Izmeni" Height="33" HorizontalAlignment="Right"   Width="180" Command="{Binding EditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 
-            <Button Grid.Row="14" Grid.Column="3" materialDesign:ButtonAssist.CornerRadius="6" Content="Odustani" Height="33" HorizontalAlignment="Left"   Width="180" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="14" Grid.Column="3" materialDesign:ButtonAssist.CornerRadius="6" Content="Odustani" Height="33" HorizontalAlignment="Left"   Width="180" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 
         </Grid>
     </DockPanel>

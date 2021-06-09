@@ -27,7 +27,10 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <MenuItem Command="{Binding AddSaradnikCommand}" Header="Dodaj saradnika"></MenuItem>
+            <MenuItem Header="Pregled klijenata" Focusable="False" FontWeight="DemiBold"></MenuItem>
+
+            <MenuItem ToolTip="Kliknite kako biste dodali novog saradnika" Command="{Binding AddSaradnikCommand}" Header="Dodaj saradnika"></MenuItem>
+            <MenuItem ToolTip="Kliknite kako biste otišli na početnu stranu" Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"></MenuItem>
             <MenuItem Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}" Header="Izmeni saradnika"></MenuItem>
             <MenuItem Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}" Header="Obrisi saradnika"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>

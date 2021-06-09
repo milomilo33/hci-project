@@ -18,6 +18,7 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
+            <MenuItem Header="Predlozi za zadatak" Focusable="False" FontWeight="DemiBold"></MenuItem>
             <MenuItem Header="Početna stranica"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
         </Menu>
@@ -35,7 +36,7 @@
             </Grid.RowDefinitions>
 
 
-            <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" BorderBrush="Gray" Background="LightGray" Command="{Binding AcceptCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Prihvati ponudu</Button>
+            <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Command="{Binding AcceptCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Prihvati ponudu</Button>
             <DataGrid Grid.Row="2"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"

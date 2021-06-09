@@ -53,7 +53,7 @@
                                 Visibility="{Binding IsError, Converter={StaticResource BooleanToVisibilityConverter}}"/>
 
         <TextBlock Grid.Row="3" Margin="10,0,0,0" Text="{Binding Message}"
-                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                   HorizontalAlignment="Center" VerticalAlignment="Center"  TextWrapping="Wrap"/>
 
         <Button Content="Zatvori" Grid.Row="5" Width="100" Height="25" FontSize="13" 
                 Command="{Binding ZatvoriCommand, Mode=OneWay}" 

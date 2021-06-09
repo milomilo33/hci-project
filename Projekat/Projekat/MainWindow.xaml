@@ -36,10 +36,6 @@
             <DataTemplate DataType="{x:Type viewmodels:PregledPonudaViewModel}">
                 <views:PregledPonuda />
             </DataTemplate>
-
-            <DataTemplate DataType="{x:Type viewmodels:DodajPonuduViewModel}">
-                <views:DodajPonudu/>
-            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:OrganizatorEventTableViewModel}">
                 <views:OrganizatorEventTable />
             </DataTemplate>

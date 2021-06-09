@@ -2,12 +2,14 @@
 using Projekat.Data;
 using Projekat.Model;
 using Projekat.Stores;
+using Projekat.Utility;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Projekat.ViewModels
@@ -16,10 +18,12 @@ namespace Projekat.ViewModels
     {
         private readonly NavigationStore _navigationStore;
 
+        
+
         public PregledPredlogaViewModel(NavigationStore navigationStore, Predlog predlog, List<Zadatak> zadaci)
         {
             _navigationStore = navigationStore;
-
+         
             Predlog = predlog;
             Zadaci = new ObservableCollection<Zadatak>(zadaci);
 
@@ -102,58 +106,68 @@ namespace Projekat.ViewModels
             get
             {
                 if (_otvoriRasporedSedenjaCommand == null)
-                    _otvoriRasporedSedenjaCommand = new RelayCommand(_otvoriRasporedSedenjaCommand => OtvoriRasporedSedenja());
+                    _otvoriRasporedSedenjaCommand = new RelayCommand(window => OtvoriRasporedSedenja((Window) window));
                 return _otvoriRasporedSedenjaCommand;
             }
         }
 
-        private void OtvoriRasporedSedenja()
+        public ObservableCollection<Gost> tempNerasporedjeniGosti { get; set; }
+        public ObservableCollection<KapacitetStola> tempRasporedSedenja { get; set; }
+        public Dogadjaj tempDogadjaj { get; set; }
+
+        private void OtvoriRasporedSedenja(Window window)
         {
             Console.WriteLine("raspored sedenja!");
 
-            using (var db = new DatabaseContext())
+            if (tempNerasporedjeniGosti == null && tempRasporedSedenja == null)
             {
-                int idDogadjaja = Zadaci.First().Dogadjaj.Id;
-                Dogadjaj dogadjaj = db.Dogadjaji.Include("NerasporedjeniGosti")
-                                                .Include("RasporedSedenja")
-                                                .Include("RasporedSedenja.GostiZaStolom")
-                                                .SingleOrDefault(d => d.Id == idDogadjaja);
-
-                //if (dogadjaj.NerasporedjeniGosti == null)
-                //{
-                //    dogadjaj.NerasporedjeniGosti = new List<Gost>();
-                //}
-                if (dogadjaj.RasporedSedenja == null)
+                using (var db = new DatabaseContext())
                 {
-                    List<KapacitetStola> rasporedSedenja = new List<KapacitetStola>();
-                    foreach (Zadatak zad in dogadjaj.Zadaci)
-                    {
-                        if (zad.Tip == Zadatak.TipZadatka.GLAVNI)
-                        {
-                            List<KapacitetStola> kapacitetiStolovaUPonudi = zad.IzabraniPredlog.Ponuda.Saradnik.Stolovi;
-                            foreach (KapacitetStola ks in kapacitetiStolovaUPonudi)
-                            {
-                                KapacitetStola kapacitetSaGostima = new KapacitetStola();
-                                kapacitetSaGostima.Kapacitet = ks.Kapacitet;
-                                kapacitetSaGostima.Naziv = ks.Naziv;
-                                kapacitetSaGostima.GostiZaStolom = new List<Gost>();
-                                rasporedSedenja.Add(kapacitetSaGostima);
-                            }
+                    int idDogadjaja = Zadaci.First().Dogadjaj.Id;
+                    Dogadjaj dogadjaj = db.Dogadjaji.Include("NerasporedjeniGosti")
+                                                    .Include("RasporedSedenja")
+                                                    .Include("RasporedSedenja.GostiZaStolom")
+                                                    .Include("Zadaci.IzabraniPredlog.Ponuda.Saradnik.Stolovi.GostiZaStolom")
+                                                    .SingleOrDefault(d => d.Id == idDogadjaja);
 
-                            break;
+                    //if (dogadjaj.NerasporedjeniGosti == null)
+                    //{
+                    //    dogadjaj.NerasporedjeniGosti = new List<Gost>();
+                    //}
+                    if (dogadjaj.RasporedSedenja == null || dogadjaj.RasporedSedenja.Count() == 0)
+                    {
+                        List<KapacitetStola> rasporedSedenja = new List<KapacitetStola>();
+                        foreach (Zadatak zad in dogadjaj.Zadaci)
+                        {
+                            if (zad.Tip == Zadatak.TipZadatka.GLAVNI)
+                            {
+                                List<KapacitetStola> kapacitetiStolovaUPonudi = zad.IzabraniPredlog.Ponuda.Saradnik.Stolovi;
+                                foreach (KapacitetStola ks in kapacitetiStolovaUPonudi)
+                                {
+                                    KapacitetStola kapacitetSaGostima = new KapacitetStola();
+                                    kapacitetSaGostima.Kapacitet = ks.Kapacitet;
+                                    kapacitetSaGostima.Naziv = ks.Naziv;
+                                    kapacitetSaGostima.GostiZaStolom = new List<Gost>();
+                                    rasporedSedenja.Add(kapacitetSaGostima);
+                                }
+
+                                break;
+                            }
                         }
+
+                        dogadjaj.RasporedSedenja = rasporedSedenja;
                     }
 
-                    Console.WriteLine("raspored dodje");
-                    dogadjaj.RasporedSedenja = rasporedSedenja;
+                    db.SaveChanges();
+                    _navigationStore.CurrentViewModel = new RasporedSedenjaViewModel(_navigationStore, _navigationStore.CurrentViewModel, dogadjaj, window);
                 }
-                else
-                {
-                    Console.WriteLine(dogadjaj.RasporedSedenja.Count());
-                }
+            }
+            else
+            {
+                // ovo znaci da je vec menjan raspored sedenja u ovoj "sesiji" klijenta
 
-                db.SaveChanges();
-                _navigationStore.CurrentViewModel = new RasporedSedenjaViewModel(_navigationStore, _navigationStore.CurrentViewModel, dogadjaj);
+                _navigationStore.CurrentViewModel = new RasporedSedenjaViewModel(_navigationStore, _navigationStore.CurrentViewModel, tempDogadjaj, window,
+                                                                                 tempNerasporedjeniGosti.DeepClone(), tempRasporedSedenja.DeepClone());
             }
         }
 
@@ -203,7 +217,38 @@ namespace Projekat.ViewModels
 
         public void Povratak()
         {
-            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore, true);
+            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore,_navigationStore.CurrentViewModel, true);
+        }
+
+        private ICommand _pocetnaStranicaCommand;
+
+        public ICommand PocetnaStranicaCommand
+        {
+            get
+            {
+                if (_pocetnaStranicaCommand == null)
+                    _pocetnaStranicaCommand = new RelayCommand(_pocetnaStranicaCommand => PocetnaStrana());
+                return _pocetnaStranicaCommand;
+            }
+        }
+
+        private void PocetnaStrana()
+        {
+            KorisnikStore korisnik = KorisnikStore.Instance;
+            Korisnik k = korisnik.TrenutniKorisnik;
+
+            if (k.GetType() == typeof(Administrator))
+            {
+                _navigationStore.CurrentViewModel = new AdminHomeViewModel(_navigationStore);
+            }
+            else if (k.GetType() == typeof(Organizator))
+            {
+                _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+            }
+            else
+            {
+                _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+            }
         }
     }
 }

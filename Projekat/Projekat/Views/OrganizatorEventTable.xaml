@@ -15,9 +15,22 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste se vratili na prethodnu stranicu"
+                VerticalAlignment="Center"
+                Command="{Binding PovratakCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                            Kind="ArrowBackCircle" Height="25" Width="25" Margin="0,0,10,0" />
+                    <TextBlock Text="Povratak" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
             <MenuItem Header="Događaji" FontWeight="DemiBold"></MenuItem>
             <MenuItem Header="Početna stranica"
-                      ToolTip="Kliknite kako biste otišli na početnu stranicu organizatora"></MenuItem>
+                      ToolTip="Kliknite kako biste otišli na početnu stranu"
+                      Command="{Binding PocetnaStranicaCommand}"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
         </Menu>
         <Grid>

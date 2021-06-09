@@ -31,7 +31,7 @@
             </Button>
 
 
-            <MenuItem Header="Početna stranica organizatora" FontWeight="DemiBold"></MenuItem>
+            <MenuItem Header="Početna stranica" FontWeight="DemiBold"></MenuItem>
             <MenuItem Header="Pomoc" HorizontalAlignment="Right"></MenuItem>
         </Menu>
 

@@ -334,7 +334,6 @@
     <Compile Include="ViewModels\OrganizatorProfilViewModel.cs" />
     <Compile Include="ViewModels\AdminPregledKlijenataViewModel.cs" />
     <Compile Include="ViewModels\PredloziZaZadatakViewModel.cs" />
-
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
@@ -378,10 +377,9 @@
     <Compile Include="Views\EventListView.xaml.cs">
       <DependentUpon>EventListView.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="Views\IzmenaZadatkaView.xaml.cs">
       <DependentUpon>IzmenaZadatkaView.xaml</DependentUpon>
-   </Compile>
+    </Compile>
     <Compile Include="Views\IzmjenaPonudeView.xaml.cs">
       <DependentUpon>IzmjenaPonudeView.xaml</DependentUpon>
     </Compile>
@@ -469,12 +467,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
     <Page Include="Views\DodajGostaDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
     <Page Include="Views\DodajPonudu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -499,13 +495,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-
     <Page Include="Views\IzmenaZadatkaView.xaml">
-  <Generator>MSBuild:Compile</Generator>
+      <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\IzmjenaPonudeView.xaml">
-
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -607,6 +601,9 @@
       <Link>.editorconfig</Link>
     </None>
     <None Include="app.manifest" />
+    <None Include="CSV Files\Saradnik1_ok.csv" />
+    <None Include="CSV Files\Saradnik2_err.csv" />
+    <None Include="CSV Files\Saradnik3_err.csv" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -634,10 +631,11 @@
     <PackageReference Include="Geocoding.Microsoft">
       <Version>4.0.1</Version>
     </PackageReference>
+    <PackageReference Include="MicrosoftExpressionInteractions">
+      <Version>3.0.40218</Version>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CSV Files\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

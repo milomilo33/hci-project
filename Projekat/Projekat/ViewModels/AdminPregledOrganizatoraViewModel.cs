@@ -1,20 +1,17 @@
 ﻿using Projekat.Commands;
 using Projekat.Data;
 using Projekat.Model;
-using Projekat.Service;
 using Projekat.Stores;
 using Projekat.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Projekat.ViewModels
 {
-    class AdminPregledOrganizatoraViewModel : ViewModelBase
+    public class AdminPregledOrganizatoraViewModel : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
 
@@ -52,26 +49,60 @@ namespace Projekat.ViewModels
             get
             {
                 if (_deleteCommand == null)
-                    _deleteCommand = new RelayCommand(_deleteCommand => DeleteEvent());
+                    _deleteCommand = new RelayCommand(window => DeleteEvent((Window)window));
                 return _deleteCommand;
             }
         }
 
-        private void DeleteEvent()
+        private void DeleteEvent(Window window)
         {
-           
-            using (var db = new DatabaseContext())
+
+            SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+
+            if (SelectedOrganizator == null)
             {
-                if (!db.Organizatori.Local.Contains(SelectedOrganizator))
-                    db.Organizatori.Attach(SelectedOrganizator);
-                db.Dogadjaji.RemoveRange(db.Dogadjaji.Where(d => d.Organizator.Email == SelectedOrganizator.Email));
-                
-                
-                db.Organizatori.Remove(SelectedOrganizator);
-                db.SaveChanges();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Niste odabrali organizatora za brisanje.";
+                newDialog.DataContext = dialogModel;
+                newDialog.ShowDialog();
+                return;
             }
-            Organizatori.Remove(SelectedOrganizator);
-            
+
+            try
+            {
+                using (var db = new DatabaseContext())
+                {
+                    if (!db.Organizatori.Local.Contains(SelectedOrganizator))
+                        db.Organizatori.Attach(SelectedOrganizator);
+                    db.Dogadjaji.RemoveRange(db.Dogadjaji.Where(d => d.Organizator.Email == SelectedOrganizator.Email));
+
+                    Dialog dialog = new Dialog();
+                    DialogViewModel viewModel = new DialogViewModel();
+                    viewModel._message = "Da li ste sigurni da želite da obrišete organizatora?";
+                    dialog.DataContext = viewModel;
+                    dialog.ShowDialog();
+
+                    if (viewModel.odgovor == "Da")
+                    {
+                        db.Organizatori.Remove(SelectedOrganizator);
+                        db.SaveChanges();
+                        Organizatori.Remove(SelectedOrganizator);
+
+                    }
+
+                }
+            }
+            catch (Exception)
+            {
+                dialogModel.IsError = true;
+                dialogModel.Message = "Došlo je do greške kod brisanja organizatora!";
+                newDialog.DataContext = dialogModel;
+                newDialog.Owner = window;
+                newDialog.ShowDialog();
+            }
+
+
         }
 
         private ICommand _povratakCommand;
@@ -116,6 +147,17 @@ namespace Projekat.ViewModels
         private void EditOrganizatorEvent()
         {
             
+            if(SelectedOrganizator == null)
+            {
+                SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Niste odabrali organizatora za izmenu.";
+                newDialog.DataContext = dialogModel;
+                newDialog.ShowDialog();
+                return;
+            }
+
             AddOrganizatorViewModel editVM = new AddOrganizatorViewModel();
             editVM.Email = SelectedOrganizator.Email;
             editVM.Ime = SelectedOrganizator.Ime;
@@ -128,7 +170,8 @@ namespace Projekat.ViewModels
             editVM.Grad = SelectedOrganizator.Adresa.Grad;
             editVM.Drzava = SelectedOrganizator.Adresa.Drzava;
             editVM.IsEdit = true;
-            AddOrganizator edit = new AddOrganizator(editVM);
+            AddOrganizator edit = new AddOrganizator(this);
+            edit.DataContext = editVM;
             edit.Show();
             Console.WriteLine(editVM.Ulica);
 
@@ -136,9 +179,18 @@ namespace Projekat.ViewModels
 
         private void AddOrganizatorEvent()
         {
-            AddOrganizator add = new AddOrganizator();
-            AddOrganizatorViewModel addVM = new AddOrganizatorViewModel();
+            AddOrganizatorViewModel addVM = new AddOrganizatorViewModel(); 
+            AddOrganizator add = new AddOrganizator(this);
+            add.DataContext = addVM;
             add.Show();
+        }
+        public void refresh()
+        {
+            using (var db = new DatabaseContext())
+            {
+                Organizatori = new ObservableCollection<Organizator>(db.Organizatori.Include("Adresa"));
+                OnPropertyChanged(nameof(Organizatori));
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Toolkit.Win32.UI.Controls.Interop.WinRT;
 using Microsoft.Toolkit.Wpf.UI.Controls;
+using Projekat.Stores;
 using Projekat.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Projekat.ViewModels.IzmjenaPonudeViewModel;
 
 namespace Projekat.Views
 {
@@ -23,18 +25,25 @@ namespace Projekat.Views
     /// </summary>
     public partial class AddSaradnik : Window
     {
-        private (double, double) coordinates { get; set; }
-        public AddSaradnik()
-        {
-            InitializeComponent();
-            DataContext = new AddSaradnikViewModel();
-            
-        }
+        public AdminPregledSaradnikaViewModel Next;
 
-        public AddSaradnik(AddSaradnikViewModel vm)
+        private (double, double) coordinates { get; set; }
+        public AddSaradnik(AdminPregledSaradnikaViewModel next)
         {
             InitializeComponent();
-            DataContext = vm;
+            Loaded += CreateAddOrganizator_Loaded;
+            Next = next;
+        }
+        private void CreateAddOrganizator_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is ICloseWindow vm)
+            {
+                vm.Close += () =>
+                {
+                    this.Close();
+                    Next.refresh();
+                };
+            }
         }
 
         public void NumberTextInput(object sender, TextCompositionEventArgs e)
@@ -54,8 +63,12 @@ namespace Projekat.Views
 
             if (coordinates.Item1 == -1 && coordinates.Item2 == -1)
             {
-                
-                MessageBox.Show("Uneta adresa ne postoji.", "Upozorenje!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Adresa koju ste uneli ne postoji.";
+                newDialog.DataContext = dialogModel;
+                newDialog.ShowDialog();
                 return;
             }
         }

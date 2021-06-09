@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Projekat.Views"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:Projekat.ViewModels" 
-        Title="AddOrganizatorView" Height="400" Width="800">
+        Title="Dodaj organizatora" Height="400" Width="800">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
 
@@ -18,9 +18,7 @@
             </Style.Resources>
         </Style>
         </Window.Resources>
-        <Window.DataContext>
-            <viewModel:AddOrganizatorViewModel/>
-        </Window.DataContext>
+       
     <DockPanel>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -69,9 +67,9 @@
             <TextBox  Grid.Row="7" Grid.Column="3" Height="25" HorizontalAlignment="Left" Width="140" Text="{Binding Grad}" BorderBrush="Gray" BorderThickness="1"  />
             <TextBlock Grid.Row="6" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140">Drzava</TextBlock>
             <TextBox  Grid.Row="7" Grid.Column="3" Height="25" HorizontalAlignment="Right" Width="140" Text="{Binding Drzava}" BorderBrush="Gray" BorderThickness="1"  />
-            <Button BorderBrush="Blue" Background="LightBlue" Grid.Column="1" Grid.Row="9" Width="150" Content="Dodaj" Command="{Binding AddCommand}"/>
-            <Button BorderBrush="Blue" Background="LightBlue" Grid.Column="1" Grid.Row="9" Width="150" Content="Izmeni" Command="{Binding EditCommand}" Visibility="{Binding IsEdit, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}"/>
-            <Button BorderBrush="Blue" Background="White" Grid.Column="3" Grid.Row="9" Width="150" Content="Odustani"/>
+            <Button Grid.Column="1" Grid.Row="9" Width="150" Content="Dodaj" Command="{Binding AddCommand}"/>
+            <Button Grid.Column="1" Grid.Row="9" Width="150" Content="Izmeni" Command="{Binding EditCommand}" Visibility="{Binding IsEdit, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}"/>
+            <Button  Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Column="3" Grid.Row="9" Width="150" Content="Odustani" Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}"/>
         </Grid>
     </DockPanel>
 </Window>

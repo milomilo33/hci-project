@@ -27,9 +27,11 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <MenuItem Header="Pregled događaja" Focusable="False" FontWeight="DemiBold"></MenuItem>
 
-            <MenuItem Header="Dogadjaji"></MenuItem>
-            <MenuItem Header="Početna stranica"></MenuItem>
+            <MenuItem Header="Početna stranica"
+                     ToolTip="Kliknite kako biste otišli na početnu stranicu"
+                     Command="{Binding PocetnaStranicaCommand}"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
         </Menu>
         <Grid>
@@ -45,7 +47,7 @@
 
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" BorderBrush="Gray" Background="LightGray" Command="{Binding AcceptCommand}">Preuzmi</Button>
+            <!-- <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" BorderBrush="Gray" Background="LightGray" Command="{Binding AcceptCommand}">Preuzmi</Button> -->
             <DataGrid Grid.Row="2"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"
@@ -78,13 +80,13 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    <DataGridTemplateColumn>
+                   <!-- <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button BorderBrush="Gray" Background="LightGray" Command="{Binding Path=DataContext.PregledPonudaCommand, RelativeSource={RelativeSource AncestorType={x:Type local:EventListView}}}">Pogledajte Ponude</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    </DataGridTemplateColumn>//-->
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

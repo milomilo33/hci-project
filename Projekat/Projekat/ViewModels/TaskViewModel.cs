@@ -98,7 +98,8 @@ namespace Projekat.ViewModels
 
         public void Povratak()
         {
-            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore);
+
+            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore, _navigationStore.CurrentViewModel);
 
 
         }
@@ -262,6 +263,38 @@ namespace Projekat.ViewModels
                 view.Show();
             }
 
+
+        }
+
+        private ICommand _pocetnaStranicaCommand;
+
+        public ICommand PocetnaStranicaCommand
+        {
+            get
+            {
+                if (_pocetnaStranicaCommand == null)
+                    _pocetnaStranicaCommand = new RelayCommand(_pocetnaStranicaCommand => PocetnaStrana());
+                return _pocetnaStranicaCommand;
+            }
+        }
+
+        private void PocetnaStrana()
+        {
+            KorisnikStore korisnik = KorisnikStore.Instance;
+            Korisnik k = korisnik.TrenutniKorisnik;
+
+            if (k.GetType() == typeof(Administrator))
+            {
+                _navigationStore.CurrentViewModel = new AdminHomeViewModel(_navigationStore);
+            }
+            else if (k.GetType() == typeof(Organizator))
+            {
+                _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+            }
+            else
+            {
+                _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+            }
         }
 
     }

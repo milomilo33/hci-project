@@ -4,18 +4,19 @@ using Projekat.Commands;
 using Projekat.Data;
 using Projekat.Model;
 using Projekat.Stores;
+using Projekat.Views;
 using System;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Input;
+using static Projekat.ViewModels.IzmjenaPonudeViewModel;
 
 namespace Projekat.ViewModels
 {
-    public class AddOrganizatorViewModel : ViewModelBase
+    public class AddOrganizatorViewModel : ViewModelBase, ICloseWindow
     {
 
         public AddOrganizatorViewModel()
@@ -174,8 +175,36 @@ namespace Projekat.ViewModels
             get
             {
                 if (_addCommand == null)
-                    _addCommand = new RelayCommand(_addCommand => AddEvent());
+                {
+                    _addCommand = new RelayCommand(window => AddEvent((Window)window));
+                }
                 return _addCommand;
+            }
+        }
+
+        private ICommand _closeCommand;
+        public ICommand CloseCommand
+        {
+            get
+            {
+                if (_closeCommand == null)
+                    _closeCommand = new RelayCommand(window => CancelEvent((Window)window));
+                return _closeCommand;
+            }
+        }
+
+        private void CancelEvent(Window window)
+        {
+            Dialog dialog = new Dialog();
+            DialogViewModel viewModel = new DialogViewModel();
+            viewModel._message = "Da li ste sigurni da želite da odustanete od dodavanja organizatora?";
+            dialog.DataContext = viewModel;
+            dialog.Owner = window;
+            dialog.ShowDialog();
+
+            if (viewModel.odgovor == "Da")
+            {
+                CloseWindow();
             }
         }
 
@@ -185,12 +214,17 @@ namespace Projekat.ViewModels
             get
             {
                 if (_editCommand == null)
-                    _editCommand = new RelayCommand(_editCommand => EditEvent());
+                    _editCommand = new RelayCommand(window => EditEvent((Window)window));
                 return _editCommand;
             }
         }
 
-        private void EditEvent()
+        public Action Close { get; set; }
+        private void CloseWindow()
+        {
+            Close?.Invoke();
+        }
+        private void EditEvent(Window window)
         {
             using (var db = new DatabaseContext())
             {
@@ -202,7 +236,13 @@ namespace Projekat.ViewModels
                                 string.IsNullOrWhiteSpace(Prezime) ||
                                 string.IsNullOrWhiteSpace(BrojTelefona))
                 {
-                    MessageBox.Show("Morate uneti podatke u sva polja forme.", "Upozorenje!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = "Morate uneti podatke u sva polja forme.";
+                    newDialog.DataContext = dialogModel;
+                    newDialog.Owner = window;
+                    newDialog.ShowDialog();
                     return;
                 }
 
@@ -235,10 +275,23 @@ namespace Projekat.ViewModels
                 organizator.Lozinka = Lozinka;
 
 
-                db.SaveChanges();
                 EmailExists = false;
                 LozinkaCheck = false;
-                Console.WriteLine("AAAAAAAAADED");
+
+                Dialog dialog = new Dialog();
+                DialogViewModel viewModel = new DialogViewModel();
+                viewModel._message = "Da li ste sigurni da želite da izmenite organizatora?";
+                dialog.DataContext = viewModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+
+                if (viewModel.odgovor == "Da")
+                {
+                    db.SaveChanges();
+                }
+                CloseWindow();
+
+                Console.WriteLine("Edited Organizator");
             }
         }
 
@@ -282,7 +335,7 @@ namespace Projekat.ViewModels
 
         }
 
-        private void AddEvent()
+        private void AddEvent(Window window)
         {
             using (var db = new DatabaseContext())
             {
@@ -294,7 +347,13 @@ namespace Projekat.ViewModels
                     string.IsNullOrWhiteSpace(Prezime) ||
                     string.IsNullOrWhiteSpace(BrojTelefona))
                 {
-                    MessageBox.Show("Morate uneti podatke u sva polja forme.", "Upozorenje!", MessageBoxButton.OK ,MessageBoxImage.Warning);
+                    SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = "Morate uneti podatke u sva polja forme.";
+                    newDialog.DataContext = dialogModel;
+                    newDialog.Owner = window;
+                    newDialog.ShowDialog();
                     return;
                 }
 
@@ -330,7 +389,13 @@ namespace Projekat.ViewModels
 
                 if (GetLocationFromAddressAsync() == (-1, -1))
                 {
-                    System.Windows.MessageBox.Show("Adresa koju ste uneli ne postoji", "Upozorenje!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = "Adresa koju ste uneli ne postoji";
+                    newDialog.DataContext = dialogModel;
+                    newDialog.Owner = window;
+                    newDialog.ShowDialog();
                     return;
                 }
 
@@ -350,11 +415,26 @@ namespace Projekat.ViewModels
                 db.Adrese.Add(adresa);
                 db.Organizatori.Add(organizator);
                 
-                db.SaveChanges();
+                
                 EmailExists = false;
                 LozinkaCheck = false;
                 EmailValid = false;
                 OnPropertyChanged(nameof(EmailValid));
+
+                Dialog dialog = new Dialog();
+                DialogViewModel viewModel = new DialogViewModel();
+                viewModel._message = "Da li ste sigurni da želite da dodate organizatora?";
+                dialog.DataContext = viewModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+
+                if (viewModel.odgovor == "Da")
+                {
+                    db.SaveChanges();
+                    
+                }
+                CloseWindow();
+                //window.Close();
                 Console.WriteLine("ADDED Organizator");
             }
         }

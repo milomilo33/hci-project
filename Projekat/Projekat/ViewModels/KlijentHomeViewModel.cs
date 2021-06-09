@@ -26,7 +26,7 @@ namespace Projekat.ViewModels
             {
                 if (_pregledOrganizatoraCommand == null)
                     _pregledOrganizatoraCommand = new RelayCommand(_pregledOrganizatoraCommand => 
-                                                    _navigationStore.CurrentViewModel = new KlijentPregledOrganizatoraViewModel(_navigationStore));
+                                                    _navigationStore.CurrentViewModel = new KlijentPregledOrganizatoraViewModel(_navigationStore, _navigationStore.CurrentViewModel));
                 return _pregledOrganizatoraCommand;
             }
         }
@@ -39,7 +39,7 @@ namespace Projekat.ViewModels
             {
                 if (_kreiranjeDogadjajaCommand == null)
                     _kreiranjeDogadjajaCommand = new RelayCommand(_kreiranjeDogadjajaCommand =>
-                                                    _navigationStore.CurrentViewModel = new KlijentKreiranjeDogadjajaViewModel(_navigationStore));
+                                                    _navigationStore.CurrentViewModel = new KlijentKreiranjeDogadjajaViewModel(_navigationStore, _navigationStore.CurrentViewModel));
                 return _kreiranjeDogadjajaCommand;
             }
         }
@@ -51,7 +51,7 @@ namespace Projekat.ViewModels
             {
                 if (_pregledDogadjajaCommand == null)
                     _pregledDogadjajaCommand = new RelayCommand(_pregledDogadjajaCommand =>
-                                                    _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore, true));
+                                                    _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore, _navigationStore.CurrentViewModel ,true));
                 return _pregledDogadjajaCommand;
             }
         }

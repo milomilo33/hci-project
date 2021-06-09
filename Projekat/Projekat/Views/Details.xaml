@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Projekat.Views"
         xmlns:viewModel="clr-namespace:Projekat.ViewModels"
         mc:Ignorable="d"
-        Title="Detalji dogadjaja" Height="350" Width="455">
+        Title="Detalji dogadjaja" Height="350" Width="455" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Style.Resources>
@@ -60,7 +60,7 @@
             <TextBox  Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Height="25" Text="{Binding BrojGostiju, Mode=OneWay}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1"/>
             <TextBlock Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center"> Mesto održavanja</TextBlock>
             <TextBox  Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="2" Height="25" Text="{Binding MestoOdrzavanja, Mode=OneWay}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1"/>
-            <TextBlock Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center">Dodatne napomene</TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center">Dodatni zahtevi</TextBlock>
             <TextBox  Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="7" Height="40" Text="{Binding DodatniZahtevi, Mode=OneWay}" IsReadOnly="True" BorderBrush="Gray" BorderThickness="1"/>
         </Grid>
     </DockPanel>

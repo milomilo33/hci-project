@@ -166,5 +166,22 @@ namespace Projekat.ViewModels
             }
         }
 
+        private ICommand _odjavaCommand;
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(_odjavaCommand => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
+        }
+
     }
 }

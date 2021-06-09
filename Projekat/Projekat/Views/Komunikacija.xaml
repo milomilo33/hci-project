@@ -7,8 +7,10 @@
         xmlns:viewmodels ="clr-namespace:Projekat.ViewModels"
         xmlns:local="clr-namespace:Projekat.Views"
         mc:Ignorable="d"
+
         WindowStartupLocation="CenterOwner"
         Title="Komentari" Height="550" Width="330">
+
     <Window.DataContext>
         <viewmodels:KomunikacijaViewModel/>
     </Window.DataContext>

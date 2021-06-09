@@ -31,25 +31,19 @@
                       ToolTip="Kliknite kako biste otišli na početnu stranicu"
                       Command="{Binding PocetnaStranicaCommand}"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
-            <Button
-                Background="Transparent"
-                BorderThickness="0"
-                ToolTip="Kliknite da biste se odjavili"
-                
-                HorizontalAlignment="Right"
-                Command="{Binding OdjavaCommand}" Margin="0,0,-151,0" Width="138" >
-                <StackPanel Orientation="Horizontal" Margin="0,0, 30, 0">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
-                                                           Kind="Logout" Height="25" Width="25"  />
-                    <TextBlock Text="Odjava" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+            <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
+                <MenuItem.Header>
+                    <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                           Kind="Logout" Height="35" Width="25"   />
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
         <Grid Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="0.2*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -58,9 +52,9 @@
 
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Grid.Column="0" ToolTip="Kliknite da pošaljete predloge klijentu" HorizontalAlignment="Right" BorderBrush="Gray" Background="LightGray" Command="{Binding Path=DataContext.SendClientCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Pošalji klijentu predloge</Button>
-            <Button Grid.Row="0" Grid.Column="1" ToolTip="Kliknite da biste dodali zadatak" HorizontalAlignment="Right"  Command="{Binding AddCommand}">Dodaj zadatak</Button>
-            <Button Grid.Row="0" Grid.Column="2" ToolTip="Selektujte zadatak iz tabele kako biste ga obrisali" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignRaisedAccentButton}" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Obriši zadatak</Button>
+            <Button Grid.Row="0" Grid.Column="0" ToolTip="Kliknite da pošaljete predloge klijentu"  BorderBrush="Orange" Background="White" HorizontalAlignment="Right"  Command="{Binding Path=DataContext.SendClientCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Pošalji klijentu predloge</Button>
+            <Button Grid.Row="0" Grid.Column="1" ToolTip="Kliknite da biste dodali zadatak" HorizontalAlignment="Right"  Command="{Binding Path=DataContext.AddCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Dodaj zadatak</Button>
+            <Button Grid.Row="0" Grid.Column="2"   ToolTip="Selektujte zadatak iz tabele kako biste ga obrisali" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignRaisedAccentButton}" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Obriši zadatak</Button>
             
 
            
@@ -89,11 +83,6 @@
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                          Width="180">
                     </materialDesign:DataGridTextColumn>
-                    <DataGridTextColumn
-                                Binding="{Binding Status}"
-                                Header="Status"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                         Width="180"/>
                     <DataGridTextColumn
                                 Binding="{Binding Tip}"
                                 Header="Tip"

@@ -69,15 +69,16 @@ namespace Projekat.ViewModels
             get
             {
                 if (_addCommand == null)
-                    _addCommand = new RelayCommand(_addCommand => Add());
+                    _addCommand = new RelayCommand(window => Add((Window) window));
                 return _addCommand;
             }
         }
-        public void Add()
+        public void Add(Window window)
         {
             CreateTask view = new CreateTask(this);
             KreiranjeZadatkaViewModel viewModel = new KreiranjeZadatkaViewModel(_idDogadjaja);
             view.DataContext = viewModel;
+            view.Owner = window;
             view.Show();
 
 
@@ -252,28 +253,58 @@ namespace Projekat.ViewModels
 
         public void Prihvati(Window window)
         {
-            var zad = ZadatakServce.getZadatakSaPredlogom(SelectedZadatak.Id);
-            if (zad.IzabraniPredlog != null)
+            string status = "";
+            using (var db = new DatabaseContext())
+            {
+                var d = db.Dogadjaji.Find(IdDogadjaja);
+                status = d.Status;
+
+            }
+            if (status.Equals("Čeka se odgovor klijenta"))
             {
                 SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
                 SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = true;
-                dialogModel.Message = "Već ste prihvatili ponude za ovaj zadatak!";
+                dialogModel.Message = "Ne možete da prihvatate ponude, čeka se odgovor klijenta!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+
+            }
+            else if (status.Equals("Organizovan"))
+            {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Ne možete da prihvatate ponude, događaj je organizovan!";
                 dialog.DataContext = dialogModel;
                 dialog.Owner = window;
                 dialog.ShowDialog();
             }
             else
             {
-                PredloziZaZadatak view = new PredloziZaZadatak();
-                PredloziZaZadatakViewModel viewModel = new PredloziZaZadatakViewModel();
-                viewModel.Ponude = PonudaService.svePonudeZaZadatak(SelectedZadatak.Id);
-                viewModel.IdZadatka = SelectedZadatak.Id;
-                view.DataContext = viewModel;
-                view.Owner = window;
-                view.Show();
+                var zad = ZadatakServce.getZadatakSaPredlogom(SelectedZadatak.Id);
+                if (zad.IzabraniPredlog != null)
+                {
+                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = "Već ste prihvatili ponude za ovaj zadatak!";
+                    dialog.DataContext = dialogModel;
+                    dialog.Owner = window;
+                    dialog.ShowDialog();
+                }
+                else
+                {
+                    PredloziZaZadatak view = new PredloziZaZadatak();
+                    PredloziZaZadatakViewModel viewModel = new PredloziZaZadatakViewModel();
+                    viewModel.Ponude = PonudaService.svePonudeZaZadatak(SelectedZadatak.Id);
+                    viewModel.IdZadatka = SelectedZadatak.Id;
+                    view.DataContext = viewModel;
+                    view.Owner = window;
+                    view.Show();
+                }
             }
-
 
         }
 
@@ -370,6 +401,22 @@ namespace Projekat.ViewModels
 
                 }
             }
+        }
+        private ICommand _odjavaCommand;
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(_odjavaCommand => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
         }
 
     }

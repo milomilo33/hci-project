@@ -56,8 +56,7 @@ namespace Projekat.ViewModels
         {
             var passwordBox = password as PasswordBox;
             Lozinka = passwordBox.Password;
-            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
-            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+            
             
             using (var db = new DatabaseContext())
             {
@@ -67,10 +66,12 @@ namespace Projekat.ViewModels
                     {
                         if (!k.Lozinka.Equals(Lozinka))
                         {
-                            dialogModel.IsError = true;
-                            dialogModel.Message = "Nevalidna lozinka!";
-                            dialog.DataContext = dialogModel;
-                            dialog.ShowDialog();
+                            SuccessOrErrorDialog dialog1 = new SuccessOrErrorDialog();
+                            SuccessOrErrorDialogViewModel dialogModel1 = new SuccessOrErrorDialogViewModel();
+                            dialogModel1.IsError = true;
+                            dialogModel1.Message = "Nevalidna lozinka!";
+                            dialog1.DataContext = dialogModel1;
+                            dialog1.ShowDialog();
                             //Console.WriteLine("Nevalidna lozinka");
                             return;
                         }
@@ -103,6 +104,8 @@ namespace Projekat.ViewModels
                         }
                     }
                 }
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = true;
                 dialogModel.Message = "Nepostojeći korisnik!";
                 dialog.DataContext = dialogModel;

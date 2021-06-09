@@ -70,7 +70,27 @@ namespace Projekat.ViewModels
         private void Profil()
         {
 
-            _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore, _navigationStore.CurrentViewModel);
+
+            _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore,_navigationStore.CurrentViewModel);
+
+        }
+        private ICommand _odjavaCommand;
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(_odjavaCommand => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
+           // _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore, _navigationStore.CurrentViewModel);
+
 
         }
     }

@@ -12,16 +12,6 @@
     <viewmodels:PredloziZaZadatakViewModel/>
     </Window.DataContext>
     <DockPanel Background="White">
-        <Menu DockPanel.Dock="Top" Height="50">
-            <Menu.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <DockPanel HorizontalAlignment="Stretch"></DockPanel>
-                </ItemsPanelTemplate>
-            </Menu.ItemsPanel>
-            <MenuItem Header="Predlozi za zadatak" Focusable="False" FontWeight="DemiBold"></MenuItem>
-            <MenuItem Header="Početna stranica"></MenuItem>
-            <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
-        </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*" />

@@ -100,7 +100,7 @@ namespace Projekat.ViewModels
 			OrganizatorDodavanjePonude view = new OrganizatorDodavanjePonude(this);
 			DodajPonuduViewModel context = new DodajPonuduViewModel();
 			view.DataContext = context;
-			view.Show();
+			view.ShowDialog();
 
 			Ponude = PonudaService.svePonude();
 		}
@@ -201,6 +201,23 @@ namespace Projekat.ViewModels
 			{
 				_navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
 			}
+		}
+
+		private ICommand _odjavaCommand;
+		public ICommand OdjavaCommand
+		{
+			get
+			{
+				if (_odjavaCommand == null)
+					_odjavaCommand = new RelayCommand(_odjavaCommand => Odjava());
+				return _odjavaCommand;
+			}
+		}
+
+		public void Odjava()
+		{
+			_navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
 		}
 	}
 }

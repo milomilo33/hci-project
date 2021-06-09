@@ -97,7 +97,7 @@ namespace Projekat.ViewModels
                 Zadatak zadatak = new Zadatak();
                 zadatak.Naziv = Naziv;
                 zadatak.Opis = Opis;
-                zadatak.Status = "Na čekanju";
+                //zadatak.Status = "Na čekanju";
                 if(IzabranTip.Equals("Glavni zahtev"))
                 {
                     zadatak.Tip = Zadatak.TipZadatka.GLAVNI;

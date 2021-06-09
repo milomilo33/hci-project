@@ -91,7 +91,7 @@ namespace Projekat.ViewModels
             get
             {
                 if (_odjavaCommand == null)
-                    _odjavaCommand = new RelayCommand(email => Odjava());
+                    _odjavaCommand = new RelayCommand(_odjavaCommand => Odjava());
                 return _odjavaCommand;
             }
         }

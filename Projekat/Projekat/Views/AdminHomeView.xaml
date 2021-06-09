@@ -14,7 +14,23 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="Profil"></MenuItem>
+
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste pogledali svoj profil"
+                VerticalAlignment="Center"
+                Command="{Binding ProfilCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                           Kind="AccountCircle" Height="25" Width="25" Margin="0,0,10,0" />
+                    <TextBlock Text="Profil" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            
+            <MenuItem Header="Pomoc" HorizontalAlignment="Right"></MenuItem>
+           
             <MenuItem Header="Pocetna strana" FontWeight="DemiBold"></MenuItem>
 
             <MenuItem Header="Pomoc" HorizontalAlignment="Right" Margin="0,2,0,-0.4"></MenuItem>

@@ -90,7 +90,17 @@ namespace Projekat.ViewModels
         {
             SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
             SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
-            if (zadatak.Opis == Opis && zadatak.Naziv == Naziv)
+            string validationMessage = ValidationMessage();
+
+            if (!string.IsNullOrWhiteSpace(validationMessage))
+            {
+                dialogModel.IsError = true;
+                dialogModel.Message = validationMessage;
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+            }
+            else if (zadatak.Opis == Opis && zadatak.Naziv == Naziv)
             {
                 dialogModel.IsError = true;
                 dialogModel.Message = "Ništa nije izmenjeno!";
@@ -119,6 +129,21 @@ namespace Projekat.ViewModels
             }
 
 
+        }
+        private string ValidationMessage()
+        {
+            string message = "";
+
+            if (string.IsNullOrWhiteSpace(Naziv))
+            {
+                message += "Morate navesti naziv zadatka!\n\n";
+            }
+            if (string.IsNullOrWhiteSpace(Opis))
+            {
+                message += "Morate navesti opis zadatka!\n\n";
+            }
+
+            return message;
         }
         private void Cancel(Window window)
         {

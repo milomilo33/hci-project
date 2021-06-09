@@ -24,5 +24,18 @@ namespace Projekat.Service
             return komentari;
             
         }
+
+        public ObservableCollection<Komentar> getKomentareZaDogadjaj(int id)
+        {
+
+            ObservableCollection<Komentar> komentari = new ObservableCollection<Komentar>();
+
+            using (var db = new DatabaseContext())
+            {
+                komentari = new ObservableCollection<Komentar>(db.Dogadjaji.Include("Komentari").Include("Komentari.Autor").SingleOrDefault(d => d.Id == id).Komentari.OrderBy(z => z.DatumVremeKomentara));
+            }
+            return komentari;
+
+        }
     }
 }

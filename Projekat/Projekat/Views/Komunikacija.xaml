@@ -7,7 +7,8 @@
         xmlns:viewmodels ="clr-namespace:Projekat.ViewModels"
         xmlns:local="clr-namespace:Projekat.Views"
         mc:Ignorable="d"
-        Title="Komentari" Height="500" Width="330">
+        WindowStartupLocation="CenterOwner"
+        Title="Komentari" Height="550" Width="330">
     <Window.DataContext>
         <viewmodels:KomunikacijaViewModel/>
     </Window.DataContext>
@@ -30,6 +31,8 @@
             <RowDefinition Height="4*"/>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="0.2*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="0.2*"/>
@@ -84,9 +87,33 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <TextBox Grid.Row="3" Width="295" Text="{Binding Sadrzaj, Mode=TwoWay}" ToolTip="Unesite novi komentar">
+        <TextBox Grid.Row="3" Width="295" Text="{Binding Sadrzaj, Mode=TwoWay}" ToolTip="Unesite novi komentar"
+                 materialDesign:HintAssist.Hint="Unesite komentar..." materialDesign:HintAssist.HintOpacity=".26">
         </TextBox>
-        <Button Grid.Row="5" Width="250" Command="{Binding PosaljiCommand}"> Pošalji</Button>
+        <Button Grid.Row="5" Width="250" 
+                Command="{Binding PosaljiCommand}" 
+                ToolTip="Kliknite da biste poslali komentar" 
+                materialDesign:ButtonAssist.CornerRadius="6"
+                Style="{StaticResource MaterialDesignRaisedButton}">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon VerticalAlignment="Center"
+                                                            Kind="SendOutline" Height="30" Width="30" Margin="0,0,10,0" />
+                <TextBlock Text="Pošalji" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        <Button Grid.Row="7"
+                Width="250"
+                Style="{StaticResource MaterialDesignRaisedAccentButton}"
+                Command="{Binding ZatvoriCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                materialDesign:ButtonAssist.CornerRadius="6"
+                ToolTip="Kliknite da biste zatvorili prozor za komunikaciju">
+            <StackPanel Orientation="Horizontal">
+                <materialDesign:PackIcon VerticalAlignment="Center"
+                                                            Kind="CloseOutline" Height="30" Width="30" Margin="0,0,10,0" />
+                <TextBlock Text="Zatvori" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Button>
     </Grid>
 
 </Window>

@@ -293,9 +293,11 @@
     <Compile Include="Service\DogadjajService.cs" />
     <Compile Include="Service\IDogadjajService.cs" />
     <Compile Include="Service\IKomentarService.cs" />
+    <Compile Include="Service\IKorisnikService.cs" />
     <Compile Include="Service\IPonudaService.cs" />
     <Compile Include="Service\IZadatakService.cs" />
     <Compile Include="Service\KomentarService.cs" />
+    <Compile Include="Service\KorisnikService.cs" />
     <Compile Include="Service\PonudaService.cs" />
     <Compile Include="Service\ZadatakService.cs" />
     <Compile Include="Service\ISaradnikService.cs" />
@@ -307,7 +309,9 @@
     <Compile Include="Utility\DragDropExtension.cs" />
     <Compile Include="Utility\ExtensionMethods.cs" />
     <Compile Include="Validation\FutureDateValidationRule.cs" />
+    <Compile Include="Validation\PasswordHelper.cs" />
     <Compile Include="Validation\StringToDoubleValidationRule.cs" />
+    <Compile Include="Validation\StringToIntValidationRule.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
     <Compile Include="ViewModels\AddSaradnikViewModel.cs" />
     <Compile Include="ViewModels\AdminPregledSaradnikaViewModel.cs" />
@@ -325,6 +329,7 @@
     <Compile Include="ViewModels\KreiranjeZadatkaViewModel.cs" />
     <Compile Include="ViewModels\PregledPredlogaDodatniZahteviViewModel.cs" />
     <Compile Include="ViewModels\PregledPredlogaViewModel.cs" />
+    <Compile Include="ViewModels\PromenaLozinkeViewModel.cs" />
     <Compile Include="ViewModels\RasporedSedenjaViewModel.cs" />
     <Compile Include="ViewModels\SuccessOrErrorDialogViewModel.cs" />
     <Compile Include="ViewModels\KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel.cs" />
@@ -399,6 +404,9 @@
     </Compile>
     <Compile Include="Views\PregledPredlogaView.xaml.cs">
       <DependentUpon>PregledPredlogaView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PromenaLozinkeView.xaml.cs">
+      <DependentUpon>PromenaLozinkeView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RasporedSedenjaView.xaml.cs">
       <DependentUpon>RasporedSedenjaView.xaml</DependentUpon>
@@ -527,6 +535,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\PregledPredlogaView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PromenaLozinkeView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

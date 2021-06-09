@@ -1,13 +1,18 @@
-﻿using Projekat.Commands;
+﻿using Geocoding;
+using Newtonsoft.Json.Linq;
+using Projekat.Commands;
 using Projekat.Data;
 using Projekat.Model;
+using Projekat.Service;
 using Projekat.Stores;
 using Projekat.Utility;
 using Projekat.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -319,9 +324,9 @@ namespace Projekat.ViewModels
                 return;
             }
 
+            int idDogadjaja = Zadaci.First().Dogadjaj.Id;
             using (var db = new DatabaseContext())
             {
-                int idDogadjaja = Zadaci.First().Dogadjaj.Id;
                 Dogadjaj dog = db.Dogadjaji.Include("RasporedSedenja")
                                            .Include("NerasporedjeniGosti")
                                            .SingleOrDefault(d => d.Id == idDogadjaja);
@@ -366,10 +371,19 @@ namespace Projekat.ViewModels
             successDialog.Owner = window;
             successDialog.ShowDialog();
 
-            Povratak();
+            // otvoriti poruke
+            Komunikacija porukeDialog = new Komunikacija();
+            KomunikacijaViewModel porukeViewModel = new KomunikacijaViewModel(false);
+            porukeViewModel._idDogadjaja = idDogadjaja;
+            porukeViewModel.Komentari = KomentarService.getKomentareZaDogadjaj(idDogadjaja);
+            porukeDialog.DataContext = porukeViewModel;
+            porukeDialog.Owner = window;
+            porukeDialog.ShowDialog();
 
-            // otvoriti prozor za komunikaciju
+            Povratak();
         }
+
+        private readonly IKomentarService KomentarService = new KomentarService();
 
         private ICommand _povratakCommand;
 
@@ -385,7 +399,7 @@ namespace Projekat.ViewModels
 
         public void Povratak()
         {
-            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore,_navigationStore.CurrentViewModel, true);
+            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore,_navigationStore.CurrentViewModel, IsKlijent);
         }
 
         private ICommand _pocetnaStranicaCommand;
@@ -417,6 +431,54 @@ namespace Projekat.ViewModels
             {
                 _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
             }
+        }
+
+        public (double, double) GetLocationFromAddressAsync()
+        {
+            string drzava = Predlog.Ponuda.Saradnik.Adresa.Drzava;
+            string grad = Predlog.Ponuda.Saradnik.Adresa.Grad;
+            string ulica = Predlog.Ponuda.Saradnik.Adresa.Ulica;
+            int broj = Predlog.Ponuda.Saradnik.Adresa.Broj;
+
+            double lat = -1, lon = -1;
+
+            string address = $"{drzava} {grad} {ulica} {broj}";
+            JArray result;
+
+            string query = $"q={address}&polygon_geojson=1&format=jsonv2&limit=5";
+            var req = (HttpWebRequest)HttpWebRequest.Create("https://nominatim.openstreetmap.org/search.php?" + query);
+            req.Method = "GET";
+            req.UserAgent = ".NET Framework Test Client";
+            using (var resp = req.GetResponse())
+            {
+                var res = new StreamReader(resp.GetResponseStream()).ReadToEnd();
+                result = JArray.Parse(res);
+
+            }
+
+            if (result.IsNullOrEmpty())
+            {
+                return (-1, -1);
+            }
+
+            var properties = result.Children<JObject>().Properties();
+
+            foreach (JProperty property in properties)
+            {
+                if (property.Name == "lat")
+                {
+                    lat = double.Parse(property.Value.ToString());
+                }
+                if (property.Name == "lon")
+                {
+                    lon = double.Parse(property.Value.ToString());
+                }
+            }
+
+
+
+            return (lat, lon);
+
         }
     }
 }

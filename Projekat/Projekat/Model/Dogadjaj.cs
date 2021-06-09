@@ -33,7 +33,6 @@ namespace Projekat.Model
 
         public string Tema { get; set; }
 
-        public string Napomena { get; set; }
 
         private STATUS_DOGADJAJA _statusEnum;
         public STATUS_DOGADJAJA StatusEnum
@@ -106,5 +105,7 @@ namespace Projekat.Model
         public List<Predlog> PrihvaceniDodatniPredlozi { get; set; }
 
         public string MestoOdrzavanja { get; set; }
+
+        public List<Komentar> Komentari { get; set; }
     }
 }

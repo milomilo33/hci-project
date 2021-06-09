@@ -26,6 +26,7 @@ namespace Projekat.ViewModels
         private readonly IZadatakService ZadatakServce = new ZadatakService();
         private ICommand _detailsCommand;
         private ICommand _povratakCommand;
+        
         private Korisnik k;
 
         public ObservableCollection<Dogadjaj> Dogadjaji
@@ -159,6 +160,89 @@ namespace Projekat.ViewModels
             }
         }
 
+        private ICommand _pregledPredlogaCommand;
+        public ICommand PregledPredlogaCommand
+        {
+            get
+            {
+                if (_pregledPredlogaCommand == null)
+                    _pregledPredlogaCommand = new RelayCommand(window => OtvoriPregledPredloga((Window)window));
+                return _pregledPredlogaCommand;
+            }
+        }
+        public void OtvoriPregledPredloga(Window window)
+        {
+            if (SelectedDogadjaj.StatusEnum == Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_KLIJENT)
+            {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Čeka se odgovor klijenta na predlog.";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+            }
+            else
+            {
+                // ucitavanje i otvaranje stranice predloga
+
+                using (var db = new DatabaseContext())
+                {
+                    List<Zadatak> zadaci = db.Dogadjaji.Include("Zadaci").
+                                                   Include("Zadaci.IzabraniPredlog").
+                                                   Include("Zadaci.IzabraniPredlog.Ponuda").
+                                                   Include("Zadaci.IzabraniPredlog.Ponuda.Saradnik").
+                                                   Include("Zadaci.IzabraniPredlog.Ponuda.Saradnik.Adresa").
+                                                   SingleOrDefault(d => d.Id == SelectedDogadjaj.Id).
+                                                   Zadaci;
+                    Predlog predlog = zadaci.Find(z => z.Tip == Zadatak.TipZadatka.GLAVNI).IzabraniPredlog;
+                    if (predlog == null)
+                    {
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Niste izabrali ponudu za ovaj događaj!";
+                        dialog.DataContext = dialogModel;
+                        dialog.Owner = window;
+                        dialog.ShowDialog();
+
+                        return;
+                    }
+
+                    bool organizovan = false;
+                    if (SelectedDogadjaj.StatusEnum == Dogadjaj.STATUS_DOGADJAJA.ORGANIZOVAN)
+                    {
+                        organizovan = true;
+                    }
+                    PregledPredlogaViewModel pregledPredlogaViewModel = new PregledPredlogaViewModel(_navigationStore, predlog, zadaci, organizovan);
+                    _navigationStore.CurrentViewModel = pregledPredlogaViewModel;
+                }
+            }
+        }
+
+        private ICommand _otvoriPorukeCommand;
+        public ICommand OtvoriPorukeCommand
+        {
+            get
+            {
+                if (_otvoriPorukeCommand == null)
+                    _otvoriPorukeCommand = new RelayCommand(window => OtvoriPoruke((Window) window));
+                return _otvoriPorukeCommand;
+            }
+        }
+
+        private void OtvoriPoruke(Window window)
+        {
+            Komunikacija porukeDialog = new Komunikacija();
+            KomunikacijaViewModel porukeViewModel = new KomunikacijaViewModel(false);
+            porukeViewModel._idDogadjaja = SelectedDogadjaj.Id;
+            porukeViewModel.Komentari = KomentarService.getKomentareZaDogadjaj(SelectedDogadjaj.Id);
+            porukeDialog.DataContext = porukeViewModel;
+            porukeDialog.Owner = window;
+            porukeDialog.ShowDialog();
+        }
+
+        private readonly IKomentarService KomentarService = new KomentarService();
 
         public ICommand DetailsCommand
         {
@@ -180,9 +264,10 @@ namespace Projekat.ViewModels
             {
                 detailsModel.Organizator = SelectedDogadjaj.Organizator.Ime + " " + SelectedDogadjaj.Organizator.Prezime;
             }
-            detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd/MM/yyyy HH:mm");
-            detailsModel.Napomene = SelectedDogadjaj.Napomena;
+            detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd.MM.yyyy");
+            detailsModel.DodatniZahtevi = SelectedDogadjaj.DodatniZahtevi;
             detailsModel.MestoOdrzavanja = SelectedDogadjaj.MestoOdrzavanja;
+            detailsModel.BrojGostiju = SelectedDogadjaj.BrojGostiju;
             details.DataContext = detailsModel;
             details.Show();
 
@@ -234,5 +319,7 @@ namespace Projekat.ViewModels
                 _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
             }
         }
+
+       
     }
 }

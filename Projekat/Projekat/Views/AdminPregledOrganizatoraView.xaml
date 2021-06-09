@@ -27,6 +27,8 @@
                         <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
+                <MenuItem Header="Pregled organizatora" Focusable="False" FontWeight="DemiBold"></MenuItem>
+
                 <MenuItem ToolTip="Kliknite kako biste dodali novog organizatora" Header="Dodaj organizatora" Command="{Binding AddOrganizatorCommand}"></MenuItem>
                 <MenuItem ToolTip="Kliknite da biste otišli na početnu stranicu" Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"></MenuItem>
                 <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>

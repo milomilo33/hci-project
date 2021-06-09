@@ -27,8 +27,9 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <MenuItem Header="Pregled događaja" Focusable="False" FontWeight="DemiBold"></MenuItem>
 
-           <MenuItem Header="Početna stranica"
+            <MenuItem Header="Početna stranica"
                      ToolTip="Kliknite kako biste otišli na početnu stranicu"
                      Command="{Binding PocetnaStranicaCommand}"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>

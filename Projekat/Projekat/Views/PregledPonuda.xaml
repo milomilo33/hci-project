@@ -26,6 +26,8 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <MenuItem Header="Pregled ponuda" Focusable="False" FontWeight="DemiBold"></MenuItem>
+
             <MenuItem Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"
                       ToolTip="Kliknite da biste otišli na početnu stranicu"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
@@ -80,7 +82,14 @@
                         <DataGridTemplateColumn.CellTemplate >
                             <DataTemplate>
                                 <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType={x:Type local:PregledPonuda }}}"
-                                        ToolTip="Kliknite da biste obrisali ovu ponudu">Obriši</Button>
+                                        ToolTip="Kliknite da biste obrisali ovu ponudu"
+                                         Style="{StaticResource MaterialDesignRaisedAccentButton}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon VerticalAlignment="Center"
+                                                            Kind="CloseCircleOutline" Height="25" Width="25" Margin="0,0,10,0" />
+                                        <TextBlock Text="Obriši" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

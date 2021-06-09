@@ -30,7 +30,7 @@ namespace Projekat
             MainWindow.Show();
 
 
-
+            /*
 
             using (var db = new DatabaseContext())
             {
@@ -280,7 +280,7 @@ namespace Projekat
                 db.SaveChanges();
             }
 
-
+            */
 
             base.OnStartup(e);
 

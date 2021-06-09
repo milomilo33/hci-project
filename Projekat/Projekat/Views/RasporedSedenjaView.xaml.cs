@@ -32,7 +32,8 @@ namespace Projekat.Views
 
         private void ListView_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.OriginalSource is Path || e.OriginalSource is Grid)
+            RasporedSedenjaViewModel viewModel = (RasporedSedenjaViewModel)this.DataContext;
+            if (e.OriginalSource is Path || e.OriginalSource is Grid || viewModel.Organizovan)
             {
                 return;
             }

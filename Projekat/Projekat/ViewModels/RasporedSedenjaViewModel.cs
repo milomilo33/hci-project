@@ -25,7 +25,7 @@ namespace Projekat.ViewModels
 
         public Window _window;
 
-        public RasporedSedenjaViewModel(NavigationStore navigationStore, ViewModelBase previousViewModel, Dogadjaj dogadjaj, Window window,
+        public RasporedSedenjaViewModel(NavigationStore navigationStore, ViewModelBase previousViewModel, Dogadjaj dogadjaj, Window window, bool organizovan,
                                         ObservableCollection<Gost> nerasporedjeniGosti = null, ObservableCollection<KapacitetStola> rasporedSedenja = null)
         {
             _navigationStore = navigationStore;
@@ -49,6 +49,18 @@ namespace Projekat.ViewModels
             }
 
             _window = window;
+            Organizovan = organizovan;
+        }
+
+        private bool _organizovan;
+        public bool Organizovan
+        {
+            get { return _organizovan; }
+            set
+            {
+                _organizovan = value;
+                OnPropertyChanged(nameof(Organizovan));
+            }
         }
 
         private ObservableCollection<Gost> _nerasporedjeniGosti;

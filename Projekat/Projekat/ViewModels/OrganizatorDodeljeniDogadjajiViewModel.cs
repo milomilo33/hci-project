@@ -145,7 +145,12 @@ namespace Projekat.ViewModels
                                                    Zadaci; 
                     Predlog predlog = zadaci.Find(z => z.Tip == Zadatak.TipZadatka.GLAVNI).IzabraniPredlog;
 
-                    PregledPredlogaViewModel pregledPredlogaViewModel = new PregledPredlogaViewModel(_navigationStore, predlog, zadaci);
+                    bool organizovan = false;
+                    if (SelectedDogadjaj.StatusEnum == Dogadjaj.STATUS_DOGADJAJA.ORGANIZOVAN)
+                    {
+                        organizovan = true;
+                    }
+                    PregledPredlogaViewModel pregledPredlogaViewModel = new PregledPredlogaViewModel(_navigationStore, predlog, zadaci, organizovan);
                     _navigationStore.CurrentViewModel = pregledPredlogaViewModel;
                 }
             }

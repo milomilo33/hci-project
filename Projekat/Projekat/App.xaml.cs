@@ -29,7 +29,7 @@ namespace Projekat
             };
             MainWindow.Show();
 
-            InicijalizacijaPodataka();
+            //InicijalizacijaPodataka();
 
         //    using (var db = new DatabaseContext())
         //    {

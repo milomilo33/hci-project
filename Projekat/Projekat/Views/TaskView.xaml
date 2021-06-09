@@ -26,7 +26,7 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <MenuItem Header="Pregled zadatala" Focusable="False" FontWeight="DemiBold"></MenuItem>
+            <MenuItem Header="Pregled zadataka" Focusable="False" FontWeight="DemiBold"></MenuItem>
             <MenuItem Header="Početna stranica" 
                       ToolTip="Kliknite kako biste otišli na početnu stranicu"
                       Command="{Binding PocetnaStranicaCommand}"></MenuItem>
@@ -52,7 +52,8 @@
                       ItemsSource="{Binding Zadaci}"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False"
-                      HeadersVisibility="All"
+                      HeadersVisibility="Column"
+                      SelectionMode="Single"
                       IsReadOnly="True"
                       CanUserSortColumns="True"
                       SelectedItem="{Binding Path=SelectedZadatak}"
@@ -60,7 +61,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                                 Binding="{Binding Id}"
-                                Header="Id"
+                                Header="ID zadatka"
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                 Width="100"/>
                     <materialDesign:DataGridTextColumn

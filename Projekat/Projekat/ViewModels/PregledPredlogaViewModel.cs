@@ -395,7 +395,7 @@ namespace Projekat.ViewModels
 
         public void Povratak()
         {
-            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore,_navigationStore.CurrentViewModel, true);
+            _navigationStore.CurrentViewModel = new OrganizatorDodeljeniDogadjajiViewModel(_navigationStore,_navigationStore.CurrentViewModel, IsKlijent);
         }
 
         private ICommand _pocetnaStranicaCommand;

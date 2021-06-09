@@ -39,7 +39,6 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*" />
                 <RowDefinition Height="10*" />
 
             </Grid.RowDefinitions>
@@ -50,7 +49,8 @@
                       ItemsSource="{Binding Dogadjaji}"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False"
-                      HeadersVisibility="All"
+                      HeadersVisibility="Column"
+                      SelectionMode="Single"
                       IsReadOnly="True"
                       CanUserSortColumns="True"
                       SelectedItem="{Binding Path=SelectedDogadjaj}"
@@ -58,25 +58,23 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                                 Binding="{Binding Id}"
-                                Header="Id"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Width="200"/>
+                                Header="ID događaja"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
                     <materialDesign:DataGridTextColumn
                                 Header="Vrsta proslave"
                                 Binding="{Binding VrstaProslave}"
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Width="200"
                                 >
                     </materialDesign:DataGridTextColumn>
                     <DataGridTextColumn
                                 Binding="{Binding Status}"
                                 Header="Status"
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
-                                Width="200"/>
-                    <DataGridTemplateColumn Width="200">
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+                    <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button BorderBrush="Orange" Background="White" Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}">Detalji</Button>
+                                <Button BorderBrush="Orange" Background="White" Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
+                                        ToolTip="Kliknite da biste pregledali detalje zahtevanog događaja">Detalji</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
@@ -85,11 +83,38 @@
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel>
-                                    <Button Command="{Binding Path=DataContext.TaskCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
-                                            Visibility="{Binding Path=DataContext.IsKlijent, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}, Converter={StaticResource InverseBoolToVisConverter}}">Zadaci</Button>
+                                    <Button Command="{Binding Path=DataContext.OtvoriPorukeCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                            ToolTip="Kliknite da biste otvorili prozor za komunikaciju između klijenta i organizatora">Poruke</Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button Command="{Binding Path=DataContext.PregledPredlogaCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
+                                            Visibility="{Binding Path=DataContext.IsKlijent, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}, Converter={StaticResource InverseBoolToVisConverter}}"
+                                            ToolTip="Kliknite da biste pregledali trenutni predlog klijentu">Pregled predloga</Button>
                                     <Button Command="{Binding Path=DataContext.PredlogOrganizatoraCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
                                             CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                                            Visibility="{Binding Path=DataContext.IsKlijent, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}, Converter={StaticResource BooleanToVisibilityConverter}}">Predlog organizatora</Button>
+                                            Visibility="{Binding Path=DataContext.IsKlijent, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                            ToolTip="Kliknite da biste pogledali predlog organizatora za ovaj događaj">Predlog organizatora</Button>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Button Command="{Binding Path=DataContext.TaskCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
+                                            Visibility="{Binding Path=DataContext.IsKlijent, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}, Converter={StaticResource InverseBoolToVisConverter}}"
+                                            ToolTip="Kliknite da biste otvorili svoje zadatke u vezi sa ovim događajem">Zadaci</Button>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

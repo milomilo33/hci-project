@@ -65,7 +65,8 @@
                       ItemsSource="{Binding Zadaci}"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False"
-                      HeadersVisibility="All"
+                      HeadersVisibility="Column"
+                      SelectionMode="Single"
                       IsReadOnly="True"
                       CanUserSortColumns="True"
                       SelectedItem="{Binding Path=SelectedZadatak}"
@@ -73,7 +74,7 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn
                                 Binding="{Binding Id}"
-                                Header="Id"
+                                Header="ID zadatka"
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                 Width="100"/>
                     <materialDesign:DataGridTextColumn

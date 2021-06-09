@@ -54,20 +54,20 @@
 
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.4*"></RowDefinition>
                     <RowDefinition Height="auto"></RowDefinition>
-                    <RowDefinition Height="0.3*"></RowDefinition>
-                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="3*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button Grid.Column="1" Grid.Row="1" ToolTip="Kliknite kako biste dodali novog organizatora" Content="Dodaj organizatora" Command="{Binding AddOrganizatorCommand}"></Button>
-                <Button Grid.Column="3" Grid.Row="1" ToolTip="Kliknite kako biste izmenili organizatora" Command="{Binding EditOrganizatorCommand}" Content="Izmeni organizatora"></Button>
-                <Button Grid.Column="5" Grid.Row="1" ToolTip="Kliknite kako biste obrisali organizatora" Command="{Binding DeleteCommand}" Content="Obriši organizatora"></Button>
-                <ListBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" ItemsSource="{Binding Organizatori}"
+                <Button Grid.Column="1" Margin="10" Grid.Row="0" ToolTip="Kliknite kako biste dodali novog organizatora" Content="Dodaj organizatora" Command="{Binding AddOrganizatorCommand}"></Button>
+                <Button Grid.Column="3" Margin="10" Grid.Row="0" ToolTip="Kliknite kako biste izmenili organizatora" Command="{Binding EditOrganizatorCommand}" Content="Izmeni organizatora"></Button>
+                <Button Grid.Column="5" Margin="10" Grid.Row="0" ToolTip="Kliknite kako biste obrisali organizatora" Command="{Binding DeleteCommand}" Content="Obriši organizatora"></Button>
+                
+                
+                <ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="7" ItemsSource="{Binding Organizatori}"
                      SelectedItem="{Binding Path=SelectedOrganizator}"
                      SelectionMode="Single">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <UniformGrid/>
+                            <UniformGrid />
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
 

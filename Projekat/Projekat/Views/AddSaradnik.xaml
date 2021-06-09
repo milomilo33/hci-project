@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:Projekat.ViewModels" 
         xmlns:controls="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls"
         mc:Ignorable="d"
-        Title="Dodaj saradnika" Height="450" Width="800">
+        Title="Dodaj saradnika" Height="500" Width="800">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
 
@@ -33,6 +33,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="0.75*" />
                 <RowDefinition Height="0.5*" />
                 <RowDefinition Height="0.5*" />
                 <RowDefinition Height="1*" />
@@ -46,42 +47,45 @@
                 <RowDefinition Height="0.25*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Naziv</TextBlock>
-            <TextBox  Grid.Row="1" Grid.Column="1" Height="25" Text="{Binding Naziv}" BorderBrush="Gray" BorderThickness="1" />
-            <TextBlock Grid.Row="2" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"  >Opis</TextBlock>
-            <TextBox  Grid.Row="3" Grid.Column="1" Height="25" Text="{Binding Opis}" BorderBrush="Gray" BorderThickness="1"/>
-            <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Tip</TextBlock>
+            <Button x:Name="AddImageBtn" BorderBrush="Orange" Background="White" Command="{Binding UploadImageCommand}" Content="Dodaj sliku" Grid.Column="1" HorizontalAlignment="Left" Width="130"></Button>
+            <Button x:Name="ExecuteTutorialBtn" Content="Započni tutorial" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Right" Click="ExecuteTutorial"></Button>
+            <Button x:Name="StopTutorialBtn" Content="Zaustavi tutorial" Grid.Row="0" Grid.Column="3" Visibility="Hidden" HorizontalAlignment="Right" Click="StopDemoButton_Click"></Button>
+            <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Naziv</TextBlock>
+            <TextBox x:Name="NazivTB"  Grid.Row="2" Grid.Column="1" Height="25" Text="{Binding Naziv}" BorderBrush="Gray" BorderThickness="1" />
+            <TextBlock Grid.Row="3" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"  >Opis</TextBlock>
+            <TextBox x:Name="OpisTB" Grid.Row="4" Grid.Column="1" Height="25" Text="{Binding Opis}" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBlock Grid.Row="5" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Tip</TextBlock>
             
-            <ComboBox SelectionChanged="ComboBox_SelectionChanged" Grid.Row="5" Grid.Column="1" Height="25" Width="150" HorizontalAlignment="Left" BorderBrush="Gray" BorderThickness="1">
+            <ComboBox x:Name="TipCB" SelectionChanged="ComboBox_SelectionChanged" Grid.Row="6" Grid.Column="1" Height="25" Width="150" HorizontalAlignment="Left" BorderBrush="Gray" BorderThickness="1">
                 <ComboBoxItem>Lokal</ComboBoxItem>
                 <ComboBoxItem>Drugo...</ComboBoxItem>
             </ComboBox>
             
-            <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Visibility="{Binding Path=IsLokal, FallbackValue=Visible, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Right">Raspored mesta</TextBlock>
+            <TextBlock Grid.Row="5" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Visibility="{Binding Path=IsLokal, FallbackValue=Visible, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Right">Raspored mesta</TextBlock>
            <!-- <TextBox  Grid.Row="5" Grid.Column="1" Height="25" Width="130" HorizontalAlignment="Right" Visibility="{Binding Path=IsLokal, FallbackValue=Visible, Converter={StaticResource BoolToVis}}" Text="{Binding BrojMesta}" BorderBrush="Gray" BorderThickness="1" PreviewTextInput="NumberTextInput"/>
 -->
-            <Button Grid.Row="5" Grid.Column="1" Width="115" HorizontalAlignment="Right" Height="25" BorderBrush="Orange" Background="White" Command="{Binding FileOpenCommand}" Visibility="{Binding Path=IsLokal, FallbackValue=Visible, Converter={StaticResource BoolToVis}}">Izaberi fajl</Button>
-            <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Visibility="{Binding Path=IsOther, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Right">Naziv tipa</TextBlock>
-            <TextBox  Grid.Row="5" Grid.Column="1" Height="25" Width="130" HorizontalAlignment="Right" Visibility="{Binding Path=IsOther, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}" Text="{Binding Tip}" BorderBrush="Gray" BorderThickness="1"/>
-            <TextBlock Grid.Row="6" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Broj telefona</TextBlock>
-            <TextBox  Grid.Row="7" Grid.Column="1" Height="25" Text="{Binding BrojTelefona}" BorderBrush="Gray" BorderThickness="1" PreviewTextInput="NumberTextInput"/>
-            <TextBlock Grid.Row="0" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Ulica</TextBlock>
-            <TextBox  Grid.Row="1" Grid.Column="3" Height="25" Width="220" HorizontalAlignment="Left" Text="{Binding Ulica}" BorderBrush="Gray" BorderThickness="1"  />
-            <TextBlock Grid.Row="0" Grid.Column="3" TextAlignment="Left" Width="50" VerticalAlignment="Center" HorizontalAlignment="Right">Broj</TextBlock>
-            <TextBox  Grid.Row="1" Grid.Column="3" Height="25" Width="53" HorizontalAlignment="Right" Text="{Binding Broj}" BorderBrush="Gray" BorderThickness="1" PreviewTextInput="NumberTextInput"  />
-            <TextBlock Grid.Row="2" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Grad</TextBlock>
-            <TextBox  Grid.Row="3" Grid.Column="3" Height="25" HorizontalAlignment="Left" Width="140" Text="{Binding Grad}" BorderBrush="Gray" BorderThickness="1"  />
-            <TextBlock Grid.Row="2" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140">Drzava</TextBlock>
-            <TextBox  Grid.Row="3" Grid.Column="3" Height="25" HorizontalAlignment="Right" Width="140" Text="{Binding Drzava}" BorderBrush="Gray" BorderThickness="1"  />
-            <Border BorderThickness="1" BorderBrush="Gray" Margin="0 10 0 0" Grid.Row="4" Grid.Column="3" Grid.RowSpan="4" DockPanel.Dock="Top">
+            <Button Grid.Row="6" Grid.Column="1" Width="115" HorizontalAlignment="Right" Height="25" BorderBrush="Orange" Background="White" Command="{Binding FileOpenCommand}" Visibility="{Binding Path=IsLokal, FallbackValue=Visible, Converter={StaticResource BoolToVis}}">Izaberi fajl</Button>
+            <TextBlock Grid.Row="5" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center" Visibility="{Binding Path=IsOther, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}" HorizontalAlignment="Right">Naziv tipa</TextBlock>
+            <TextBox x:Name="TipTB" Grid.Row="6" Grid.Column="1" Height="25" Width="130" HorizontalAlignment="Right" Visibility="{Binding Path=IsOther, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}" Text="{Binding Tip}" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBlock Grid.Row="7" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Broj telefona</TextBlock>
+            <TextBox x:Name="BrojTelefonaTB" Grid.Row="8" Grid.Column="1" Height="25" Text="{Binding BrojTelefona}" BorderBrush="Gray" BorderThickness="1" PreviewTextInput="NumberTextInput"/>
+            <TextBlock Grid.Row="1" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Ulica</TextBlock>
+            <TextBox x:Name="UlicaTB"  Grid.Row="2" Grid.Column="3" Height="25" Width="220" HorizontalAlignment="Left" Text="{Binding Ulica}" BorderBrush="Gray" BorderThickness="1"  />
+            <TextBlock Grid.Row="1" Grid.Column="3" TextAlignment="Left" Width="50" VerticalAlignment="Center" HorizontalAlignment="Right">Broj</TextBlock>
+            <TextBox x:Name="BrojTB" Grid.Row="2" Grid.Column="3" Height="25" Width="53" HorizontalAlignment="Right" Text="{Binding Broj}" BorderBrush="Gray" BorderThickness="1" PreviewTextInput="NumberTextInput"  />
+            <TextBlock Grid.Row="3" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Grad</TextBlock>
+            <TextBox x:Name="GradTB" Grid.Row="4" Grid.Column="3" Height="25" HorizontalAlignment="Left" Width="140" Text="{Binding Grad}" BorderBrush="Gray" BorderThickness="1"  />
+            <TextBlock Grid.Row="3" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center" HorizontalAlignment="Right" Width="140">Drzava</TextBlock>
+            <TextBox x:Name="DrzavaTB" Grid.Row="4" Grid.Column="3" Height="25" HorizontalAlignment="Right" Width="140" Text="{Binding Drzava}" BorderBrush="Gray" BorderThickness="1"  />
+            <Border BorderThickness="1" BorderBrush="Gray" Margin="0 10 0 0" Grid.Row="5" Grid.Column="3" Grid.RowSpan="4" DockPanel.Dock="Top">
                 <controls:MapControl x:Name="mapControl" ZoomInteractionMode="GestureAndControl" 
                      Loaded="MapControl_Loaded" TiltInteractionMode="GestureAndControl" MapServiceToken="nbFFVvcrKdFjoGGq17qS~tz3brxF8TVwKHWwrZbEIig~AhYaWDojKBWRKux3ZZ0MOiyBjQbXCfSp62g9NMd1wx1-UZhVfO1sUBL9tP3qEsBG">
                 </controls:MapControl>
             </Border>
-            <Button Grid.Column="1" Grid.Row="9" Width="150" Content="Dodaj" Command="{Binding AddSaradnikCommand}"/>
-            <Button Grid.Column="1" Grid.Row="9" Width="150" Content="Izmeni" Command="{Binding EditSaradnikCommand}" Visibility="{Binding IsEdit, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}"/>
-            <Button BorderBrush="Orange" Background="White" Grid.Column="3" Grid.Row="9" Width="150" Content="Prikazi adresu" HorizontalAlignment="Left" Click="Load_On_Map"/>
-            <Button  Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Column="3" Grid.Row="9" Width="100" Content="Odustani" Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" HorizontalAlignment="Right"/>
+            <Button x:Name="AddBtn" Grid.Column="1" Grid.Row="10" Width="150" Content="Dodaj" Command="{Binding AddSaradnikCommand}"/>
+            <Button x:Name="EditBtn" Grid.Column="1" Grid.Row="10" Width="150" Content="Izmeni" Command="{Binding EditSaradnikCommand}" Visibility="{Binding IsEdit, FallbackValue=Collapsed, Converter={StaticResource BoolToVis}}"/>
+            <Button x:Name="MapBtn" BorderBrush="Orange" Background="White" Grid.Column="3" Grid.Row="10" Width="150" Content="Prikazi adresu" HorizontalAlignment="Left" Click="Load_On_Map"/>
+            <Button x:Name="CancelBtn" Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Column="3" Grid.Row="10" Width="100" Content="Odustani" Command="{Binding CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}}" HorizontalAlignment="Right"/>
         </Grid>
     </DockPanel>
 </Window>

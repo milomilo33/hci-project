@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:Projekat.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:Projekat.Converters"
+             xmlns:controls="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     
@@ -110,11 +111,13 @@
                 </StackPanel>
             </Button>
 
-            <StackPanel Grid.Row="1" Grid.Column="6" Grid.RowSpan="5" Grid.ColumnSpan="2" Background="Orange">
-                <TextBlock HorizontalAlignment="Center" TextAlignment="Left" VerticalAlignment="Center">OVDE IDE MAPA</TextBlock>
-            </StackPanel>
+            <Border BorderThickness="1" BorderBrush="Gray" Margin="0 10 0 0" Grid.Row="1" Grid.Column="6" Grid.RowSpan="5" Grid.ColumnSpan="2">
+                    <controls:MapControl x:Name="mapControl" ZoomInteractionMode="GestureAndControl" 
+                     Loaded="MapControl_Loaded" TiltInteractionMode="GestureAndControl" MapServiceToken="nbFFVvcrKdFjoGGq17qS~tz3brxF8TVwKHWwrZbEIig~AhYaWDojKBWRKux3ZZ0MOiyBjQbXCfSp62g9NMd1wx1-UZhVfO1sUBL9tP3qEsBG">
+                    </controls:MapControl>
+                </Border>
 
-            <TextBlock Grid.Row="5" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Opis ponude</TextBlock>
+                <TextBlock Grid.Row="5" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Opis ponude</TextBlock>
             <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Text="{Binding Predlog.Ponuda.Opis}" BorderBrush="Gray" BorderThickness="1" IsReadOnly="True" />
 
             <Button Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="5"

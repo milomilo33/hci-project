@@ -70,6 +70,7 @@ namespace Projekat.ViewModels
         private void Profil()
         {
 
+
             _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore,_navigationStore.CurrentViewModel);
 
         }
@@ -87,6 +88,9 @@ namespace Projekat.ViewModels
         public void Odjava()
         {
             _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
+           // _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore, _navigationStore.CurrentViewModel);
+
 
         }
     }

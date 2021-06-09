@@ -27,5 +27,7 @@ namespace Projekat.Model
         public int BrojMesta { get; set; }
 
         public List<KapacitetStola> Stolovi { get; set; }
+
+        public string Slika { get; set; }
     }
 }

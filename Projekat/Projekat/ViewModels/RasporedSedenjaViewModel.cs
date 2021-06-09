@@ -310,7 +310,7 @@ namespace Projekat.ViewModels
             if (KorisnikStore.Instance.TrenutniKorisnik is Klijent)
             {
                 successDialogModel.Message += "Da biste potvrdili ovaj raspored sedenja za događaj, nakon ovoga zatražite izmenu predloga organizatoru klikom" +
-                                              "na dugme u donjem desnom uglu na narednom prozoru.";
+                                              " na dugme u donjem desnom uglu na narednom prozoru.";
             }
             successDialog.DataContext = successDialogModel;
             successDialog.Owner = _window;

@@ -105,5 +105,7 @@ namespace Projekat.Model
         public List<Predlog> PrihvaceniDodatniPredlozi { get; set; }
 
         public string MestoOdrzavanja { get; set; }
+
+        public List<Komentar> Komentari { get; set; }
     }
 }

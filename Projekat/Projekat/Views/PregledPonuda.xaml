@@ -31,6 +31,19 @@
             <MenuItem Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"
                       ToolTip="Kliknite da biste otišli na početnu stranicu"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste se odjavili"
+                
+                HorizontalAlignment="Right"
+                Command="{Binding OdjavaCommand}" Margin="0,0,-201,0" Width="138" >
+                <StackPanel Orientation="Horizontal" Margin="0,0, 30, 0">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                           Kind="Logout" Height="25" Width="25"  />
+                    <TextBlock Text="Odjava" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
         </Menu>
         <Grid >
             <Grid.ColumnDefinitions>

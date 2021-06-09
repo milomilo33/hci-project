@@ -66,5 +66,22 @@ namespace Projekat.ViewModels
                 return _pregledKlijenataCommand;
             }
         }
+
+        private ICommand _odjavaCommand;
+
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(email => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+        }
     }
 }

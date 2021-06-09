@@ -65,15 +65,15 @@ namespace Projekat.Service
                 zadaci = new ObservableCollection<Zadatak>(db.Zadaci.Include("Dogadjaj").Include("IzabraniPredlog").Where(d => d.Dogadjaj.Id.Equals(id)));
             }
             foreach(Zadatak z in zadaci){
-                if(z.Tip == Zadatak.TipZadatka.GLAVNI)
-                {
+                //if(z.Tip == Zadatak.TipZadatka.GLAVNI)
+                //{
                     if(z.IzabraniPredlog == null)
                     {
                         value = false;
                     }
                    
 
-                }
+                //}
             }
             return value;
         }

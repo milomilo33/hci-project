@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Projekat.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="350" d:DesignWidth="250">
+             d:DesignHeight="720" d:DesignWidth="1280">
 
     <Grid>
         <!--<Grid.ColumnDefinitions>
@@ -53,9 +53,9 @@
         <Label Grid.Row="1" Grid.Column="1">E-mail</Label>
         <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email}"></TextBox>
         <Label Grid.Row="4" Grid.Column="1">Lozinka</Label>
-        <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Lozinka}"></TextBox>
-        <Button Grid.Row="7" Command="{Binding LoginCommand}" Grid.Column="1">Prijava</Button>
-        <Label Grid.Row ="9" Grid.Column="1">
+        <PasswordBox Grid.Row="5" Grid.Column="1" Name="Pass"></PasswordBox>
+        <Button Grid.Row="7" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=Pass}" Grid.Column="1">Prijava</Button>
+        <Label Grid.Row ="9" Grid.Column="1" HorizontalAlignment="Center">
 
             <Hyperlink Command="{Binding RegistrationCommand}">Nemate nalog? Registrujte se</Hyperlink>
         </Label>

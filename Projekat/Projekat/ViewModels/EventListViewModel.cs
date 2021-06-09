@@ -105,7 +105,7 @@ namespace Projekat.ViewModels
             detailsModel.Tema = SelectedDogadjaj.Tema;
             detailsModel.Organizator = SelectedDogadjaj.Organizator.Ime + " " + SelectedDogadjaj.Organizator.Prezime;
             detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd/MM/yyyy HH:mm");
-            detailsModel.Napomene = SelectedDogadjaj.Napomena;
+            detailsModel.DodatniZahtevi = SelectedDogadjaj.DodatniZahtevi;
             detailsModel.MestoOdrzavanja = SelectedDogadjaj.MestoOdrzavanja;
             details.DataContext = detailsModel;
             details.Show();

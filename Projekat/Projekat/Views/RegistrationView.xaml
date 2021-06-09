@@ -4,18 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Projekat.Views"
+      xmlns:val="clr-namespace:Projekat.Validation"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="500">
-   <!-- <UserControl.Resources>
-        <Style TargetType="{x:Type TextBox}">
-            <Style.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="6" />
-                </Style>
-            </Style.Resources>
-        </Style>
-
-    </UserControl.Resources>-->
+      d:DesignHeight="720" d:DesignWidth="1280">
     <DockPanel>
 
         <Grid>
@@ -49,36 +40,105 @@
 
             <TextBlock  Grid.Row="0" Grid.ColumnSpan="10" TextAlignment="Center" Text="Registracija" FontSize="20" FontWeight="Bold" />
             <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Ime</TextBlock>
-            <TextBox  Grid.Row="2" Grid.Column="1" Text="{Binding Ime}"   BorderBrush="Gray" BorderThickness="1"/>
-            
+            <TextBox  Grid.Row="2" Grid.Column="1" Text="{Binding Ime}"  BorderBrush="Gray" BorderThickness="1"/>
+
             <TextBlock Grid.Row="1" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Prezime</TextBlock>
             <TextBox  Grid.Row="2" Grid.Column="3"   Text="{Binding Prezime}" BorderBrush="Gray" BorderThickness="1"/>
 
             <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Email adresa</TextBlock>
-            <TextBox  Grid.Row="5" Grid.Column="1"   Text="{Binding Email}" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBox  Grid.Row="5" Grid.Column="1"  x:Name="textBoxEmail"  BorderBrush="Gray" BorderThickness="1">
+               
+                    <Binding Path="Email" UpdateSourceTrigger="PropertyChanged">
+                    
+                    </Binding>
+             
+            </TextBox>
 
             <TextBlock Grid.Row="4" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Broj telefona</TextBlock>
-            <TextBox  Grid.Row="5" Grid.Column="3"  Text="{Binding BrojTelefona}" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBox  Grid.Row="5" Grid.Column="3"  BorderBrush="Gray" BorderThickness="1">
+                <TextBox.Text>
+                    <Binding Path="BrojTelefona" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:StringToIntValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
 
             <TextBlock Grid.Row="7" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Lozinka</TextBlock>
-            <PasswordBox Grid.Row="8" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" />
+            <PasswordBox Grid.Row="8" Grid.Column="1" BorderBrush="Gray" BorderThickness="1" Name="pass1">
+               
+                <val:PasswordHelper.Password>
+                    <Binding Path="Lozinka" UpdateSourceTrigger="PropertyChanged">
 
+                    </Binding>
+                </val:PasswordHelper.Password>
+            </PasswordBox>
             <TextBlock Grid.Row="7" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Ponovljena lozinka</TextBlock>
-            <PasswordBox Grid.Row="8" Grid.Column="3"  BorderBrush="Gray" BorderThickness="1" />
+            <PasswordBox  Grid.Row="8" Grid.Column="3"  BorderBrush="Gray" BorderThickness="1" Name="pass2">
+                <val:PasswordHelper.Password>
+                    <Binding Path="PonovljenaLozinka" UpdateSourceTrigger="PropertyChanged">
+                        
+                    </Binding>
+                </val:PasswordHelper.Password>
+            </PasswordBox>
 
             <TextBlock Grid.Row="10" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Ulica</TextBlock>
             <TextBox Grid.Row="11" Grid.Column="1"  Text="{Binding Ulica}" BorderBrush="Gray" BorderThickness="1"  />
             
             <TextBlock Grid.Row="10" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Broj</TextBlock>
-            <TextBox Grid.Row="11" Grid.Column="3"   Text="{Binding Broj}"  BorderBrush="Gray" BorderThickness="1"/>
+            <TextBox Grid.Row="11" Grid.Column="3"    BorderBrush="Gray" BorderThickness="1">
+                <TextBox.Text>
+                    <Binding Path="Broj" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <val:StringToIntValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+            
 
             <TextBlock Grid.Row="13" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Grad</TextBlock>
             <TextBox Grid.Row="14" Grid.Column="1"   Text="{Binding Grad}" BorderBrush="Gray" BorderThickness="1"/>
 
             <TextBlock Grid.Row="13" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Država</TextBlock>
             <TextBox Grid.Row="14" Grid.Column="3"   Text="{Binding Drzava}"  BorderBrush="Gray" BorderThickness="1"/>
-             <Button Grid.Row="16" Grid.Column="1" Content="Registruj" Height="33" HorizontalAlignment="Left" Name="Submit"  Width="180"/>
-            <Button Grid.Row="16" Grid.Column="3" Content="Odustani" Height="33" HorizontalAlignment="Right"  Name="Cancel"  Width="180" Command="{Binding CancelCommand}"/>
+            <Button Grid.Row="16" Grid.Column="1" Content="Registruj" Height="33" HorizontalAlignment="Left" Name="Submit"  Width="420" Command="{Binding SubmitCommand}"   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Button Grid.Row="16" Grid.Column="3" Content="Odustani"  Style="{StaticResource MaterialDesignRaisedAccentButton}" Height="33" HorizontalAlignment="Right"  Name="Cancel"  Width="420" Command="{Binding CancelCommand}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             
         </Grid>
     </DockPanel>

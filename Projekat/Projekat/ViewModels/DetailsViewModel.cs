@@ -75,14 +75,14 @@ namespace Projekat.ViewModels
                 OnPropertyChanged(nameof(BrojGostiju));
             }
         }
-        public string _napomene;
-        public string Napomene
+        public string _dodatniZahtevi;
+        public string DodatniZahtevi
         {
-            get { return _napomene; }
+            get { return _dodatniZahtevi; }
             set
             {
-                _napomene = value;
-                OnPropertyChanged(nameof(Napomene));
+                _dodatniZahtevi = value;
+                OnPropertyChanged(nameof(DodatniZahtevi));
             }
         }
         public string _mesto;

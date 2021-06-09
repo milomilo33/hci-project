@@ -55,13 +55,37 @@ namespace Projekat.ViewModels
         }
         public void Accept()
         {
+
             var dd = dogadjaji;
             foreach (var d in dd)
             {
-                if (d.Id == _dogadjaj.Id)
+                if (d.Id == _dogadjaj.Id && d.Status.Equals("Nema dodeljenog organizatora"))
                 {
-                    d.Status = "Preuzeto";
+                    d.Status = "Čeka se odgovor organizatora";
+                    d.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_ORGANIZATOR;
                     DogadjajService.updateStatus(d);
+                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = false;
+                    dialogModel.Message = "Uspešno prihvaćen događaj!";
+                    dialog.DataContext = dialogModel;
+                    //dialog.Owner = window;
+                    dialog.ShowDialog();
+                }
+                else if(d.Id == _dogadjaj.Id && !d.Status.Equals("Nema dodeljenog organizatora"))
+                {
+                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = "Zadatak je već preuzet!";
+                    dialog.DataContext = dialogModel;
+                    //dialog.Owner = window;
+                    dialog.ShowDialog();
+
+                }
+                else
+                {
+                    break;
                 }
             }
             Dogadjaji = null;
@@ -87,7 +111,7 @@ namespace Projekat.ViewModels
             detailsModel.Tema = SelectedDogadjaj.Tema;
             detailsModel.Organizator = SelectedDogadjaj.Organizator.Ime + " " + SelectedDogadjaj.Organizator.Prezime;
             detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd/MM/yyyy HH:mm");
-            detailsModel.Napomene = SelectedDogadjaj.Napomena;
+            detailsModel.DodatniZahtevi = SelectedDogadjaj.DodatniZahtevi;
             detailsModel.MestoOdrzavanja = SelectedDogadjaj.MestoOdrzavanja;
             details.DataContext = detailsModel;
             details.Show();

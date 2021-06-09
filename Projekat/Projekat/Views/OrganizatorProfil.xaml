@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Projekat.Views"
+              xmlns:val="clr-namespace:Projekat.Validation"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" >
      <UserControl.Resources>
@@ -36,7 +37,16 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <MenuItem Header="Profil" FontWeight="Bold" HorizontalAlignment="Right"></MenuItem>
+            <Button Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste promenili lozinku"
+                VerticalAlignment="Center"
+                Command="{Binding PromenaLozinkeCommand}">
+                <StackPanel Orientation="Horizontal">
+                   
+                    <TextBlock Text="Promena lozinke" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
         </Menu>
         <Grid>
@@ -79,12 +89,63 @@
             <TextBox  Grid.Row="5" Grid.Column="1"  IsReadOnly="True" Text="{Binding Email, Mode=TwoWay}" BorderBrush="Gray" BorderThickness="1"/>
 
             <TextBlock Grid.Row="4" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Broj telefona</TextBlock>
-            <TextBox  Grid.Row="5" Grid.Column="3"  Text="{Binding BrojTelefona, Mode=TwoWay}" BorderBrush="Gray" BorderThickness="1"/>
+            <TextBox  Grid.Row="5" Grid.Column="3"  BorderBrush="Gray" BorderThickness="1">
+                <TextBox.Text>
+                    <Binding Path="BrojTelefona" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:StringToIntValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
             <TextBlock Grid.Row="7" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Ulica</TextBlock>
             <TextBox Grid.Row="8" Grid.Column="1"  Text="{Binding Ulica, Mode=TwoWay}" BorderBrush="Gray" BorderThickness="1"  />
 
             <TextBlock Grid.Row="7" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Broj</TextBlock>
-            <TextBox Grid.Row="8" Grid.Column="3"   Text="{Binding Broj, Mode=TwoWay}"  BorderBrush="Gray" BorderThickness="1"/>
+            <TextBox Grid.Row="8" Grid.Column="3"    BorderBrush="Gray" BorderThickness="1">
+                <TextBox.Text>
+                    <Binding Path="Broj" UpdateSourceTrigger="PropertyChanged" Mode="TwoWay">
+                        <Binding.ValidationRules>
+                            <val:StringToIntValidationRule ValidationStep="RawProposedValue"/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+                <Validation.ErrorTemplate>
+                    <ControlTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <AdornedElementPlaceholder Grid.Column="0" Grid.Row="0" x:Name="textBox"/>
+                            <TextBlock Grid.Column="0" Grid.Row="1" Text="{Binding [0].ErrorContent}" Foreground="Red"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Validation.ErrorTemplate>
+            </TextBox>
+
 
             <TextBlock Grid.Row="10" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center">Grad</TextBlock>
             <TextBox Grid.Row="11" Grid.Column="1"   Text="{Binding Grad, Mode=TwoWay}" BorderBrush="Gray" BorderThickness="1"/>
@@ -94,7 +155,7 @@
 
             <Button Grid.Row="14" Grid.Column="1"  materialDesign:ButtonAssist.CornerRadius="6" Content="Izmeni" Height="33" HorizontalAlignment="Right"   Width="180" Command="{Binding EditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 
-            <Button Grid.Row="14" Grid.Column="3" materialDesign:ButtonAssist.CornerRadius="6" Content="Odustani" Height="33" HorizontalAlignment="Left"   Width="180" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Button Grid.Row="14" Grid.Column="3" materialDesign:ButtonAssist.CornerRadius="6" Content="Odustani" Style="{StaticResource MaterialDesignRaisedAccentButton}" Height="33" HorizontalAlignment="Left"   Width="180" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 
         </Grid>
     </DockPanel>

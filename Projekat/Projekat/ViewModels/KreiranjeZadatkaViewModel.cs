@@ -3,6 +3,7 @@ using Projekat.Data;
 using Projekat.Model;
 using Projekat.Service;
 using Projekat.Stores;
+using Projekat.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -111,6 +112,13 @@ namespace Projekat.ViewModels
                 db.Zadaci.Add(zadatak);
                 db.SaveChanges();
             }
+            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+            dialogModel.IsError = false;
+            dialogModel.Message = "Uspešno kreiran zadatak!";
+            dialog.DataContext = dialogModel;
+            //dialog.Owner = window;
+            dialog.ShowDialog();
             CloseWindow();
          
 

@@ -85,6 +85,9 @@
             <DataTemplate DataType="{x:Type viewmodels:RasporedSedenjaViewModel}">
                 <views:RasporedSedenjaView />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:PromenaLozinkeViewModel}">
+                <views:PromenaLozinkeView />
+            </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>
 </Window>

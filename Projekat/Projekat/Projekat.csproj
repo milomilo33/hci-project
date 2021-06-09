@@ -284,14 +284,17 @@
     </ApplicationDefinition>
     <Compile Include="Converters\DogadjajStatusToKlijentPredlogVisibleBoolean.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\MultipleCommandParamConverter.cs" />
     <Compile Include="Data\DatabaseContext.cs" />
     <Compile Include="Model\Gost.cs" />
     <Compile Include="Model\KapacitetStola.cs" />
     <Compile Include="Model\Predlog.cs" />
     <Compile Include="Service\DogadjajService.cs" />
     <Compile Include="Service\IDogadjajService.cs" />
+    <Compile Include="Service\IKomentarService.cs" />
     <Compile Include="Service\IPonudaService.cs" />
     <Compile Include="Service\IZadatakService.cs" />
+    <Compile Include="Service\KomentarService.cs" />
     <Compile Include="Service\PonudaService.cs" />
     <Compile Include="Service\ZadatakService.cs" />
     <Compile Include="Service\ISaradnikService.cs" />
@@ -299,7 +302,9 @@
     <Compile Include="Service\SaradnikService.cs" />
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
-    <Compile Include="Validation\EmptyStringValidationConverter.cs" />
+	<Compile Include="Validation\EmptyStringValidationConverter.cs" />
+	<Compile Include="Utility\DragDropExtension.cs" />
+	<Compile Include="Utility\ExtensionMethods.cs" />
     <Compile Include="Validation\FutureDateValidationRule.cs" />
     <Compile Include="Validation\StringToDoubleValidationRule.cs" />
     <Compile Include="ViewModels\DialogViewModel.cs" />
@@ -313,6 +318,8 @@
     <Compile Include="ViewModels\AdminPregledOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
+    <Compile Include="ViewModels\IzmenaZadatkaViewModel.cs" />
+    <Compile Include="ViewModels\KomunikacijaViewModel.cs" />
     <Compile Include="ViewModels\IzmjenaPonudeViewModel.cs" />
     <Compile Include="ViewModels\KreiranjeZadatkaViewModel.cs" />
     <Compile Include="ViewModels\PregledPredlogaViewModel.cs" />
@@ -329,6 +336,8 @@
     <Compile Include="ViewModels\OrganizatorHomeViewModel.cs" />
     <Compile Include="ViewModels\OrganizatorProfilViewModel.cs" />
     <Compile Include="ViewModels\AdminPregledKlijenataViewModel.cs" />
+    <Compile Include="ViewModels\PredloziZaZadatakViewModel.cs" />
+
     <Compile Include="ViewModels\PregledPonudaViewModel.cs" />
     <Compile Include="ViewModels\RegistrationViewModel.cs" />
     <Compile Include="ViewModels\TaskViewModel.cs" />
@@ -372,6 +381,10 @@
     <Compile Include="Views\EventListView.xaml.cs">
       <DependentUpon>EventListView.xaml</DependentUpon>
     </Compile>
+
+    <Compile Include="Views\IzmenaZadatkaView.xaml.cs">
+      <DependentUpon>IzmenaZadatkaView.xaml</DependentUpon>
+   </Compile>
     <Compile Include="Views\IzmjenaPonudeView.xaml.cs">
       <DependentUpon>IzmjenaPonudeView.xaml</DependentUpon>
     </Compile>
@@ -399,6 +412,9 @@
     <Compile Include="Views\KlijentPregledOrganizatoraView.xaml.cs">
       <DependentUpon>KlijentPregledOrganizatoraView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Komunikacija.xaml.cs">
+      <DependentUpon>Komunikacija.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
     </Compile>
@@ -413,6 +429,9 @@
     </Compile>
     <Compile Include="Views\OrganizatorProfil.xaml.cs">
       <DependentUpon>OrganizatorProfil.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PredloziZaZadatak.xaml.cs">
+      <DependentUpon>PredloziZaZadatak.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PregledPonuda.xaml.cs">
       <DependentUpon>PregledPonuda.xaml</DependentUpon>
@@ -456,10 +475,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
     <Page Include="Views\DodajGostaDialogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+
     <Page Include="Views\DodajPonudu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -484,7 +505,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+
+    <Page Include="Views\IzmenaZadatkaView.xaml">
+  <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\IzmjenaPonudeView.xaml">
+
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -520,6 +547,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Komunikacija.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -537,6 +568,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OrganizatorProfil.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PredloziZaZadatak.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

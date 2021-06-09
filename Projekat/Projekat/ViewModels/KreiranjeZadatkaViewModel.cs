@@ -99,11 +99,11 @@ namespace Projekat.ViewModels
                 zadatak.Status = "Na čekanju";
                 if(IzabranTip.Equals("Glavni zahtev"))
                 {
-                    zadatak.Glavni = true;
+                    zadatak.Tip = Zadatak.TipZadatka.GLAVNI;
                 }
                 else
                 {
-                    zadatak.Glavni = false;
+                    zadatak.Tip = Zadatak.TipZadatka.DODATNI;
                 }
                 
                 dogadjaj = db.Dogadjaji.SingleOrDefault(d => d.Id == IdDogadjaja);
@@ -119,10 +119,22 @@ namespace Projekat.ViewModels
         }
         public KreiranjeZadatkaViewModel()
         {
-            
+        }
+
+        public KreiranjeZadatkaViewModel(int id)
+        {
+            IdDogadjaja = id;
             ObservableCollection<string> list = new ObservableCollection<string>();
-            list.Add("Glavni zahtev");
-            list.Add("Dodatni zahtev");
+            if (ZadatakService.proveraDaLiPostoji(IdDogadjaja))
+            {
+                list.Add("Glavni zahtev");
+                list.Add("Dodatni zahtev");
+            }
+            else
+            {
+                list.Add("Dodatni zahtev");
+            }
+
             Tipovi = list;
         }
 

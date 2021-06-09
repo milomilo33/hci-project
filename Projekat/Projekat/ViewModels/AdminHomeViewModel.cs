@@ -66,5 +66,40 @@ namespace Projekat.ViewModels
                 return _pregledKlijenataCommand;
             }
         }
+
+        private ICommand _profilCommand;
+        public ICommand ProfilCommand
+        {
+            get
+            {
+                if (_profilCommand == null)
+                    _profilCommand = new RelayCommand(_profilCommand => Profil());
+                return _profilCommand;
+            }
+        }
+
+        private void Profil()
+        {
+
+            _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore);
+        }
+
+        private ICommand _odjavaCommand;
+
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(email => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
+        }
     }
 }

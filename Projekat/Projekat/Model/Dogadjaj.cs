@@ -33,7 +33,6 @@ namespace Projekat.Model
 
         public string Tema { get; set; }
 
-        public string Napomena { get; set; }
 
         private STATUS_DOGADJAJA _statusEnum;
         public STATUS_DOGADJAJA StatusEnum

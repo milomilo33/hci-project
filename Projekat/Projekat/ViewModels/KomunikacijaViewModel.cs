@@ -135,6 +135,7 @@ namespace Projekat.ViewModels
         public void loadKomentari()
         {
             Komentari = KomentarService.getKomentareZaZadatak(IdZadatka);
+           
 
         }
 

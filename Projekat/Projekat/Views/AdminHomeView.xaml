@@ -14,11 +14,42 @@
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            <MenuItem Header="Profil"></MenuItem>
-            <MenuItem Header="Pocetna strana" FontWeight="DemiBold"></MenuItem>
+
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste pogledali svoj profil"
+                VerticalAlignment="Center"
+                Command="{Binding ProfilCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                           Kind="AccountCircle" Height="25" Width="25" Margin="0,0,10,0" />
+                    <TextBlock Text="Profil" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            
             <MenuItem Header="Pomoc" HorizontalAlignment="Right"></MenuItem>
+           
+            <MenuItem Header="Pocetna strana" FontWeight="DemiBold"></MenuItem>
+
+            <MenuItem Header="Pomoc" HorizontalAlignment="Right" Margin="0,2,0,-0.4"></MenuItem>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste se odjavili"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Right"
+                Command="{Binding OdjavaCommand}" Margin="0,0,-477.2,0">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                           Kind="Logout" Height="25" Width="25" Margin="0,0,10,0" />
+                    <TextBlock Text="Odjava" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
         </Menu>
-        
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
@@ -31,7 +62,7 @@
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="5*" />
                 <RowDefinition Height="4*" />
@@ -57,5 +88,5 @@
 
         </Grid>
 
-       </DockPanel>
+    </DockPanel>
 </UserControl>

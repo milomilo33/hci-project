@@ -81,8 +81,13 @@
             <DataTemplate DataType="{x:Type viewmodels:RasporedSedenjaViewModel}">
                 <views:RasporedSedenjaView />
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:PromenaLozinkeViewModel}">
+                <views:PromenaLozinkeView />
+            </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:PregledPredlogaDodatniZahteviViewModel}">
                 <views:PregledPredlogaDodatniZahteviView />
+
             </DataTemplate>
         </ContentControl.Resources>
     </ContentControl>

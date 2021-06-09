@@ -1,11 +1,15 @@
-﻿using Projekat.Commands;
+﻿using Geocoding;
+using Newtonsoft.Json.Linq;
+using Projekat.Commands;
 using Projekat.Data;
 using Projekat.Model;
 using Projekat.Stores;
 using Projekat.Views;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -21,7 +25,8 @@ namespace Projekat.ViewModels
         private ICommand _editCommand;
         private ICommand _cancelCommand;
         private ICommand _povratakCommand;
-        public Organizator organizator;
+        private ICommand _promenaLozinkeCommand;
+        public Korisnik korisnik;
 
 
         private string _email;
@@ -74,8 +79,8 @@ namespace Projekat.ViewModels
                 OnPropertyChanged(nameof(Ulica));
             }
         }
-        private int _broj;
-        public int Broj
+        private string _broj;
+        public string Broj
         {
             get => _broj;
             set
@@ -127,13 +132,15 @@ namespace Projekat.ViewModels
         private void Edit(Window window)
         {
             SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+            string validationMessage = ValidationMessage();
+
+            
             SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
-            if (organizator.Ime == Ime && organizator.Prezime == Prezime && organizator.BrojTelefona == BrojTelefona
-                && organizator.Adresa.Ulica == Ulica && organizator.Adresa.Broj == Broj &&
-                organizator.Adresa.Drzava == Drzava && organizator.Adresa.Grad == Grad)
+            if (!string.IsNullOrWhiteSpace(validationMessage))
             {
+
                 dialogModel.IsError = true;
-                dialogModel.Message = "Ništa nije izmenjeno!";
+                dialogModel.Message = validationMessage;
                 dialog.DataContext = dialogModel;
                 dialog.Owner = window;
                 dialog.ShowDialog();
@@ -144,14 +151,14 @@ namespace Projekat.ViewModels
 
                 using (var db = new DatabaseContext())
                 {
-                    organizator = db.Organizatori.Include("Adresa").SingleOrDefault(o => o.Email == Email);
-                    organizator.Ime = Ime;
-                    organizator.Prezime = Prezime;
-                    organizator.BrojTelefona = BrojTelefona;
-                    organizator.Adresa.Ulica = Ulica;
-                    organizator.Adresa.Grad = Grad;
-                    organizator.Adresa.Broj = Broj;
-                    organizator.Adresa.Drzava = Drzava;
+                    korisnik = db.Korisnici.Include("Adresa").SingleOrDefault(o => o.Email == Email);
+                    korisnik.Ime = Ime;
+                    korisnik.Prezime = Prezime;
+                    korisnik.BrojTelefona = BrojTelefona;
+                    korisnik.Adresa.Ulica = Ulica;
+                    korisnik.Adresa.Grad = Grad;
+                    korisnik.Adresa.Broj = int.Parse(Broj);
+                    korisnik.Adresa.Drzava = Drzava;
                     db.SaveChanges();
                 }
 
@@ -164,6 +171,89 @@ namespace Projekat.ViewModels
             }
 
            
+        }
+        private string ValidationMessage()
+        {
+            string message = "";
+
+            if (string.IsNullOrWhiteSpace(Ime))
+            {
+                message += "Morate navesti ime!\n\n";
+            }
+            if (string.IsNullOrWhiteSpace(Prezime))
+            {
+                message += "Morate navesti prezime!\n\n";
+            }
+           
+            if (string.IsNullOrWhiteSpace(Ulica))
+            {
+                message += "Morate navesti ulicu!\n\n";
+            }
+            if (string.IsNullOrWhiteSpace(Grad))
+            {
+                message += "Morate navesti grad!\n\n";
+            }
+            if (string.IsNullOrWhiteSpace(Drzava))
+            {
+                message += "Morate navesti državu!\n\n";
+            }
+            if (string.IsNullOrWhiteSpace(BrojTelefona))
+            {
+                message += "Morate navesti broj telefona!\n\n";
+            }
+            if (string.IsNullOrWhiteSpace(Broj))
+            {
+                message += "Morate navesti broj!\n\n";
+            }
+            
+           
+            if (GetLocationFromAddressAsync() == (-1, -1))
+            {
+                Console.WriteLine(GetLocationFromAddressAsync());
+                message += "Navedena  adresa ne postoji!\n\n";
+            }
+
+
+            return message;
+        }
+        public (double, double) GetLocationFromAddressAsync()
+        {
+            double lat = -1, lon = -1;
+
+            string address = $"{Drzava} {Grad} {Ulica} {Broj}";
+            JArray result;
+
+            string query = $"q={address}&polygon_geojson=1&format=jsonv2&limit=5";
+            var req = (HttpWebRequest)HttpWebRequest.Create("https://nominatim.openstreetmap.org/search.php?" + query);
+            req.Method = "GET";
+            req.UserAgent = ".NET Framework Test Client";
+            using (var resp = req.GetResponse())
+            {
+                var res = new StreamReader(resp.GetResponseStream()).ReadToEnd();
+                result = JArray.Parse(res);
+
+            }
+
+            if (result.IsNullOrEmpty())
+            {
+                return (-1, -1);
+            }
+
+            var properties = result.Children<JObject>().Properties();
+
+            foreach (JProperty property in properties)
+            {
+                if (property.Name == "lat")
+                {
+                    lat = double.Parse(property.Value.ToString());
+                }
+                if (property.Name == "lon")
+                {
+                    lon = double.Parse(property.Value.ToString());
+                }
+            }
+            return (lat, lon);
+
         }
         private void Cancel(Window window)
         {
@@ -180,14 +270,14 @@ namespace Projekat.ViewModels
             }
 
         }
-        private Organizator LoadOrganizator(String email)
+        private Korisnik LoadOrganizator(String email)
         {
-            Organizator organizator;
+            Korisnik korisnik;
             using (var db = new DatabaseContext())
             {
-                organizator = db.Organizatori.Include("Adresa").SingleOrDefault(o =>o.Email == email);
+                korisnik = db.Korisnici.Include("Adresa").SingleOrDefault(o =>o.Email == email);
             }
-            return organizator;
+            return korisnik;
 
         }
 
@@ -196,15 +286,15 @@ namespace Projekat.ViewModels
             _navigationStore = navigationStore;
             _previousViewModel = viewModelBase;
             KorisnikStore korisnikStore = KorisnikStore.Instance;
-            organizator = LoadOrganizator(korisnikStore.TrenutniKorisnik.Email);
-            Email = organizator.Email;
-            Ime = organizator.Ime;
-            Prezime = organizator.Prezime;
-            BrojTelefona = organizator.BrojTelefona;
-            Ulica = organizator.Adresa.Ulica;
-            Grad = organizator.Adresa.Grad;
-            Drzava = organizator.Adresa.Drzava;
-            Broj = organizator.Adresa.Broj;
+            korisnik = LoadOrganizator(korisnikStore.TrenutniKorisnik.Email);
+            Email = korisnik.Email;
+            Ime = korisnik.Ime;
+            Prezime = korisnik.Prezime;
+            BrojTelefona = korisnik.BrojTelefona;
+            Ulica = korisnik.Adresa.Ulica;
+            Grad = korisnik.Adresa.Grad;
+            Drzava = korisnik.Adresa.Drzava;
+            Broj = korisnik.Adresa.Broj.ToString();
 
             
             
@@ -221,6 +311,20 @@ namespace Projekat.ViewModels
             }
         }
 
+        public ICommand PromenaLozinkeCommand
+        {
+            get
+            {
+                if (_promenaLozinkeCommand == null)
+                    _promenaLozinkeCommand = new RelayCommand(_promenaLozinkeCommand => PromenaLozinke());
+                return _promenaLozinkeCommand;
+            }
+        }
+
+        public void PromenaLozinke()
+        {
+            _navigationStore.CurrentViewModel = new PromenaLozinkeViewModel(_navigationStore);
+        }
         public void Povratak()
         {
             _navigationStore.CurrentViewModel = _previousViewModel;

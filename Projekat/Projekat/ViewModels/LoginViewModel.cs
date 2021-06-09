@@ -2,11 +2,13 @@
 using Projekat.Data;
 using Projekat.Model;
 using Projekat.Stores;
+using Projekat.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Projekat.ViewModels
@@ -45,13 +47,18 @@ namespace Projekat.ViewModels
             get
             {
                 if (_loginCommand == null)
-                    _loginCommand = new RelayCommand(_loginCommand => LoginUser());
+                    _loginCommand = new RelayCommand(_pass => LoginUser((object) _pass));
                 return _loginCommand;
             }
         }
 
-        private void LoginUser()
+        private void LoginUser(object password)
         {
+            var passwordBox = password as PasswordBox;
+            Lozinka = passwordBox.Password;
+            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+            
             using (var db = new DatabaseContext())
             {
                 foreach (Korisnik k in db.Korisnici)
@@ -60,7 +67,11 @@ namespace Projekat.ViewModels
                     {
                         if (!k.Lozinka.Equals(Lozinka))
                         {
-                            Console.WriteLine("Nevalidna lozinka");
+                            dialogModel.IsError = true;
+                            dialogModel.Message = "Nevalidna lozinka!";
+                            dialog.DataContext = dialogModel;
+                            dialog.ShowDialog();
+                            //Console.WriteLine("Nevalidna lozinka");
                             return;
                         }
 
@@ -69,31 +80,35 @@ namespace Projekat.ViewModels
 
                         if (k.GetType() == typeof(Administrator))
                         {
-                            Console.WriteLine("Administrator");
+                            //Console.WriteLine("Administrator");
                             _navigationStore.CurrentViewModel = new AdminHomeViewModel(_navigationStore);
                             return;
                         }
                         else if (k.GetType() == typeof(Klijent))
                         {
-                            Console.WriteLine("Klijent");
+                            //Console.WriteLine("Klijent");
                             _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
                             return;
                         }
                         else if (k.GetType() == typeof(Organizator))
                         {
-                            Console.WriteLine("Organizator");
+                            //Console.WriteLine("Organizator");
                             _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
                             return;
                         }
                         else
                         {
-                            Console.WriteLine("Login error");
+                            //Console.WriteLine("Login error");
                             return;
                         }
                     }
                 }
+                dialogModel.IsError = true;
+                dialogModel.Message = "Nepostojeći korisnik!";
+                dialog.DataContext = dialogModel;
+                dialog.ShowDialog();
+                // Console.WriteLine("Nepostojeci korisnik");
 
-                Console.WriteLine("Nepostojeci korisnik");
             } 
         }
 

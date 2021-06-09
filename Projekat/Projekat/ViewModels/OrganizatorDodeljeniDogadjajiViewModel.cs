@@ -26,6 +26,7 @@ namespace Projekat.ViewModels
         private readonly IZadatakService ZadatakServce = new ZadatakService();
         private ICommand _detailsCommand;
         private ICommand _povratakCommand;
+        
         private Korisnik k;
 
         public ObservableCollection<Dogadjaj> Dogadjaji
@@ -263,9 +264,10 @@ namespace Projekat.ViewModels
             {
                 detailsModel.Organizator = SelectedDogadjaj.Organizator.Ime + " " + SelectedDogadjaj.Organizator.Prezime;
             }
-            detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd/MM/yyyy HH:mm");
-            detailsModel.Napomene = SelectedDogadjaj.Napomena;
+            detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd.MM.yyyy");
+            detailsModel.DodatniZahtevi = SelectedDogadjaj.DodatniZahtevi;
             detailsModel.MestoOdrzavanja = SelectedDogadjaj.MestoOdrzavanja;
+            detailsModel.BrojGostiju = SelectedDogadjaj.BrojGostiju;
             details.DataContext = detailsModel;
             details.Show();
 
@@ -317,5 +319,7 @@ namespace Projekat.ViewModels
                 _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
             }
         }
+
+       
     }
 }

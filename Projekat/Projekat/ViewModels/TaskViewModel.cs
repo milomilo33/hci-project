@@ -26,6 +26,7 @@ namespace Projekat.ViewModels
         private ICommand _komentarCommand;
         private ICommand _prihvatiCommand;
         private ICommand _sendClientCommand;
+        private ICommand _deleteCommand;
 
         public int _idDogadjaja;
         public NavigationStore _navigationStore;
@@ -222,7 +223,17 @@ namespace Projekat.ViewModels
                 dialog.Owner = window;
                 dialog.ShowDialog();
 
+            }else if (status.Equals("Organizovan"))
+            {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Ne možete da izmenite zadatak, događaj je organizovan!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
             }
+
             else
             {
 
@@ -294,6 +305,70 @@ namespace Projekat.ViewModels
             else
             {
                 _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+            }
+        }
+
+        public ICommand DeleteCommand
+        {
+            get
+            {
+                if (_deleteCommand == null)
+                    _deleteCommand = new RelayCommand(window => Delete((Window)window));
+                return _deleteCommand;
+            }
+        }
+
+        public void Delete(Window window)
+        {
+            
+            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+            if(SelectedZadatak == null)
+            {
+                dialogModel.IsError = true;
+                dialogModel.Message = "Morate selektovati zadatak kako biste ga obrisali!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+
+            }
+            else {
+                using (var db = new DatabaseContext())
+                {
+                    var dogadjaj = db.Dogadjaji.Find(IdDogadjaja);
+                    if (dogadjaj.StatusEnum == Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_KLIJENT || dogadjaj.StatusEnum == Dogadjaj.STATUS_DOGADJAJA.ORGANIZOVAN)
+                    {
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Nije moguće obrisati izabrani zadatak!";
+                        dialog.DataContext = dialogModel;
+                        dialog.Owner = window;
+                        dialog.ShowDialog();
+                    }
+                    else
+                    {
+                        var zadatak = db.Zadaci.Find(SelectedZadatak.Id);
+                        if (zadatak.Tip == Zadatak.TipZadatka.GLAVNI)
+                        {
+                            dialogModel.IsError = true;
+                            dialogModel.Message = "Nije moguće obrisati glavni zadatak!";
+                            dialog.DataContext = dialogModel;
+                            dialog.Owner = window;
+                            dialog.ShowDialog();
+                        }
+                        else
+                        {
+                            db.Zadaci.Remove(zadatak);
+                            db.SaveChanges();
+                            dialogModel.IsError = false;
+                            dialogModel.Message = "Uspešno ste obrisali izabrani zadatak!";
+                            dialog.DataContext = dialogModel;
+                            dialog.Owner = window;
+                            dialog.ShowDialog();
+                            refresh();
+                        }
+                    }
+
+                }
             }
         }
 

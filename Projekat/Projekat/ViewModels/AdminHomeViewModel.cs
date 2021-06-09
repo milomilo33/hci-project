@@ -67,6 +67,23 @@ namespace Projekat.ViewModels
             }
         }
 
+        private ICommand _profilCommand;
+        public ICommand ProfilCommand
+        {
+            get
+            {
+                if (_profilCommand == null)
+                    _profilCommand = new RelayCommand(_profilCommand => Profil());
+                return _profilCommand;
+            }
+        }
+
+        private void Profil()
+        {
+
+            _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore);
+        }
+
         private ICommand _odjavaCommand;
 
         public ICommand OdjavaCommand
@@ -82,6 +99,7 @@ namespace Projekat.ViewModels
         public void Odjava()
         {
             _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
         }
     }
 }

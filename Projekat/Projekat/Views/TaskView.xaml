@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
              xmlns:local="clr-namespace:Projekat.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1280">
     <DockPanel>
         <Menu DockPanel.Dock="Top" Height="50">
             <Menu.ItemsPanel>
@@ -45,11 +45,11 @@
                 </StackPanel>
             </Button>
         </Menu>
-        <Grid>
+        <Grid Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*" />
                 <ColumnDefinition Width="2*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="2*" />
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -57,8 +57,14 @@
                 <RowDefinition Height="10*" />
 
             </Grid.RowDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" BorderBrush="Orange" Background="White" Command="{Binding Path=DataContext.SendClientCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Pošalji klijentu predloge</Button>
-            <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"  Command="{Binding AddCommand}">Dodaj zadatak</Button>
+
+            <Button Grid.Row="0" Grid.Column="0" ToolTip="Kliknite da pošaljete predloge klijentu" HorizontalAlignment="Right" BorderBrush="Gray" Background="LightGray" Command="{Binding Path=DataContext.SendClientCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Pošalji klijentu predloge</Button>
+            <Button Grid.Row="0" Grid.Column="1" ToolTip="Kliknite da biste dodali zadatak" HorizontalAlignment="Right"  Command="{Binding AddCommand}">Dodaj zadatak</Button>
+            <Button Grid.Row="0" Grid.Column="2" ToolTip="Selektujte zadatak iz tabele kako biste ga obrisali" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignRaisedAccentButton}" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Obriši zadatak</Button>
+            
+
+           
+
             <DataGrid Grid.Row="2"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"

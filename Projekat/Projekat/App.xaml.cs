@@ -492,7 +492,7 @@ namespace Projekat
                 d3.BrojGostiju = 150;
                 d3.DatumOdrzavanja = DateTime.Now;
                 d3.Budzet = 40000;
-                d3.DodatniZahtevi = "nema";
+                d3.DodatniZahtevi = "Pored ovoga, zelim i velike bukete cveca.";
 
 
                 d3.Zadaci = new List<Zadatak>();
@@ -515,6 +515,40 @@ namespace Projekat
                 db.Dogadjaji.Add(d3);
                 db.Zadaci.Add(z5);
                 db.Predlozi.Add(pred1);
+
+                Zadatak z6 = new Zadatak();
+                z6.Id = 2;
+
+                z6.Naziv = "Cveće";
+                z6.Opis = "Pronaći cvećaru";
+                z6.Status = "U obradi";
+
+                z6.Tip = Zadatak.TipZadatka.DODATNI;
+
+                Ponuda p3 = new Ponuda();
+                p3.Opis = "Velik buket cveca za sve";
+                p3.Cena = 5000;
+                p3.Nevazeca = false;
+                db.Ponude.Add(p3);
+
+                Saradnik s3 = new Saradnik();
+                s3.Stolovi = null;
+                s3.Naziv = "Cvecara Rozalija";
+                s3.Opis = "Nudimo vam velike bukete cveca!";
+                s3.Tip = "Cvecara";
+                s3.Adresa = adr;
+                s3.BrojTelefona = "069696969";
+                s3.Ponude = new List<Ponuda>();
+                db.Saradnici.Add(s3);
+                s3.Ponude.Add(p3);
+
+                Predlog pred2 = new Predlog();
+                pred2.Ponuda = p3;
+                pred2.Zadatak = z6;
+                z6.IzabraniPredlog = pred2;
+                d3.Zadaci.Add(z6);
+
+                db.Zadaci.Add(z6);
 
 
                 db.Zadaci.Add(z1);

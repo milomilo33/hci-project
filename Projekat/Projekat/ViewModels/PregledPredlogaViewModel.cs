@@ -38,6 +38,18 @@ namespace Projekat.ViewModels
 
             AdresaString = Predlog.Ponuda.Saradnik.Adresa.ToString();
             _organizovan = organizovan;
+            IsKlijent = KorisnikStore.Instance.TrenutniKorisnik is Klijent ? true : false;
+        }
+
+        private bool _isKlijent;
+        public bool IsKlijent
+        {
+            get { return _isKlijent; }
+            set
+            {
+                _isKlijent = value;
+                OnPropertyChanged(nameof(IsKlijent));
+            }
         }
 
         private bool _organizovan;
@@ -108,7 +120,22 @@ namespace Projekat.ViewModels
 
         private void OtvoriDodatneZahteve()
         {
-            // prozor dodatnih zahteva
+            using (var db = new DatabaseContext())
+            {
+                ObservableCollection<Predlog> dodatniZahtevi = new ObservableCollection<Predlog>();
+                foreach (Zadatak zad in Zadaci)
+                {
+                    if (zad.Tip == Zadatak.TipZadatka.DODATNI)
+                    {
+                        Predlog dodatniPredlog = db.Zadaci.Include("IzabraniPredlog.Ponuda.Saradnik")
+                                                          .SingleOrDefault(z => z.Id == zad.Id)
+                                                          .IzabraniPredlog;
+                        dodatniZahtevi.Add(dodatniPredlog);
+                    }
+                }
+
+                _navigationStore.CurrentViewModel = new PregledPredlogaDodatniZahteviViewModel(_navigationStore, _navigationStore.CurrentViewModel, dodatniZahtevi);
+            }
         }
 
         private ICommand _otvoriRasporedSedenjaCommand;
@@ -200,7 +227,7 @@ namespace Projekat.ViewModels
             dialog.Owner = window;
             dialog.ShowDialog();
 
-            if (dialogModel.Message.Equals("Ne"))
+            if (dialogModel.odgovor.Equals("Ne"))
             {
                 return;
             }
@@ -287,7 +314,7 @@ namespace Projekat.ViewModels
             dialog.Owner = window;
             dialog.ShowDialog();
 
-            if (dialogModel.Message.Equals("Ne"))
+            if (dialogModel.odgovor.Equals("Ne"))
             {
                 return;
             }

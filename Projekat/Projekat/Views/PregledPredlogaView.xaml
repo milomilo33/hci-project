@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Projekat.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:Projekat.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     
@@ -126,12 +127,20 @@
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Command="{Binding PrihvatiPredlogCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                Visibility="{Binding Path=Organizovan, Converter={StaticResource InverseBoolToVisConverter}}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 materialDesign:ButtonAssist.CornerRadius="6"
                 Height="40" FontSize="20"
                 ToolTip="Kliknite da biste prihvatili ovaj predlog">
+                <Button.Resources>
+                    <converters:MultiBooleanToVisibilityConverter x:Key="VisConverter" />
+                </Button.Resources>
+                <Button.Visibility>
+                    <MultiBinding Converter="{StaticResource VisConverter}">
+                        <Binding Path="Organizovan" Converter="{StaticResource InvertBooleanConverter}" />
+                        <Binding Path="IsKlijent" />
+                    </MultiBinding>
+                </Button.Visibility>
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon VerticalAlignment="Center"
                                                             Kind="CheckOutline" Height="30" Width="30" Margin="0,0,10,0" />
@@ -143,12 +152,20 @@
                 Style="{StaticResource MaterialDesignRaisedAccentButton}"
                 Command="{Binding ZatraziIzmeneCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
-                Visibility="{Binding Path=Organizovan, Converter={StaticResource InverseBoolToVisConverter}}"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 materialDesign:ButtonAssist.CornerRadius="6"
                 Height="40" FontSize="20"
                 ToolTip="Kliknite da biste zatražili izmenu predloga od organizatora ako Vam nešto u predlogu ne odgovara">
+                <Button.Resources>
+                    <converters:MultiBooleanToVisibilityConverter x:Key="VisConverter" />
+                </Button.Resources>
+                <Button.Visibility>
+                    <MultiBinding Converter="{StaticResource VisConverter}">
+                        <Binding Path="Organizovan" Converter="{StaticResource InvertBooleanConverter}" />
+                        <Binding Path="IsKlijent" />
+                    </MultiBinding>
+                </Button.Visibility>
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon VerticalAlignment="Center"
                                                             Kind="TextUser" Height="30" Width="30" Margin="0,0,10,0" />

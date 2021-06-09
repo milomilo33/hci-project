@@ -1,6 +1,7 @@
 ﻿using Projekat.Commands;
 using Projekat.Data;
 using Projekat.Model;
+using Projekat.Service;
 using Projekat.Stores;
 using Projekat.Utility;
 using Projekat.Views;
@@ -319,9 +320,9 @@ namespace Projekat.ViewModels
                 return;
             }
 
+            int idDogadjaja = Zadaci.First().Dogadjaj.Id;
             using (var db = new DatabaseContext())
             {
-                int idDogadjaja = Zadaci.First().Dogadjaj.Id;
                 Dogadjaj dog = db.Dogadjaji.Include("RasporedSedenja")
                                            .Include("NerasporedjeniGosti")
                                            .SingleOrDefault(d => d.Id == idDogadjaja);
@@ -366,10 +367,19 @@ namespace Projekat.ViewModels
             successDialog.Owner = window;
             successDialog.ShowDialog();
 
-            Povratak();
+            // otvoriti poruke
+            Komunikacija porukeDialog = new Komunikacija();
+            KomunikacijaViewModel porukeViewModel = new KomunikacijaViewModel(false);
+            porukeViewModel._idDogadjaja = idDogadjaja;
+            porukeViewModel.Komentari = KomentarService.getKomentareZaDogadjaj(idDogadjaja);
+            porukeDialog.DataContext = porukeViewModel;
+            porukeDialog.Owner = window;
+            porukeDialog.ShowDialog();
 
-            // otvoriti prozor za komunikaciju
+            Povratak();
         }
+
+        private readonly IKomentarService KomentarService = new KomentarService();
 
         private ICommand _povratakCommand;
 

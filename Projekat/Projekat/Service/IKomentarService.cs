@@ -11,5 +11,6 @@ namespace Projekat.Service
     public interface IKomentarService
     {
         ObservableCollection<Komentar> getKomentareZaZadatak(int id);
+        ObservableCollection<Komentar> getKomentareZaDogadjaj(int id);
     }
 }

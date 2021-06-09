@@ -77,30 +77,43 @@ namespace Projekat.ViewModels
         public void Add(Window window)
         {
 
-            
-            Predlog p = new Predlog();
-            p.Status = Predlog.STATUS.NA_CEKANJU;
-           
-            using(var db = new DatabaseContext())
+            if (SelectedPonuda == null)
             {
-                var zadatak = db.Zadaci.Find(IdZadatka);
-                var ponuda = db.Ponude.Find(SelectedPonuda.Id);
-                zadatak.IzabraniPredlog = p;
-                p.Zadatak = zadatak;
-                p.Ponuda = ponuda;
-                db.Predlozi.Add(p);
-                db.SaveChanges();
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Morate selektovati ponudu da biste je prihvatili!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+                CloseWindow();
+
             }
+            else
+            {
+                Predlog p = new Predlog();
+                p.Status = Predlog.STATUS.NA_CEKANJU;
 
-            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
-            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
-            dialogModel.IsError = false;
-            dialogModel.Message = "Uspešno prihvaćena ponuda!";
-            dialog.DataContext = dialogModel;
-            dialog.Owner = window;
-            dialog.ShowDialog();
-            CloseWindow();
+                using (var db = new DatabaseContext())
+                {
+                    var zadatak = db.Zadaci.Find(IdZadatka);
+                    var ponuda = db.Ponude.Find(SelectedPonuda.Id);
+                    zadatak.IzabraniPredlog = p;
+                    p.Zadatak = zadatak;
+                    p.Ponuda = ponuda;
+                    db.Predlozi.Add(p);
+                    db.SaveChanges();
+                }
 
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = false;
+                dialogModel.Message = "Uspešno prihvaćena ponuda!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+                CloseWindow();
+            }
         }
         public Action Close { get; set; }
         private void CloseWindow()

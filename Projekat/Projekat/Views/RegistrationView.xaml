@@ -141,7 +141,7 @@
             <Button Grid.Row="16" Grid.Column="1" Content="Registruj" Height="33" HorizontalAlignment="Left" Name="Submit"  Width="420" Command="{Binding SubmitCommand}"   CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
             
            
-            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="16" Grid.Column="3" Content="Odustani" Height="33" HorizontalAlignment="Right"  Name="Cancel"  Width="180" Command="{Binding CancelCommand}"/>
+            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="16" Grid.Column="3" Content="Odustani" Height="33" HorizontalAlignment="Right"  Name="Cancel"  Width="420" Command="{Binding CancelCommand}"/>
 
             
         </Grid>

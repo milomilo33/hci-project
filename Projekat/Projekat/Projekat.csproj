@@ -284,6 +284,8 @@
     </ApplicationDefinition>
     <Compile Include="Converters\DogadjajStatusToKlijentPredlogVisibleBoolean.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="Converters\MultiBooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\MultipleCommandParamConverter.cs" />
     <Compile Include="Data\DatabaseContext.cs" />
     <Compile Include="Model\Gost.cs" />
     <Compile Include="Model\KapacitetStola.cs" />
@@ -304,6 +306,8 @@
     <Compile Include="Stores\KorisnikStore.cs" />
     <Compile Include="Stores\NavigationStore.cs" />
     <Compile Include="Validation\EmptyStringValidationConverter.cs" />
+    <Compile Include="Utility\DragDropExtension.cs" />
+    <Compile Include="Utility\ExtensionMethods.cs" />
     <Compile Include="Validation\FutureDateValidationRule.cs" />
     <Compile Include="Validation\PasswordHelper.cs" />
     <Compile Include="Validation\StringToDoubleValidationRule.cs" />
@@ -323,6 +327,7 @@
     <Compile Include="ViewModels\KomunikacijaViewModel.cs" />
     <Compile Include="ViewModels\IzmjenaPonudeViewModel.cs" />
     <Compile Include="ViewModels\KreiranjeZadatkaViewModel.cs" />
+    <Compile Include="ViewModels\PregledPredlogaDodatniZahteviViewModel.cs" />
     <Compile Include="ViewModels\PregledPredlogaViewModel.cs" />
     <Compile Include="ViewModels\PromenaLozinkeViewModel.cs" />
     <Compile Include="ViewModels\RasporedSedenjaViewModel.cs" />
@@ -390,6 +395,12 @@
     </Compile>
     <Compile Include="Views\KlijentHomeView.xaml.cs">
       <DependentUpon>KlijentHomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrganizatorDodavanjePonude.xaml.cs">
+      <DependentUpon>OrganizatorDodavanjePonude.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PregledPredlogaDodatniZahteviView.xaml.cs">
+      <DependentUpon>PregledPredlogaDodatniZahteviView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PregledPredlogaView.xaml.cs">
       <DependentUpon>PregledPredlogaView.xaml</DependentUpon>
@@ -515,6 +526,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\OrganizatorDodavanjePonude.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PregledPredlogaDodatniZahteviView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\PregledPredlogaView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -613,6 +632,9 @@
       <Link>.editorconfig</Link>
     </None>
     <None Include="app.manifest" />
+    <None Include="CSV Files\Saradnik1_ok.csv" />
+    <None Include="CSV Files\Saradnik2_err.csv" />
+    <None Include="CSV Files\Saradnik3_err.csv" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -640,10 +662,11 @@
     <PackageReference Include="Geocoding.Microsoft">
       <Version>4.0.1</Version>
     </PackageReference>
+    <PackageReference Include="MicrosoftExpressionInteractions">
+      <Version>3.0.40218</Version>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="CSV Files\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

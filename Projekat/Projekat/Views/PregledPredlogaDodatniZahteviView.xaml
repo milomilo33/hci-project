@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Projekat.Views.PregledPredlogaDodatniZahteviView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Projekat.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1280">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Height="50">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"></DockPanel>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste se vratili na prethodnu stranicu"
+                VerticalAlignment="Center"
+                Command="{Binding PovratakCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                            Kind="ArrowBackCircle" Height="25" Width="25" Margin="0,0,10,0" />
+                    <TextBlock Text="Povratak" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <MenuItem Header="Dodatni zahtevi" FontWeight="DemiBold" Focusable="False"></MenuItem>
+            <MenuItem Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"
+                      ToolTip="Kliknite da biste otišli na početnu stranicu"></MenuItem>
+            <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
+        </Menu>
+
+        <DataGrid
+            ItemsSource="{Binding DodatniZahtevi}"
+            CanUserAddRows="False"
+            AutoGenerateColumns="False"
+            HeadersVisibility="All"
+            IsReadOnly="True"
+            CanUserSortColumns="True"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="White">
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                                Binding="{Binding Ponuda.Saradnik.Naziv}"
+                                Header="Ime saradnika"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+                <materialDesign:DataGridTextColumn
+                                Header="Opis ponude"
+                                Binding="{Binding Ponuda.Opis}"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                </materialDesign:DataGridTextColumn>
+                <DataGridTextColumn
+                                Binding="{Binding Ponuda.Cena}"
+                                Header="Cena"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </DockPanel>
+</UserControl>

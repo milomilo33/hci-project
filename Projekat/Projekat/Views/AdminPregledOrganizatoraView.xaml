@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:Projekat.Views"
              mc:Ignorable="d" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="1200">
     <Grid>
         <DockPanel>
             <Menu DockPanel.Dock="Top" Background="LightGray">
@@ -27,85 +27,112 @@
                         <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Content="Dodaj organizatora" 
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Height="50"
-                        Command="{Binding AddOrganizatorCommand}"></Button>
-                <MenuItem Header="Stavka 2"></MenuItem>
-                <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
-            </Menu>
+                <MenuItem Header="Pregled organizatora" Focusable="False" FontWeight="DemiBold"></MenuItem>
 
-            <ListBox ItemsSource="{Binding Organizatori}"
+                <!--  <MenuItem ToolTip="Kliknite kako biste dodali novog organizatora" Header="Dodaj organizatora" Command="{Binding AddOrganizatorCommand}"></MenuItem> -->
+                <MenuItem ToolTip="Kliknite da biste otišli na početnu stranicu" Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"></MenuItem>
+                <!--  <MenuItem Command="{Binding EditOrganizatorCommand}" Header="Izmeni organizatora"></MenuItem> -->
+                <!--  <MenuItem Command="{Binding DeleteCommand}" Header="Obrisi organizatora"></MenuItem> -->
+                <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
+                <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste pogledali svoj profil"
+                
+                HorizontalAlignment="Right"
+                Command="{Binding OdjavaCommand}" Margin="0,0,-331,0" Width="138" >
+                    <StackPanel Orientation="Horizontal" Margin="0,0, 30, 0">
+                        <materialDesign:PackIcon VerticalAlignment="Center"
+                                                           Kind="Logout" Height="25" Width="25"  />
+                        <TextBlock Text="Odjava" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </Menu>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="auto"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.4*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="0.3*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Button Grid.Column="1" Grid.Row="1" ToolTip="Kliknite kako biste dodali novog organizatora" Content="Dodaj organizatora" Command="{Binding AddOrganizatorCommand}"></Button>
+                <Button Grid.Column="3" Grid.Row="1" ToolTip="Kliknite kako biste izmenili organizatora" Command="{Binding EditOrganizatorCommand}" Content="Izmeni organizatora"></Button>
+                <Button Grid.Column="5" Grid.Row="1" ToolTip="Kliknite kako biste obrisali organizatora" Command="{Binding DeleteCommand}" Content="Obriši organizatora"></Button>
+                <ListBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" ItemsSource="{Binding Organizatori}"
                      SelectedItem="{Binding Path=SelectedOrganizator}"
                      SelectionMode="Single">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
 
-                <ListBox.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        <Setter Property="Focusable" Value="True" />
-                    </Style>
-                </ListBox.ItemContainerStyle>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Focusable" Value="True" />
+                        </Style>
+                    </ListBox.ItemContainerStyle>
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <materialDesign:Card Width="350" Margin="30, 30">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <materialDesign:Card Width="350" Margin="30, 30">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition
                                             Height="200" />
-                                    <RowDefinition
+                                        <RowDefinition
                                             Height="275" />
-                                    <RowDefinition />
-                                </Grid.RowDefinitions>
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
 
-                                <Image
+                                    <Image
                                     Source="/Images/staff-member-staff-event-organizer.png"
                                     Height="200"
                                     Width="350"/>
 
-                                <StackPanel Grid.Row="1" Margin="15,15,15,15">
-                                    <Separator
+                                    <StackPanel Grid.Row="1" Margin="15,15,15,15">
+                                        <Separator
                                      Style="{StaticResource MaterialDesignDarkSeparator}" />
-                                    <TextBlock FontWeight="ExtraBold" FontSize="16" Margin="0,5,0,10">
+                                        <TextBlock FontWeight="ExtraBold" FontSize="16" Margin="0,5,0,10">
                                     Ime i prezime organizatora
-                                    </TextBlock>
-                                    <TextBlock>
+                                        </TextBlock>
+                                        <TextBlock>
                                     <Run Text="{Binding Ime}" /> <Run Text="{Binding Prezime}" />
-                                    </TextBlock>
-                                    <TextBlock FontWeight="ExtraBold" FontSize="16" Margin="0,10,0,10">
+                                        </TextBlock>
+                                        <TextBlock FontWeight="ExtraBold" FontSize="16" Margin="0,10,0,10">
                                     Broj telefona
-                                    </TextBlock>
-                                    <TextBlock Text="{Binding BrojTelefona}" />
-                                    <TextBlock FontWeight="ExtraBold" FontSize="16" Margin="0,10,0,10">
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding BrojTelefona}" />
+                                        <TextBlock FontWeight="ExtraBold" FontSize="16" Margin="0,10,0,10">
                                     Adresa
-                                    </TextBlock>
-                                    <TextBlock>
+                                        </TextBlock>
+                                        <TextBlock>
                                     <Run Text="{Binding Adresa.Ulica}"/> <Run Text="{Binding Adresa.Broj}" />, <Run Text="{Binding Adresa.Grad}" />, <Run Text="{Binding Adresa.Drzava}" />
-                                    </TextBlock>
-                                    <TextBlock FontWeight="ExtraBold" FontSize="16" Margin="0,10,0,10">
+                                        </TextBlock>
+                                        <TextBlock FontWeight="ExtraBold" FontSize="16" Margin="0,10,0,10">
                                     E-mail adresa
-                                    </TextBlock>
-                                    <TextBlock Text="{Binding Email}" />
+                                        </TextBlock>
+                                        <TextBlock Text="{Binding Email}" />
 
 
-                                </StackPanel>
-                                <Button Grid.Row="2" Content="Obrisi" 
-                                        Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledOrganizatoraView}}}" Width="150" HorizontalAlignment="Right" Margin="15">
-                                </Button>
-                                <Button Grid.Row="2" Content="Izmeni" 
-                                        Command="{Binding Path=DataContext.EditOrganizatorCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledOrganizatoraView}}}" Width="150" HorizontalAlignment="Left" Margin="15">
-                                </Button>
-                            </Grid>
-                        </materialDesign:Card>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
         </DockPanel>
     </Grid>
 </UserControl>

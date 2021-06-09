@@ -1,10 +1,5 @@
 ﻿using Projekat.Commands;
 using Projekat.Stores;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Projekat.ViewModels
@@ -32,7 +27,7 @@ namespace Projekat.ViewModels
 
         private void ViewEvents() 
         {
-            _navigationStore.CurrentViewModel = new EventListViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new EventListViewModel(_navigationStore, _navigationStore.CurrentViewModel);
         }
 
         private ICommand _pregledOrganizatoraCommand;
@@ -55,7 +50,7 @@ namespace Projekat.ViewModels
             {
                 if (_pregledSaradnikaCommand == null)
                     _pregledSaradnikaCommand = new RelayCommand(_pregledSaradnikaCommand =>
-                                                       _navigationStore.CurrentViewModel = new AdminPregledSaradnikaViewModel(_navigationStore));
+                                                       _navigationStore.CurrentViewModel = new AdminPregledSaradnikaViewModel(_navigationStore, _navigationStore.CurrentViewModel));
                 return _pregledSaradnikaCommand;
             }
         }
@@ -71,6 +66,7 @@ namespace Projekat.ViewModels
                 return _pregledKlijenataCommand;
             }
         }
+
         private ICommand _profilCommand;
         public ICommand ProfilCommand
         {
@@ -86,6 +82,23 @@ namespace Projekat.ViewModels
         {
 
             _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore);
+        }
+
+        private ICommand _odjavaCommand;
+
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(email => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
 
         }
     }

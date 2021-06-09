@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static Projekat.ViewModels.IzmjenaPonudeViewModel;
 
 namespace Projekat.Views
 {
@@ -21,16 +22,24 @@ namespace Projekat.Views
     /// </summary>
     public partial class AddOrganizator : Window
     {
-        public AddOrganizator()
+        public AdminPregledOrganizatoraViewModel Next;
+        public AddOrganizator(AdminPregledOrganizatoraViewModel next)
         {
             InitializeComponent();
+            Loaded += CreateAddOrganizator_Loaded;
+            Next = next;
         }
 
-        public AddOrganizator(AddOrganizatorViewModel vm)
+        private void CreateAddOrganizator_Loaded(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            DataContext = vm;
-            
+            if (DataContext is ICloseWindow vm)
+            {
+                vm.Close += () =>
+                {
+                    this.Close();
+                    Next.refresh();
+                };
+            }
         }
 
         public void NumberTextInput(object sender, TextCompositionEventArgs e)

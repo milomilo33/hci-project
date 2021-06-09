@@ -18,6 +18,8 @@ namespace Projekat.ViewModels
     public class OrganizatorDodeljeniDogadjajiViewModel:ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
+        private readonly ViewModelBase _previousModel;
+
         public ObservableCollection<Dogadjaj> dogadjaji;
         private ICommand _taskCommand;
         private readonly IDogadjajService DogadjajService = new DogadjajService();
@@ -36,7 +38,7 @@ namespace Projekat.ViewModels
                 OnPropertyChanged(nameof(Dogadjaji));
             }
         }
-        public OrganizatorDodeljeniDogadjajiViewModel(NavigationStore navigationStore, bool isKlijent = false)
+        public OrganizatorDodeljeniDogadjajiViewModel(NavigationStore navigationStore,ViewModelBase viewModelBase, bool isKlijent = false)
         {
             KorisnikStore korisnikStore = KorisnikStore.Instance;
             k = korisnikStore.TrenutniKorisnik;
@@ -51,6 +53,7 @@ namespace Projekat.ViewModels
             }
 
             _navigationStore = navigationStore;
+            _previousModel = viewModelBase;
             IsKlijent = isKlijent;
         }
 
@@ -146,7 +149,12 @@ namespace Projekat.ViewModels
                                                    Zadaci; 
                     Predlog predlog = zadaci.Find(z => z.Tip == Zadatak.TipZadatka.GLAVNI).IzabraniPredlog;
 
-                    PregledPredlogaViewModel pregledPredlogaViewModel = new PregledPredlogaViewModel(_navigationStore, predlog, zadaci);
+                    bool organizovan = false;
+                    if (SelectedDogadjaj.StatusEnum == Dogadjaj.STATUS_DOGADJAJA.ORGANIZOVAN)
+                    {
+                        organizovan = true;
+                    }
+                    PregledPredlogaViewModel pregledPredlogaViewModel = new PregledPredlogaViewModel(_navigationStore, predlog, zadaci, organizovan);
                     _navigationStore.CurrentViewModel = pregledPredlogaViewModel;
                 }
             }
@@ -181,6 +189,8 @@ namespace Projekat.ViewModels
             details.Show();
 
         }
+        
+
         public ICommand PovratakCommand
         {
             get
@@ -193,13 +203,37 @@ namespace Projekat.ViewModels
 
         public void Povratak()
         {
-            if (IsKlijent)
+            _navigationStore.CurrentViewModel = _previousModel;
+        }
+
+        private ICommand _pocetnaStranicaCommand;
+
+        public ICommand PocetnaStranicaCommand
+        {
+            get
             {
-                _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+                if (_pocetnaStranicaCommand == null)
+                    _pocetnaStranicaCommand = new RelayCommand(_pocetnaStranicaCommand => PocetnaStrana());
+                return _pocetnaStranicaCommand;
+            }
+        }
+
+        private void PocetnaStrana()
+        {
+            KorisnikStore korisnik = KorisnikStore.Instance;
+            Korisnik k = korisnik.TrenutniKorisnik;
+
+            if (k.GetType() == typeof(Administrator))
+            {
+                _navigationStore.CurrentViewModel = new AdminHomeViewModel(_navigationStore);
+            }
+            else if (k.GetType() == typeof(Organizator))
+            {
+                _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
             }
             else
             {
-                _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+                _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
             }
         }
 

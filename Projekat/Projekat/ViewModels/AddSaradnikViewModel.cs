@@ -1,28 +1,26 @@
 ﻿using CsvHelper;
 using CsvHelper.Configuration;
 using Geocoding;
-using Geocoding.Microsoft;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Projekat.Commands;
 using Projekat.Data;
 using Projekat.Model;
+using Projekat.Stores;
+using Projekat.Views;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
+using static Projekat.ViewModels.IzmjenaPonudeViewModel;
 
 namespace Projekat.ViewModels
 {
-    public class AddSaradnikViewModel : ViewModelBase
+    public class AddSaradnikViewModel : ViewModelBase, ICloseWindow
     {
         public AddSaradnikViewModel()
         {
@@ -180,7 +178,7 @@ namespace Projekat.ViewModels
             get
             {
                 if (_addSardadnikCommand == null)
-                    _addSardadnikCommand = new RelayCommand(_addSardadnikCommand => AddEvent());
+                    _addSardadnikCommand = new RelayCommand(window => AddEvent((Window)window));
                 return _addSardadnikCommand;
             }
         }
@@ -191,7 +189,7 @@ namespace Projekat.ViewModels
             get
             {
                 if (_editSardadnikCommand == null)
-                    _editSardadnikCommand = new RelayCommand(_editSardadnikCommand => EditEvent());
+                    _editSardadnikCommand = new RelayCommand(window => EditEvent((Window)window));
                 return _editSardadnikCommand;
             }
         }
@@ -204,6 +202,38 @@ namespace Projekat.ViewModels
                 if (_fileOpenCommand == null)
                     _fileOpenCommand = new RelayCommand(_fileOpenCommand => OpenFile());
                 return _fileOpenCommand;
+            }
+        }
+
+        private ICommand _closeCommand;
+        public ICommand CloseCommand
+        {
+            get
+            {
+                if (_closeCommand == null)
+                    _closeCommand = new RelayCommand(window => CancelEvent((Window)window));
+                return _closeCommand;
+            }
+        }
+
+        public Action Close { get; set; }
+        private void CloseWindow()
+        {
+            Close?.Invoke();
+        }
+
+        private void CancelEvent(Window window)
+        {
+            Dialog dialog = new Dialog();
+            DialogViewModel viewModel = new DialogViewModel();
+            viewModel._message = "Da li ste sigurni da želite da odustanete od dodavanja saradnika?";
+            dialog.DataContext = viewModel;
+            dialog.Owner = window;
+            dialog.ShowDialog();
+
+            if (viewModel.odgovor == "Da")
+            {
+                CloseWindow();
             }
         }
 
@@ -237,7 +267,12 @@ namespace Projekat.ViewModels
 
                 if(kapacitet == 0)
                 {
-                    System.Windows.MessageBox.Show($"Vrednost kapaciteta stola {naziv} je nepravilna", "Upozorenje!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = $"Vrednost kapaciteta stola {naziv} je nepravilna.";
+                    newDialog.DataContext = dialogModel;
+                    newDialog.ShowDialog();
                     Stolovi = new List<KapacitetStola>();
                     return;
                 }
@@ -245,7 +280,12 @@ namespace Projekat.ViewModels
                 KapacitetStola ks = new KapacitetStola { Naziv = naziv, Kapacitet = kapacitet };
                 if(Stolovi.Any(s => s.Naziv == naziv))
                 {
-                    System.Windows.MessageBox.Show("Nazivi stolova nisu jedinstveni u CSV fajlu", "Upozorenje!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = "Nazivi stolova nisu jedinstveni u CSV fajlu.";
+                    newDialog.DataContext = dialogModel;
+                    newDialog.ShowDialog();
                     Stolovi = new List<KapacitetStola>();
                     return;
                     
@@ -258,7 +298,7 @@ namespace Projekat.ViewModels
             BrojMesta = kapacitetLokala.ToString();
         }
 
-        private void EditEvent()
+        private void EditEvent(Window window)
         {
             using (var db = new DatabaseContext())
             {
@@ -274,7 +314,13 @@ namespace Projekat.ViewModels
                     if (string.IsNullOrWhiteSpace(Tip) && string.IsNullOrWhiteSpace(BrojMesta))
                     {
 
-                        System.Windows.MessageBox.Show("Morate uneti podatke u sva polja forme.", "Upozorenje!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Morate uneti podatke u sva polja forme";
+                        newDialog.DataContext = dialogModel;
+                        newDialog.Owner = window;
+                        newDialog.ShowDialog();
                         return;
                     }
                 }
@@ -300,19 +346,48 @@ namespace Projekat.ViewModels
 
                 if (IsLokal)
                 {
-                    Console.WriteLine(BrojMesta);
-                    saradnik.BrojMesta = int.Parse(BrojMesta);
-                    saradnik.Tip = "Lokal";
+                    if (BrojMesta == null)
+                    {
+                        SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Morate odabrati fajl sa kapacitetima stolova";
+                        newDialog.DataContext = dialogModel;
+                        newDialog.Owner = window;
+                        newDialog.ShowDialog();
+                        return;
+                    }
+                    else
+                    {
+                        Console.WriteLine(BrojMesta);
+                        saradnik.BrojMesta = int.Parse(BrojMesta);
+                        saradnik.Tip = "Lokal";
+                    }
                 }
                 saradnik.Tip = Tip;
 
                 
-                db.SaveChanges();
+                
+
+                Dialog dialog = new Dialog();
+                DialogViewModel viewModel = new DialogViewModel();
+                viewModel._message = "Da li ste sigurni da želite da izmenite saradnika?";
+                dialog.DataContext = viewModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+
+                if (viewModel.odgovor == "Da")
+                {
+                    db.SaveChanges();
+                }
+                CloseWindow();
+
+
                 Console.WriteLine("edited");
             }
         }
 
-        private void AddEvent()
+        private void AddEvent(Window window)
         {
             using (var db = new DatabaseContext())
             {
@@ -321,14 +396,20 @@ namespace Projekat.ViewModels
                     string.IsNullOrWhiteSpace(Broj) ||
                     string.IsNullOrWhiteSpace(Naziv) ||
                     string.IsNullOrWhiteSpace(Drzava) ||
-                    string.IsNullOrWhiteSpace(BrojTelefona))
+                    string.IsNullOrWhiteSpace(BrojTelefona) ||
+                    string.IsNullOrWhiteSpace(Tip))
                 {
                     Console.WriteLine(Tip);
                     Console.WriteLine(BrojMesta);
                     if (string.IsNullOrWhiteSpace(Tip) && string.IsNullOrWhiteSpace(BrojMesta))
                     {
-
-                        System.Windows.MessageBox.Show("Morate uneti podatke u sva polja forme.", "Upozorenje!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Morate uneti podatke u sva polja forme.";
+                        newDialog.DataContext = dialogModel;
+                        newDialog.Owner = window;
+                        newDialog.ShowDialog();
                         return;
                     }
                 }
@@ -338,7 +419,13 @@ namespace Projekat.ViewModels
 
                 if(GetLocationFromAddressAsync() == (-1, -1))
                 {
-                    System.Windows.MessageBox.Show("Adresa koju ste uneli ne postoji", "Upozorenje!", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = "Adresa koju ste uneli ne postoji";
+                    newDialog.DataContext = dialogModel;
+                    newDialog.Owner = window;
+                    newDialog.ShowDialog();
                     return;
                 }
 
@@ -361,9 +448,23 @@ namespace Projekat.ViewModels
                 Console.WriteLine(IsLokal);
                 if (IsLokal == true)
                 {
-                    saradnik.BrojMesta = int.Parse(BrojMesta);
-                    saradnik.Stolovi = Stolovi;
-                    saradnik.Tip = "Lokal";
+                    if (BrojMesta == null)
+                    {
+                        SuccessOrErrorDialog newDialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Morate odabrati fajl sa kapacitetima stolova";
+                        newDialog.DataContext = dialogModel;
+                        newDialog.Owner = window;
+                        newDialog.ShowDialog();
+                        return;
+                    }
+                    else {
+                        saradnik.BrojMesta = int.Parse(BrojMesta);
+                        saradnik.Stolovi = Stolovi;
+                        saradnik.Tip = "Lokal";
+                    }
+                    
                 } else
                 {
                     saradnik.Tip = Tip;
@@ -372,8 +473,22 @@ namespace Projekat.ViewModels
                 db.Adrese.Add(adresa);
                 db.Saradnici.Add(saradnik);
 
-                db.SaveChanges();
-                Console.WriteLine("AAAAAAAAADED");
+
+                Dialog dialog = new Dialog();
+                DialogViewModel viewModel = new DialogViewModel();
+                viewModel._message = "Da li ste sigurni da želite da dodate saradnika?";
+                dialog.DataContext = viewModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+
+                if (viewModel.odgovor == "Da")
+                {
+                    db.SaveChanges();
+                    
+                }
+
+                CloseWindow();
+                Console.WriteLine("ADDED Saradnik");
             }
         }
 

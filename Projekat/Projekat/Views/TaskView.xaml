@@ -26,9 +26,24 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <MenuItem Header="Događaji"></MenuItem>
-            <MenuItem Header="Početna stranica"></MenuItem>
+            <MenuItem Header="Pregled zadatala" Focusable="False" FontWeight="DemiBold"></MenuItem>
+            <MenuItem Header="Početna stranica" 
+                      ToolTip="Kliknite kako biste otišli na početnu stranicu"
+                      Command="{Binding PocetnaStranicaCommand}"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste se odjavili"
+                
+                HorizontalAlignment="Right"
+                Command="{Binding OdjavaCommand}" Margin="0,0,-151,0" Width="138" >
+                <StackPanel Orientation="Horizontal" Margin="0,0, 30, 0">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                           Kind="Logout" Height="25" Width="25"  />
+                    <TextBlock Text="Odjava" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
         </Menu>
         <Grid Background="White">
             <Grid.ColumnDefinitions>
@@ -42,10 +57,14 @@
                 <RowDefinition Height="10*" />
 
             </Grid.RowDefinitions>
+
             <Button Grid.Row="0" Grid.Column="0" ToolTip="Kliknite da pošaljete predloge klijentu" HorizontalAlignment="Right" BorderBrush="Gray" Background="LightGray" Command="{Binding Path=DataContext.SendClientCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Pošalji klijentu predloge</Button>
             <Button Grid.Row="0" Grid.Column="1" ToolTip="Kliknite da biste dodali zadatak" HorizontalAlignment="Right"  Command="{Binding AddCommand}">Dodaj zadatak</Button>
             <Button Grid.Row="0" Grid.Column="2" ToolTip="Selektujte zadatak iz tabele kako biste ga obrisali" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignRaisedAccentButton}" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Obriši zadatak</Button>
             
+
+           
+
             <DataGrid Grid.Row="2"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"
@@ -82,21 +101,21 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button BorderBrush="Gray" Background="LightGray" Command="{Binding Path=DataContext.PrihvatiCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Prihvati ponude</Button>
+                                <Button BorderBrush="Orange" Background="White" Command="{Binding Path=DataContext.PrihvatiCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Prihvati ponude</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button BorderBrush="Gray" Background="LightGray" Command="{Binding Path=DataContext.IzmenaCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Izmeni zadatak</Button>
+                                <Button  BorderBrush="Orange" Background="White" Command="{Binding Path=DataContext.IzmenaCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Izmeni zadatak</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button BorderBrush="Gray" Background="LightGray" Command="{Binding Path=DataContext.KomentarCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Dodaj komentar</Button>
+                                <Button  BorderBrush="Orange" Background="White" Command="{Binding Path=DataContext.KomentarCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Dodaj komentar</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

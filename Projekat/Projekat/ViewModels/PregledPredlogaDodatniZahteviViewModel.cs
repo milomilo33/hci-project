@@ -1,5 +1,4 @@
 ﻿using Projekat.Commands;
-using Projekat.Data;
 using Projekat.Model;
 using Projekat.Stores;
 using System;
@@ -12,33 +11,30 @@ using System.Windows.Input;
 
 namespace Projekat.ViewModels
 {
-    public class KlijentPregledOrganizatoraViewModel : ViewModelBase
+    public class PregledPredlogaDodatniZahteviViewModel : ViewModelBase 
     {
         private readonly NavigationStore _navigationStore;
-
         private readonly ViewModelBase _previousViewModel;
-        public ObservableCollection<Organizator> Organizatori { get; set; }
 
-        public KlijentPregledOrganizatoraViewModel(NavigationStore navigationStore, ViewModelBase viewModelBase)
+        public PregledPredlogaDodatniZahteviViewModel(NavigationStore navigationStore, ViewModelBase previousViewModel, ObservableCollection<Predlog> dodatniZahtevi)
         {
             _navigationStore = navigationStore;
+            _previousViewModel = previousViewModel;
+            _dodatniZahtevi = dodatniZahtevi;
+        }
 
-            _previousViewModel = viewModelBase;
-
-            // ucitavanje organizatora
-            using (var db = new DatabaseContext())
+        private ObservableCollection<Predlog> _dodatniZahtevi;
+        public ObservableCollection<Predlog> DodatniZahtevi
+        {
+            get { return _dodatniZahtevi; }
+            set
             {
-                //foreach (Adresa a in db.Adrese)
-                //{
-                //    Console.WriteLine(a.Grad);
-                //}
-                Organizatori = new ObservableCollection<Organizator>(db.Organizatori.Include("Adresa"));
-                OnPropertyChanged(nameof(Organizatori));
+                _dodatniZahtevi = value;
+                OnPropertyChanged(nameof(DodatniZahtevi));
             }
         }
 
         private ICommand _povratakCommand;
-
         public ICommand PovratakCommand
         {
             get

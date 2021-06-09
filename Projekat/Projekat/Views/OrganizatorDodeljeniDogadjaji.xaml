@@ -26,10 +26,23 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <MenuItem Header="Dodeljeni događaji" FontWeight="DemiBold" Focusable="False" IsEnabled="False"></MenuItem>
-            <MenuItem Header="Početna stranica" Command="{Binding PovratakCommand}"
-                      ToolTip="Kliknite da biste otišli na početnu stranicu organizatora"></MenuItem>
+            <MenuItem Header="Dodeljeni događaji" FontWeight="DemiBold" Focusable="False"></MenuItem>
+            <MenuItem Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"
+                      ToolTip="Kliknite da biste otišli na početnu stranicu"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste se odjavili"
+                
+                HorizontalAlignment="Right"
+                Command="{Binding OdjavaCommand}" Margin="0,0,-371,0" Width="138" >
+                <StackPanel Orientation="Horizontal" Margin="0,0, 30, 0">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                           Kind="Logout" Height="25" Width="25"  />
+                    <TextBlock Text="Odjava" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -76,7 +89,7 @@
                     <DataGridTemplateColumn Width="200">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button BorderBrush="Gray" Background="LightGray" Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}">Detalji</Button>
+                                <Button BorderBrush="Orange" Background="White" Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}">Detalji</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

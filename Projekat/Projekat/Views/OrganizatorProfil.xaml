@@ -37,6 +37,7 @@
                     <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
+
             <Button Background="Transparent"
                 BorderThickness="0"
                 ToolTip="Kliknite da biste promenili lozinku"
@@ -47,7 +48,23 @@
                     <TextBlock Text="Promena lozinke" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
+            <MenuItem Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"
+                      ToolTip="Kliknite da biste otišli na početnu stanicu"></MenuItem>
+
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste se odjavili"
+                
+                HorizontalAlignment="Right"
+                Command="{Binding OdjavaCommand}" Margin="0,0,-231,0" Width="138" >
+                <StackPanel Orientation="Horizontal" Margin="0,0, 30, 0">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                           Kind="Logout" Height="25" Width="25"  />
+                    <TextBlock Text="Odjava" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -155,7 +172,11 @@
 
             <Button Grid.Row="14" Grid.Column="1"  materialDesign:ButtonAssist.CornerRadius="6" Content="Izmeni" Height="33" HorizontalAlignment="Right"   Width="180" Command="{Binding EditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 
-            <Button Grid.Row="14" Grid.Column="3" materialDesign:ButtonAssist.CornerRadius="6" Content="Odustani" Style="{StaticResource MaterialDesignRaisedAccentButton}" Height="33" HorizontalAlignment="Left"   Width="180" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+
+          
+
+            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="14" Grid.Column="3" materialDesign:ButtonAssist.CornerRadius="6" Content="Odustani" Height="33" HorizontalAlignment="Left"   Width="180" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+
 
         </Grid>
     </DockPanel>

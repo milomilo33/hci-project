@@ -245,7 +245,7 @@
             <TextBox  Grid.Row="6" Grid.Column="3" Grid.ColumnSpan="2" Height="25" Text="{Binding BrojGostiju}" BorderBrush="Gray" BorderThickness="1" PreviewTextInput="NumberValidationTextBox"/>
             <TextBlock Grid.Row="5" Grid.Column="6" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center"> Mesto održavanja</TextBlock>
             <TextBox  Grid.Row="6" Grid.Column="6" Grid.ColumnSpan="3" Height="25" Text="{Binding MestoOdrzavanja}" BorderBrush="Gray" BorderThickness="1"/>
-            <TextBlock Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center">Dodatne napomene</TextBlock>
+            <TextBlock Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center">Dodatni zahtevi</TextBlock>
             <TextBox  Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="8" Text="{Binding DodatniZahtevi}" BorderBrush="Gray" BorderThickness="1"/>
 
             <Button Grid.Row="10" Grid.Column="4" Grid.ColumnSpan="3"

@@ -81,7 +81,7 @@ namespace Projekat.ViewModels
         private void Profil()
         {
 
-            _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore);
+            _navigationStore.CurrentViewModel = new OrganizatorProfilViewModel(_navigationStore, _navigationStore.CurrentViewModel);
         }
 
         private ICommand _odjavaCommand;

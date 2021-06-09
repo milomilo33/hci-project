@@ -20,7 +20,7 @@ namespace Projekat
         protected override void OnStartup(StartupEventArgs e)
         {
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(navigationStore);
 
 
             MainWindow = new MainWindow()
@@ -29,7 +29,7 @@ namespace Projekat
             };
             MainWindow.Show();
 
-            InicijalizacijaPodataka();
+           // InicijalizacijaPodataka();
 
         //    using (var db = new DatabaseContext())
         //    {

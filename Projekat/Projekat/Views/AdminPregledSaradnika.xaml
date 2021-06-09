@@ -61,18 +61,16 @@
 
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.3*"></RowDefinition>
                 <RowDefinition Height="auto"></RowDefinition>
-                <RowDefinition Height="0.2*"></RowDefinition>
-                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Grid.Column="1" Grid.Row="1" ToolTip="Kliknite kako biste dodali novog saradnika" Content="Dodaj saradnika" 
+            <Button Margin="10" Grid.Column="1" Grid.Row="0" ToolTip="Kliknite kako biste dodali novog saradnika" Content="Dodaj saradnika" 
                     Command="{Binding AddSaradnikCommand}"></Button>
-            <Button Grid.Column="3" Grid.Row="1" ToolTip="Kliknite kako biste izmenili saradnika" 
+            <Button Margin="10" Grid.Column="3" Grid.Row="0" ToolTip="Kliknite kako biste izmenili saradnika" 
                     Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}" Content="Izmeni saradnika"></Button>
-            <Button Grid.Column="5" Grid.Row="1" ToolTip="Kliknite kako biste obrisali saradnika" 
+            <Button Margin="10" Grid.Column="5" Grid.Row="0" ToolTip="Kliknite kako biste obrisali saradnika" 
                     Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}" Content="Obiši saradnika"></Button>
-            <ListBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5" ItemsSource="{Binding Saradnici}"
+            <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" ItemsSource="{Binding Saradnici}"
                  SelectedItem="{Binding Path=SelectedSaradnik}"
                  SelectionMode="Single">
                 <ListBox.ItemsPanel>

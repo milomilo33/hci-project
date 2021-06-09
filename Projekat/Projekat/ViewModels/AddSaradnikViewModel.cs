@@ -84,6 +84,17 @@ namespace Projekat.ViewModels
             }
         }
 
+        private string _image;
+        public string Image
+        {
+            get => _image;
+            set
+            {
+                _image = value;
+                OnPropertyChanged(nameof(Image));
+            }
+        }
+
         private string _opis;
         public string Opis
         {
@@ -202,6 +213,32 @@ namespace Projekat.ViewModels
                 if (_fileOpenCommand == null)
                     _fileOpenCommand = new RelayCommand(_fileOpenCommand => OpenFile());
                 return _fileOpenCommand;
+            }
+        }
+
+        private ICommand _uploadImageCommand;
+        public ICommand UploadImageCommand
+        {
+            get
+            {
+                if(_uploadImageCommand == null)
+                {
+                    _uploadImageCommand = new RelayCommand(window => GetImage());
+                }
+                return _uploadImageCommand;
+            }
+        }
+
+        private void GetImage()
+        {
+            Microsoft.Win32.OpenFileDialog fileManager = new Microsoft.Win32.OpenFileDialog();
+            fileManager.Filter = "PNG image (*.png)|*.png|JPG image (*.jpg)|*.jpg";
+
+            Nullable<bool> result = fileManager.ShowDialog();
+            if (result == true)
+            {
+                string filename = fileManager.FileName;
+                Image = filename;
             }
         }
 
@@ -444,6 +481,12 @@ namespace Projekat.ViewModels
                 saradnik.Adresa = adresa;
                 saradnik.BrojTelefona = BrojTelefona;
                 saradnik.Opis = Opis;
+
+                if(!string.IsNullOrWhiteSpace(Image))
+                {
+                    saradnik.Slika = Image;
+                    Console.WriteLine("AAAAAAAAAAAAAAAAA" + Image);
+                }
 
                 Console.WriteLine(IsLokal);
                 if (IsLokal == true)

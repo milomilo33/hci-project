@@ -47,7 +47,7 @@ namespace Projekat
                 adr.Drzava = "Srbija";
                 db.Adrese.Add(adr);
 
-
+                
                 Administrator a = new Administrator();
                 a.BrojTelefona = "069222222";
                 a.Email = "example@mail.com";
@@ -176,6 +176,7 @@ namespace Projekat
                 s1.Tip = "Lokal";
                 
                 s1.Adresa = adr;
+                s1.Slika = "/Images/stolovi.png";
 
                 List<Ponuda> ponude = new List<Ponuda>();
                 ponude.Add(p1);
@@ -260,15 +261,15 @@ namespace Projekat
                 z5.Dogadjaj = d3;
                 d3.Zadaci.Add(z5);
                 z5.Tip = Zadatak.TipZadatka.GLAVNI;
-                /*Predlog pred1 = new Predlog();
+                Predlog pred1 = new Predlog();
                 pred1.Ponuda = p1;
                 //pred1.Status = Predlog.STATUS.
                 pred1.Zadatak = z5;
-                z5.IzabraniPredlog = pred1;*/
+                z5.IzabraniPredlog = pred1;
 
                 db.Dogadjaji.Add(d3);
                 db.Zadaci.Add(z5);
-               // db.Predlozi.Add(pred1);
+                db.Predlozi.Add(pred1);
 
                 Zadatak z6 = new Zadatak();
                 z6.Id = 2;
@@ -296,10 +297,10 @@ namespace Projekat
                 db.Saradnici.Add(s3);
                 s3.Ponude.Add(p3);
 
-                /*Predlog pred2 = new Predlog();
+                Predlog pred2 = new Predlog();
                 pred2.Ponuda = p3;
                 pred2.Zadatak = z6;
-                z6.IzabraniPredlog = pred2;*/
+                z6.IzabraniPredlog = pred2;
                 d3.Zadaci.Add(z6);
 
                 db.Zadaci.Add(z6);

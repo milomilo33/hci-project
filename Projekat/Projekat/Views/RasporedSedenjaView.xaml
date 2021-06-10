@@ -187,8 +187,11 @@
                 </ListView.View>
             </ListView>
 
-            <StackPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Background="Orange">
-                <TextBlock HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center">OVDE IDE SLIKA PROSTORIJE</TextBlock>
+            <StackPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2">
+                <Image
+                    Height="300"
+                    Width="600"
+                    Source="{Binding Slika}"/>
             </StackPanel>
 
 

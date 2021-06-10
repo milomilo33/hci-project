@@ -248,11 +248,11 @@ namespace Projekat.ViewModels
             get
             {
                 if (_detailsCommand == null)
-                    _detailsCommand = new RelayCommand(_detailsCommand => DetailsEvent());
+                    _detailsCommand = new RelayCommand(window => DetailsEvent((Window) window));
                 return _detailsCommand;
             }
         }
-        public void DetailsEvent()
+        public void DetailsEvent(Window window)
         {
             Details details = new Details();
             DetailsViewModel detailsModel = new DetailsViewModel();
@@ -268,7 +268,7 @@ namespace Projekat.ViewModels
             detailsModel.MestoOdrzavanja = SelectedDogadjaj.MestoOdrzavanja;
             detailsModel.BrojGostiju = SelectedDogadjaj.BrojGostiju;
             details.DataContext = detailsModel;
-            details.Show();
+            details.ShowDialog();
 
         }
         

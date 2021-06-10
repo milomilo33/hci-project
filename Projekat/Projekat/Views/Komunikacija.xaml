@@ -74,7 +74,7 @@
                                     Text="{Binding Sadrzaj}" />
                             <TextBlock Grid.Row="1" Grid.Column="3"
                             TextWrapping="Wrap"
-                                    Text="{Binding DatumVremeKomentara}" />
+                                    Text="{Binding DatumVremeKomentara, StringFormat='{}{0:dd.MM.yyyy. HH:mm}'}" />
                             <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
                                 <TextBlock.Text>
                                     <MultiBinding StringFormat="{}{0}  {1}">

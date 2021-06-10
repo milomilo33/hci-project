@@ -79,13 +79,9 @@
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                 Width="250"/>
                     <DataGridTemplateColumn Width="200">
-
-                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
-                    <DataGridTemplateColumn>
-
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button BorderBrush="Orange" Background="White" Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"
+                                <Button BorderBrush="Orange" Background="White" Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorDodeljeniDogadjaji}}}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                         ToolTip="Kliknite da biste pregledali detalje zahtevanog događaja">Detalji</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

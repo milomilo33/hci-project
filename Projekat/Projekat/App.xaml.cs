@@ -20,7 +20,9 @@ namespace Projekat
         protected override void OnStartup(StartupEventArgs e)
         {
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(navigationStore);
+
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
+            //navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(navigationStore);
 
 
             MainWindow = new MainWindow()
@@ -29,7 +31,7 @@ namespace Projekat
             };
             MainWindow.Show();
 
-           // InicijalizacijaPodataka();
+            InicijalizacijaPodataka();
 
             base.OnStartup(e);
 
@@ -97,41 +99,29 @@ namespace Projekat
 
                 Zadatak z1 = new Zadatak();
                 z1.Id = 1;
-
                 z1.Naziv = "Restoran";
                 z1.Opis = "Pronaći restoran";
-                //z1.Status = "U obradi";
-
                 z1.Tip = Zadatak.TipZadatka.GLAVNI;
 
                 Zadatak z2 = new Zadatak();
                 z2.Id = 2;
-
                 z2.Naziv = "Cveće";
                 z2.Opis = "Pronaći cvećaru";
-                //z2.Status = "U obradi";
-
                 z2.Tip = Zadatak.TipZadatka.DODATNI;
-
-
-
-
 
                 Zadatak z3 = new Zadatak();
                 z3.Id = 3;
-
                 z3.Naziv = "Restoran";
                 z3.Opis = "Pronaći restoran";
-                //z3.Status = "U obradi";
+                z3.Tip = Zadatak.TipZadatka.GLAVNI;
 
 
 
                 Zadatak z4 = new Zadatak();
                 z4.Id = 4;
-
                 z4.Naziv = "Cveće";
                 z4.Opis = "Pronaći cvećaru";
-                //z4.Status = "U obradi";
+                z4.Tip = Zadatak.TipZadatka.DODATNI;
 
 
                 Ponuda p1 = new Ponuda();
@@ -146,10 +136,6 @@ namespace Projekat
                 p2.Cena = 60000;
                 p2.Nevazeca = false;
                 db.Ponude.Add(p2);
-
-
-
-
 
                 Klijent k = new Klijent();
                 k.BrojTelefona = "069222222";
@@ -256,27 +242,24 @@ namespace Projekat
                 z5.Id = 5;
                 z5.Naziv = "Restoran";
                 z5.Opis = "Pronaći restoran";
-                //z5.Status = "Na čekanju";
                 z5.Dogadjaj = d3;
                 d3.Zadaci.Add(z5);
                 z5.Tip = Zadatak.TipZadatka.GLAVNI;
-                /*Predlog pred1 = new Predlog();
+
+                Predlog pred1 = new Predlog();
                 pred1.Ponuda = p1;
                 //pred1.Status = Predlog.STATUS.
                 pred1.Zadatak = z5;
-                z5.IzabraniPredlog = pred1;*/
+                z5.IzabraniPredlog = pred1;
 
                 db.Dogadjaji.Add(d3);
                 db.Zadaci.Add(z5);
-               // db.Predlozi.Add(pred1);
+                db.Predlozi.Add(pred1);
 
                 Zadatak z6 = new Zadatak();
                 z6.Id = 2;
-
                 z6.Naziv = "Cveće";
                 z6.Opis = "Pronaći cvećaru";
-                //z6.Status = "U obradi";
-
                 z6.Tip = Zadatak.TipZadatka.DODATNI;
 
                 Ponuda p3 = new Ponuda();
@@ -296,10 +279,10 @@ namespace Projekat
                 db.Saradnici.Add(s3);
                 s3.Ponude.Add(p3);
 
-                /*Predlog pred2 = new Predlog();
+                Predlog pred2 = new Predlog();
                 pred2.Ponuda = p3;
                 pred2.Zadatak = z6;
-                z6.IzabraniPredlog = pred2;*/
+                z6.IzabraniPredlog = pred2;
                 d3.Zadaci.Add(z6);
 
                 db.Zadaci.Add(z6);

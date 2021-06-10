@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:Projekat.Views"
               xmlns:val="clr-namespace:Projekat.Validation"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" >
+             d:DesignHeight="720" d:DesignWidth="1280" >
      <UserControl.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Style.Resources>
@@ -52,19 +52,15 @@
                       ToolTip="Kliknite da biste otišli na početnu stanicu"></MenuItem>
 
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
-            <Button
-                Background="Transparent"
-                BorderThickness="0"
-                ToolTip="Kliknite da biste se odjavili"
-                
-                HorizontalAlignment="Right"
-                Command="{Binding OdjavaCommand}" Margin="0,0,-231,0" Width="138" >
-                <StackPanel Orientation="Horizontal" Margin="0,0, 30, 0">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
-                                                           Kind="Logout" Height="25" Width="25"  />
-                    <TextBlock Text="Odjava" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+            <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
+                <MenuItem.Header>
+
+
+                    <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                           Kind="Logout" Height="35" Width="25"   />
+
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -170,12 +166,8 @@
             <TextBlock Grid.Row="10" Grid.Column="3" TextAlignment="Left" VerticalAlignment="Center">Država</TextBlock>
             <TextBox Grid.Row="11" Grid.Column="3"   Text="{Binding Drzava, Mode=TwoWay}"  BorderBrush="Gray" BorderThickness="1"/>
 
-            <Button Grid.Row="14" Grid.Column="1"  materialDesign:ButtonAssist.CornerRadius="6" Content="Izmeni" Height="33" HorizontalAlignment="Right"   Width="180" Command="{Binding EditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
-
-
-          
-
-            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="14" Grid.Column="3" materialDesign:ButtonAssist.CornerRadius="6" Content="Odustani" Height="33" HorizontalAlignment="Left"   Width="180" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Button Grid.Row="14" Grid.Column="1"  materialDesign:ButtonAssist.CornerRadius="6" Content="Izmeni" Height="33" HorizontalAlignment="Center"   Width="420" Command="{Binding EditCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
+            <Button Style="{StaticResource MaterialDesignRaisedAccentButton}" Grid.Row="14" Grid.Column="3" materialDesign:ButtonAssist.CornerRadius="6" Content="Odustani" Height="33" HorizontalAlignment="Center"   Width="420" Command="{Binding CancelCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
 
 
         </Grid>

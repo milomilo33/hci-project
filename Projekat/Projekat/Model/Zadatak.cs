@@ -16,7 +16,7 @@ namespace Projekat.Model
 
         public string Opis { get; set; }
 
-        public string Status { get; set; }
+       // public string Status { get; set; }
 
         // public List<Predlog> IzabraniPredlozi { get; set; }
 

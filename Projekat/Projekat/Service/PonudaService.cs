@@ -64,7 +64,7 @@ namespace Projekat.Service
                 }
                 else
                 {
-					ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik").Where(p => !p.Saradnik.Tip.Equals("Lokal")));
+					ponude = new ObservableCollection<Ponuda>(db.Ponude.Include("Saradnik").Where(p => p.Saradnik.Tip != "Lokal"));
 				}
 			}
 

@@ -48,6 +48,15 @@
                       ToolTip="Kliknite kako biste otišli na početnu stranicu"
                       Command="{Binding PocetnaStranicaCommand}"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
+            <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
+                <MenuItem.Header>
+
+
+                    <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                           Kind="Logout" Height="35" Width="25"   />
+
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
 
         <Grid>

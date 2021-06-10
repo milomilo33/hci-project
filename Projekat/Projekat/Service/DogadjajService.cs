@@ -30,7 +30,7 @@ namespace Projekat.Service
 			ObservableCollection<Dogadjaj> dogadjaji = new ObservableCollection<Dogadjaj>();
 			using (var db = new DatabaseContext())
 			{
-				dogadjaji = new ObservableCollection<Dogadjaj>(db.Dogadjaji.Include("Organizator"));
+				dogadjaji = new ObservableCollection<Dogadjaj>(db.Dogadjaji.Include("Organizator").Where(d => d.Deleted == null || d.Deleted == false));
 			}
 
 			return dogadjaji;
@@ -43,7 +43,7 @@ namespace Projekat.Service
 			ObservableCollection<Dogadjaj> dogadjaji = new ObservableCollection<Dogadjaj>();
 			using (var db = new DatabaseContext())
 			{
-				dogadjaji = new ObservableCollection<Dogadjaj>(db.Dogadjaji.Include("Organizator").Where(d=>d.Organizator.Email.Equals(email)));
+				dogadjaji = new ObservableCollection<Dogadjaj>(db.Dogadjaji.Include("Organizator").Where(d=>d.Organizator.Email.Equals(email) && (d.Deleted == null || d.Deleted == false)));
 			}
 
 			return dogadjaji;
@@ -55,7 +55,7 @@ namespace Projekat.Service
 			ObservableCollection<Dogadjaj> dogadjaji = new ObservableCollection<Dogadjaj>();
 			using (var db = new DatabaseContext())
 			{
-				List<Dogadjaj> dogadjajiZaKlijenta = db.Klijenti.Include("Dogadjaji").Include("Dogadjaji.Organizator").SingleOrDefault(k => k.Email.Equals(email)).Dogadjaji;
+				List<Dogadjaj> dogadjajiZaKlijenta = db.Klijenti.Include("Dogadjaji").Include("Dogadjaji.Organizator").SingleOrDefault(k => k.Email.Equals(email)).Dogadjaji.Where(d => d.Deleted == null || d.Deleted == false).ToList();
 				if (dogadjajiZaKlijenta == null)
                 {
 					dogadjajiZaKlijenta = new List<Dogadjaj>();

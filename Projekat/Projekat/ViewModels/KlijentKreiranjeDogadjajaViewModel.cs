@@ -303,7 +303,7 @@ namespace Projekat.ViewModels
             }
             if (Budzet <= 0)
             {
-                message += "Morate navesti validan budžet za događaj!\n\n";
+                message += "Morate navesti budžet za događaj!\n\n";
             }
             if (DatumOdrzavanja == null)
             {
@@ -363,6 +363,23 @@ namespace Projekat.ViewModels
             {
                 _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
             }
+        }
+
+        private ICommand _odjavaCommand;
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(_odjavaCommand => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
         }
     }
 }

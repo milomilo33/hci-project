@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Projekat.Views"
         mc:Ignorable="d"
         xmlns:viewModel="clr-namespace:Projekat.ViewModels" 
-        Title="Dodaj organizatora" Height="400" Width="800">
+        Title="Dodaj organizatora" Height="400" Width="800" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
 

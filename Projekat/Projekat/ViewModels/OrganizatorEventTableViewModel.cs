@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace Projekat.ViewModels
@@ -51,47 +52,60 @@ namespace Projekat.ViewModels
             get
             {
                 if (_acceptCommand == null)
-                    _acceptCommand = new RelayCommand(_acceptCommand => Accept());
+                    _acceptCommand = new RelayCommand(window => Accept((Window) window));
                 return _acceptCommand;
             }
         }
-        public void Accept()
+        public void Accept(Window window)
         {
-
-            var dd = dogadjaji;
-            foreach (var d in dd)
+         
+            if (SelectedDogadjaj == null)
             {
-                if (d.Id == _dogadjaj.Id && d.Status.Equals("Nema dodeljenog organizatora"))
-                {
-                    d.Status = "Čeka se odgovor organizatora";
-                    d.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_ORGANIZATOR;
-                    DogadjajService.updateStatus(d);
-                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
-                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
-                    dialogModel.IsError = false;
-                    dialogModel.Message = "Uspešno prihvaćen događaj!";
-                    dialog.DataContext = dialogModel;
-                    //dialog.Owner = window;
-                    dialog.ShowDialog();
-                }
-                else if(d.Id == _dogadjaj.Id && !d.Status.Equals("Nema dodeljenog organizatora"))
-                {
-                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
-                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
-                    dialogModel.IsError = true;
-                    dialogModel.Message = "Zadatak je već preuzet!";
-                    dialog.DataContext = dialogModel;
-                    //dialog.Owner = window;
-                    dialog.ShowDialog();
-
-                }
-                else
-                {
-                    break;
-                }
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Morate selektovati događaj iz tabele kako biste ga preuzeli!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
             }
-            Dogadjaji = null;
-            Dogadjaji = dd;
+            else
+            {
+                var dd = dogadjaji;
+                foreach (var d in dd)
+                {
+                    if (d.Id == SelectedDogadjaj.Id && d.Status.Equals("Nema dodeljenog organizatora"))
+                    {
+                        d.Status = "Čeka se odgovor organizatora";
+                        d.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_ORGANIZATOR;
+                        DogadjajService.updateStatus(d);
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = false;
+                        dialogModel.Message = "Uspešno prihvaćen događaj!";
+                        dialog.DataContext = dialogModel;
+                        dialog.Owner = window;
+                        dialog.ShowDialog();
+                    }
+                    else if (d.Id == SelectedDogadjaj.Id && d.Status != "Nema dodeljenog organizatora")
+                    {
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Događaj je već preuzet!";
+                        dialog.DataContext = dialogModel;
+                        dialog.Owner = window;
+                        dialog.ShowDialog();
+
+                    }
+                    else
+                    {
+
+                    }
+                }
+                Dogadjaji = null;
+                Dogadjaji = dd;
+            }
 
 
         }
@@ -111,12 +125,15 @@ namespace Projekat.ViewModels
             detailsModel.Vrsta = SelectedDogadjaj.VrstaProslave;
             detailsModel.Budzet = SelectedDogadjaj.Budzet;
             detailsModel.Tema = SelectedDogadjaj.Tema;
-            detailsModel.Organizator = SelectedDogadjaj.Organizator.Ime + " " + SelectedDogadjaj.Organizator.Prezime;
-            detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd/MM/yyyy HH:mm");
+            if (SelectedDogadjaj.Organizator != null)
+            {
+                detailsModel.Organizator = SelectedDogadjaj.Organizator.Ime + " " + SelectedDogadjaj.Organizator.Prezime;
+            }
+            detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd.MM.yyyy. HH:mm");
             detailsModel.DodatniZahtevi = SelectedDogadjaj.DodatniZahtevi;
             detailsModel.MestoOdrzavanja = SelectedDogadjaj.MestoOdrzavanja;
             details.DataContext = detailsModel;
-            details.Show();
+            details.ShowDialog();
 
         }
         private ICommand _povratakCommand;
@@ -164,6 +181,23 @@ namespace Projekat.ViewModels
             {
                 _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
             }
+        }
+
+        private ICommand _odjavaCommand;
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(_odjavaCommand => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
         }
 
     }

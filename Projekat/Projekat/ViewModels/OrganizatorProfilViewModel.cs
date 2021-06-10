@@ -131,14 +131,14 @@ namespace Projekat.ViewModels
 
         private void Edit(Window window)
         {
-            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+            
             string validationMessage = ValidationMessage();
 
             
-            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
             if (!string.IsNullOrWhiteSpace(validationMessage))
             {
-
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = true;
                 dialogModel.Message = validationMessage;
                 dialog.DataContext = dialogModel;
@@ -161,7 +161,8 @@ namespace Projekat.ViewModels
                     korisnik.Adresa.Drzava = Drzava;
                     db.SaveChanges();
                 }
-
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = false;
                 dialogModel.Message = "Uspešno ste izmenili svoje podatke!";
                 dialog.DataContext = dialogModel;
@@ -209,7 +210,7 @@ namespace Projekat.ViewModels
            
             if (GetLocationFromAddressAsync() == (-1, -1))
             {
-                Console.WriteLine(GetLocationFromAddressAsync());
+                
                 message += "Navedena  adresa ne postoji!\n\n";
             }
 
@@ -358,6 +359,23 @@ namespace Projekat.ViewModels
             {
                 _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
             }
+        }
+
+        private ICommand _odjavaCommand;
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(_odjavaCommand => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
         }
     }
 }

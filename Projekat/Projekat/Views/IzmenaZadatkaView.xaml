@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Projekat.Views"
         mc:Ignorable="d"
-        Title="IzmenaZadatka" Height="350" Width="400">
+        Title="Izmena zadatka" Height="350" Width="400" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Style.Resources>

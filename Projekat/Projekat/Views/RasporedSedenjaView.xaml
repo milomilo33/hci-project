@@ -16,7 +16,7 @@
     </UserControl.Resources>
 
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Background="LightGray">
+        <Menu DockPanel.Dock="Top">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
@@ -189,9 +189,12 @@
                     </ListView.View>
                 </ListView>
 
-                <StackPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Background="Orange">
-                    <TextBlock HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center">OVDE IDE SLIKA PROSTORIJE</TextBlock>
-                </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2">
+                <Image
+                    Height="300"
+                    Width="600"
+                    Source="{Binding Slika}"/>
+            </StackPanel>
 
 
                 <ListBox ItemsSource="{Binding RasporedSedenja}" Name="ListBoxRasporedSedenja" Grid.Row="3" Grid.Column="2" BorderBrush="AliceBlue" utility:DragDropExtension.ScrollOnDragDrop="True" SelectionChanged="ListBoxRasporedSedenja_SelectionChanged">

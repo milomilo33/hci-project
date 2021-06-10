@@ -104,12 +104,16 @@ namespace Projekat.ViewModels
             detailsModel.Vrsta = SelectedDogadjaj.VrstaProslave;
             detailsModel.Budzet = SelectedDogadjaj.Budzet;
             detailsModel.Tema = SelectedDogadjaj.Tema;
-            detailsModel.Organizator = SelectedDogadjaj.Organizator.Ime + " " + SelectedDogadjaj.Organizator.Prezime;
-            detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd/MM/yyyy HH:mm");
+            if (SelectedDogadjaj.Organizator != null)
+            {
+                detailsModel.Organizator = SelectedDogadjaj.Organizator.Ime + " " + SelectedDogadjaj.Organizator.Prezime;
+            }
+          
+            detailsModel.DatumOdrzavanja = SelectedDogadjaj.DatumOdrzavanja.ToString("dd.MM.yyyy. HH:mm");
             detailsModel.DodatniZahtevi = SelectedDogadjaj.DodatniZahtevi;
             detailsModel.MestoOdrzavanja = SelectedDogadjaj.MestoOdrzavanja;
             details.DataContext = detailsModel;
-            details.Show();
+            details.ShowDialog();
 
         }
 
@@ -159,6 +163,22 @@ namespace Projekat.ViewModels
             {
                 _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
             }
+        }
+        private ICommand _odjavaCommand;
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(_odjavaCommand => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
         }
     }
 }

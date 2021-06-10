@@ -19,7 +19,6 @@ namespace Projekat.ViewModels
     {
         private readonly NavigationStore _navigationStore;
         private readonly ViewModelBase _previousModel;
-
         public ObservableCollection<Dogadjaj> dogadjaji;
         private ICommand _taskCommand;
         private readonly IDogadjajService DogadjajService = new DogadjajService();
@@ -244,16 +243,58 @@ namespace Projekat.ViewModels
 
         private readonly IKomentarService KomentarService = new KomentarService();
 
+        private ICommand _obrisiCommand;
+        public ICommand ObrisiCommand
+        {
+            get
+            {
+                if (_obrisiCommand == null)
+                    _obrisiCommand = new RelayCommand(window => ObrisiDogadjaj((Window)window));
+                return _obrisiCommand;
+            }
+        }
+
+        private void ObrisiDogadjaj(Window window)
+        {
+            Dogadjaj selectedDogadjajAtEvent = SelectedDogadjaj;
+
+            Dialog dialog = new Dialog();
+            DialogViewModel dialogModel = new DialogViewModel();
+            dialogModel.Message = $"Da li ste sigurni da obrišete događaj?";
+            dialog.DataContext = dialogModel;
+            dialog.Owner = window;
+            dialog.ShowDialog();
+
+            if (dialogModel.odgovor.Equals("Ne"))
+            {
+                return;
+            }
+
+            using (var db = new DatabaseContext())
+            {
+                Dogadjaji.Remove(selectedDogadjajAtEvent);
+                db.Dogadjaji.SingleOrDefault(d => d.Id == selectedDogadjajAtEvent.Id).Deleted = true;
+                db.SaveChanges();
+            }
+
+            SuccessOrErrorDialog successDialog = new SuccessOrErrorDialog();
+            SuccessOrErrorDialogViewModel successDialogModel = new SuccessOrErrorDialogViewModel();
+            successDialogModel.Message = $"Uspešno ste obrisali događaj {selectedDogadjajAtEvent.Id}";
+            successDialog.DataContext = successDialogModel;
+            successDialog.Owner = window;
+            successDialog.ShowDialog();
+        }
+
         public ICommand DetailsCommand
         {
             get
             {
                 if (_detailsCommand == null)
-                    _detailsCommand = new RelayCommand(_detailsCommand => DetailsEvent());
+                    _detailsCommand = new RelayCommand(window => DetailsEvent((Window) window));
                 return _detailsCommand;
             }
         }
-        public void DetailsEvent()
+        public void DetailsEvent(Window window)
         {
             Details details = new Details();
             DetailsViewModel detailsModel = new DetailsViewModel();
@@ -269,7 +310,7 @@ namespace Projekat.ViewModels
             detailsModel.MestoOdrzavanja = SelectedDogadjaj.MestoOdrzavanja;
             detailsModel.BrojGostiju = SelectedDogadjaj.BrojGostiju;
             details.DataContext = detailsModel;
-            details.Show();
+            details.ShowDialog();
 
         }
         
@@ -286,7 +327,21 @@ namespace Projekat.ViewModels
 
         public void Povratak()
         {
-            _navigationStore.CurrentViewModel = _previousModel;
+            KorisnikStore korisnik = KorisnikStore.Instance;
+            Korisnik k = korisnik.TrenutniKorisnik;
+
+            if (k.GetType() == typeof(Administrator))
+            {
+                _navigationStore.CurrentViewModel = new AdminHomeViewModel(_navigationStore);
+            }
+            else if (k.GetType() == typeof(Organizator))
+            {
+                _navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(_navigationStore);
+            }
+            else
+            {
+                _navigationStore.CurrentViewModel = new KlijentHomeViewModel(_navigationStore);
+            }
         }
 
         private ICommand _pocetnaStranicaCommand;
@@ -320,6 +375,22 @@ namespace Projekat.ViewModels
             }
         }
 
-       
+        private ICommand _odjavaCommand;
+        public ICommand OdjavaCommand
+        {
+            get
+            {
+                if (_odjavaCommand == null)
+                    _odjavaCommand = new RelayCommand(_odjavaCommand => Odjava());
+                return _odjavaCommand;
+            }
+        }
+
+        public void Odjava()
+        {
+            _navigationStore.CurrentViewModel = new LoginViewModel(_navigationStore);
+
+        }
+
     }
 }

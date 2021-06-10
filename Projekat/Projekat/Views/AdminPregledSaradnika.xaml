@@ -6,10 +6,10 @@
              xmlns:local="clr-namespace:Projekat.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1200">
+             d:DesignHeight="720" d:DesignWidth="1280">
 
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Background="LightGray">
+        <Menu DockPanel.Dock="Top">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
@@ -35,19 +35,12 @@
            <!-- <MenuItem Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}" Header="Obrisi saradnika"></MenuItem> -->
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
 
-            <Button
-                Background="Transparent"
-                BorderThickness="0"
-                ToolTip="Kliknite da biste pogledali svoj profil"
-                
-                HorizontalAlignment="Right"
-                Command="{Binding OdjavaCommand}" Margin="0,0,-331,0" Width="138" >
-                <StackPanel Orientation="Horizontal" Margin="0,0, 30, 0">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
-                                                           Kind="Logout" Height="25" Width="25"  />
-                    <TextBlock Text="Odjava" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+            <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
+                <MenuItem.Header>
+                    <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                           Kind="Logout" Height="35" Width="25"   />
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -65,11 +58,11 @@
                 <RowDefinition Height="1*"></RowDefinition>
             </Grid.RowDefinitions>
             <Button Margin="10" Grid.Column="1" Grid.Row="0" ToolTip="Kliknite kako biste dodali novog saradnika" Content="Dodaj saradnika" 
-                    Command="{Binding AddSaradnikCommand}"></Button>
+                     Command="{Binding Path=DataContext.AddSaradnikCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Button>
             <Button Margin="10" Grid.Column="3" Grid.Row="0" ToolTip="Kliknite kako biste izmenili saradnika" 
-                    Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}" Content="Izmeni saradnika"></Button>
+                    Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Content="Izmeni saradnika"></Button>
             <Button Margin="10" Grid.Column="5" Grid.Row="0" ToolTip="Kliknite kako biste obrisali saradnika" 
-                    Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}" Content="Obiši saradnika"></Button>
+                    Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Content="Obiši saradnika"></Button>
             <ListBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="7" ItemsSource="{Binding Saradnici}"
                  SelectedItem="{Binding Path=SelectedSaradnik}"
                  SelectionMode="Single">

@@ -61,7 +61,7 @@
     </ItemsControl>-->
 
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Background="LightGray">
+        <Menu DockPanel.Dock="Top">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
@@ -82,19 +82,15 @@
             <MenuItem Header="Pregled klijenata" Focusable="False" FontWeight="DemiBold"></MenuItem>
             <MenuItem ToolTip="Kliknite kako biste otišli na početnu stranicu" Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
-            <Button
-                Background="Transparent"
-                BorderThickness="0"
-                ToolTip="Kliknite da biste se odjavili"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Right"
-                Command="{Binding OdjavaCommand}" Margin="0,0,-100.2,0">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
-                                                           Kind="Logout" Height="25" Width="25" Margin="0,0,10,0" />
-                    <TextBlock Text="Odjava" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+            <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
+                <MenuItem.Header>
+
+
+                    <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                           Kind="Logout" Height="35" Width="25"   />
+
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
 
         <ListBox ItemsSource="{Binding Klijenti}">

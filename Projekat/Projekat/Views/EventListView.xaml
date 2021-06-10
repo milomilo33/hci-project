@@ -33,21 +33,14 @@
                      ToolTip="Kliknite kako biste otišli na početnu stranicu"
                      Command="{Binding PocetnaStranicaCommand}"></MenuItem>
             <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
-            <Button
-                Background="Transparent"
-                BorderThickness="0"
-                ToolTip="Kliknite da biste pogledali svoj profil"
-                
-                HorizontalAlignment="Right"
-                Command="{Binding OdjavaCommand}" Margin="0,0,-381,0" Width="138" >
-                <StackPanel Orientation="Horizontal" Margin="0,0, 30, 0">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
-                                                           Kind="Logout" Height="25" Width="25"  />
-                    <TextBlock Text="Odjava" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+            <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
+                <MenuItem.Header>
+                    <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                           Kind="Logout" Height="35" Width="25"   />
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
-        <Grid>
+        <Grid Background="White">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10*" />
                 <ColumnDefinition Width="2*" />
@@ -89,7 +82,7 @@
                     <DataGridTemplateColumn>
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button BorderBrush="Gray" Background="LightGray" Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:EventListView}}}">Detalji</Button>
+                                <Button  BorderBrush="Orange" Background="White" Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:EventListView}}}">Detalji</Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>

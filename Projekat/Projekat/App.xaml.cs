@@ -23,8 +23,6 @@ namespace Projekat
 
             navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
 
-
-
             MainWindow = new MainWindow()
             {
                 DataContext = new MainViewModel(navigationStore)
@@ -32,7 +30,7 @@ namespace Projekat
             MainWindow.Show();
 
 
-            InicijalizacijaPodataka();
+            //InicijalizacijaPodataka();
 
 
             base.OnStartup(e);

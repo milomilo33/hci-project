@@ -78,9 +78,6 @@
 
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                 Width="250"/>
-
-                   
-
                     <DataGridTemplateColumn>
 
                         <DataGridTemplateColumn.CellTemplate>

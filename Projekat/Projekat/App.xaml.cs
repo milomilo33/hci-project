@@ -29,9 +29,7 @@ namespace Projekat
             };
             MainWindow.Show();
 
-
             InicijalizacijaPodataka();
-
 
             base.OnStartup(e);
 

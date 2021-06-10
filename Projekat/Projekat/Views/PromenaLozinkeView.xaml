@@ -28,7 +28,6 @@
                         <TextBlock Text="Povratak" VerticalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
                 <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
                     <MenuItem.Header>
 

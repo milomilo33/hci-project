@@ -33,7 +33,6 @@
             <MenuItem ToolTip="Kliknite kako biste otišli na početnu stranu" Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"></MenuItem>
           <!-- <MenuItem Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}" Header="Izmeni saradnika"></MenuItem> -->
            <!-- <MenuItem Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledSaradnika}}}" Header="Obrisi saradnika"></MenuItem> -->
-            <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
 
             <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
                 <MenuItem.Header>

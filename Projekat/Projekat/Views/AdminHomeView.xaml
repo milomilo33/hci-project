@@ -30,7 +30,6 @@
 
             <MenuItem Header="Pocetna strana" FontWeight="DemiBold"></MenuItem>
 
-            <MenuItem Header="Pomoc" HorizontalAlignment="Right" Margin="0,2,0,-0.4"></MenuItem>
             <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
                 <MenuItem.Header>
                     <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left"

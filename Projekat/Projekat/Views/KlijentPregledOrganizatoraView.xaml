@@ -85,7 +85,6 @@
             <MenuItem 
                 ToolTip="Kliknite kako biste otišli na početnu stranicu"
                 Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"></MenuItem>
-            <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
             <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
                 <MenuItem.Header>
                     <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left"

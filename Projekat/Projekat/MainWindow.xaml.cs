@@ -39,7 +39,7 @@ namespace Projekat
                     registrybrowser.SetValue("*", 0x00002af9, RegistryValueKind.DWord);
             }
             else
-                this.Title += " (Mora se pokrenuti aplikaciju kao administrator)";
+                this.Title += " (Mora se pokrenuti aplikacija kao administrator)";
         }
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {

@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     
     <DockPanel>
-        <Menu DockPanel.Dock="Top" Background="LightGray">
+        <Menu DockPanel.Dock="Top">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <DockPanel HorizontalAlignment="Stretch"></DockPanel>
@@ -32,7 +32,6 @@
             <MenuItem Header="Početna stranica"
                       ToolTip="Kliknite da biste otišli na početnu stranicu"
                       Command="{Binding PocetnaStranicaCommand}"></MenuItem>
-            <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
             <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
                 <MenuItem.Header>
 

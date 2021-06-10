@@ -28,10 +28,9 @@
                     <TextBlock Text="Profil" VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            
+
 
             <MenuItem Header="Početna stranica" FontWeight="DemiBold"></MenuItem>
-            <MenuItem Header="Pomoc"></MenuItem>
             <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
                 <MenuItem.Header>
 

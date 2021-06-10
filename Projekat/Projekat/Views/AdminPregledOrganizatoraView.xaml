@@ -33,7 +33,6 @@
                 <MenuItem ToolTip="Kliknite da biste otišli na početnu stranicu" Header="Početna stranica" Command="{Binding PocetnaStranicaCommand}"></MenuItem>
                 <!--  <MenuItem Command="{Binding EditOrganizatorCommand}" Header="Izmeni organizatora"></MenuItem> -->
                 <!--  <MenuItem Command="{Binding DeleteCommand}" Header="Obrisi organizatora"></MenuItem> -->
-                <MenuItem Header="Pomoć" HorizontalAlignment="Right"></MenuItem>
                 <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
                     <MenuItem.Header>
 

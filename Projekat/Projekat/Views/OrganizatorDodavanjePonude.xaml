@@ -48,8 +48,8 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
-            <Button x:Name="StartTutorialBtn" Content="Započni tutorial" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="3" Width="150" Click="ExecuteTutorial"></Button>
-            <Button x:Name="StopTutorialBtn" Content="Zaustavi tutorial" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="3" Width="150" Visibility="Hidden" Click="StopTutorial"></Button>
+            <Button x:Name="StartTutorialBtn" Content="Započni tutorial" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="3" Width="150" Click="ExecuteTutorial" Background="White"></Button>
+            <Button x:Name="StopTutorialBtn" Content="Zaustavi tutorial" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="3" Width="150" Visibility="Hidden" Click="StopTutorial" Background="White"></Button>
 
 
             <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Saradnik</TextBlock>

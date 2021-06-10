@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="1200">
     <Grid>
         <DockPanel>
-            <Menu DockPanel.Dock="Top" Background="LightGray">
+            <Menu DockPanel.Dock="Top">
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
                         <DockPanel HorizontalAlignment="Stretch"></DockPanel>

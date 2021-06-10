@@ -74,7 +74,7 @@
                     </materialDesign:DataGridTextColumn>
                     <DataGridTextColumn
                                 Binding="{Binding Status}"
-                                Header="Status"
+                                Header="Status događaja"
 
                                 ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"
                                 Width="250"/>

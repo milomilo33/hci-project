@@ -1,4 +1,5 @@
-﻿using Projekat.Stores;
+﻿using Microsoft.Win32;
+using Projekat.Stores;
 using Projekat.ViewModels;
 using Projekat.Views;
 using System;
@@ -26,6 +27,19 @@ namespace Projekat
         public MainWindow()
         {
             InitializeComponent();
+
+            var pricipal = new System.Security.Principal.WindowsPrincipal(
+                            System.Security.Principal.WindowsIdentity.GetCurrent());
+            if (pricipal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator))
+            {
+                RegistryKey registrybrowser = Registry.LocalMachine.OpenSubKey
+                (@"Software\\Microsoft\\Internet Explorer\\Main\\FeatureControl\\FEATURE_BROWSER_EMULATION", true);
+                var currentValue = registrybrowser.GetValue("*");
+                if (currentValue == null || (int)currentValue != 0x00002af9)
+                    registrybrowser.SetValue("*", 0x00002af9, RegistryValueKind.DWord);
+            }
+            else
+                this.Title += " (Mora se pokrenuti aplikaciju kao administrator)";
         }
         private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
         {

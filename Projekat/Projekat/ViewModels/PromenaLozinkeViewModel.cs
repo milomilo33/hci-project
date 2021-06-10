@@ -86,10 +86,10 @@ namespace Projekat.ViewModels
             KorisnikStore korisnikStore = KorisnikStore.Instance;
             korisnik = LoadKorisnik(korisnikStore.TrenutniKorisnik.Email);
             string validationMessage = ValidationMessage();
-            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
-            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
             if (!string.IsNullOrWhiteSpace(validationMessage))
             {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = true;
                 dialogModel.Message = validationMessage;
                 dialog.DataContext = dialogModel;
@@ -104,7 +104,8 @@ namespace Projekat.ViewModels
                     korisnik.Lozinka = Lozinka;
                     db.SaveChanges();
                 }
-
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = false;
                 dialogModel.Message = "Uspešno ste izmenili lozinku!";
                 dialog.DataContext = dialogModel;

@@ -52,7 +52,7 @@
 
             </Grid.RowDefinitions>
 
-            <Button ToolTip="Selektujte događaj iz tabele kako biste ga preuzeli" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"  Command="{Binding AcceptCommand}">Preuzmi</Button>
+            <Button ToolTip="Selektujte događaj iz tabele kako biste ga preuzeli" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right"   Command="{Binding Path=DataContext.AcceptCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:OrganizatorEventTable}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Preuzmi</Button>
             <DataGrid Grid.Row="2"
                       Grid.Column="0"
                       Grid.ColumnSpan="3"

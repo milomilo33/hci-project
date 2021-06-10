@@ -150,12 +150,12 @@ namespace Projekat
 
                 Saradnik s1 = new Saradnik();
                 var stolovi = new List<KapacitetStola>();
-                stolovi.Add(new KapacitetStola { Naziv = "sto1", Kapacitet = 10 });
-                stolovi.Add(new KapacitetStola { Naziv = "sto2", Kapacitet = 8 });
-                stolovi.Add(new KapacitetStola { Naziv = "sto3", Kapacitet = 4 });
+                stolovi.Add(new KapacitetStola { Naziv = "sto1", Kapacitet = 6 });
+                stolovi.Add(new KapacitetStola { Naziv = "sto2", Kapacitet = 6 });
+                stolovi.Add(new KapacitetStola { Naziv = "sto3", Kapacitet = 1 });
                 stolovi.Add(new KapacitetStola { Naziv = "sto4", Kapacitet = 6 });
                 stolovi.Add(new KapacitetStola { Naziv = "sto5", Kapacitet = 2 });
-                stolovi.Add(new KapacitetStola { Naziv = "sto6", Kapacitet = 1 });
+                stolovi.Add(new KapacitetStola { Naziv = "sto6", Kapacitet = 6 });
 
                 s1.Stolovi = stolovi;
                 s1.Naziv = "Borsalino";

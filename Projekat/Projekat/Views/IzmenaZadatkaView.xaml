@@ -40,14 +40,16 @@
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
 
+            <Button x:Name="StartTutorialBtn" Grid.Column="5" Grid.ColumnSpan="3" Content="Započni tutorial" HorizontalAlignment="Right" Click="ExecuteTutorial"></Button>
+            <Button x:Name="StopTutorialBtn" Grid.Column="5" Grid.ColumnSpan="3" Content="Zaustavi tutorial" Visibility="Hidden" HorizontalAlignment="Right" Click="StopTutorialBtn_Click"></Button>
             <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Naziv zadatka</TextBlock>
-            <TextBox  Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="3" Height="25" Text="{Binding Naziv, Mode=TwoWay}"  BorderBrush="Gray" BorderThickness="1" />
+            <TextBox x:Name="NazivTB" Grid.Row="2" Grid.Column="1"  Grid.ColumnSpan="3" Height="25" Text="{Binding Naziv, Mode=TwoWay}"  BorderBrush="Gray" BorderThickness="1" />
 
 
             <TextBlock Grid.Row="3" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Opis</TextBlock>
-            <TextBox  Grid.Row="4" Grid.Column="1"  Grid.ColumnSpan="7" Height="50" Text="{Binding Opis, Mode=TwoWay}" BorderBrush="Gray" BorderThickness="1"/>
-            <Button Grid.Row="10" Grid.Column="1" Command="{Binding IzmeniCommand}">Izmeni</Button>
-            <Button Grid.Row="10" Grid.Column="7" Command="{Binding OdustaniCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}">Odustani</Button>
+            <TextBox x:Name="OpisTB" Grid.Row="4" Grid.Column="1"  Grid.ColumnSpan="7" Height="50" Text="{Binding Opis, Mode=TwoWay}" BorderBrush="Gray" BorderThickness="1"/>
+            <Button x:Name="IzmeniBtn" Grid.Row="10" Grid.Column="1" Command="{Binding IzmeniCommand}">Izmeni</Button>
+            <Button x:Name="OdustaniBtn" Grid.Row="10" Grid.Column="7" Command="{Binding OdustaniCommand}" Style="{StaticResource MaterialDesignRaisedAccentButton}">Odustani</Button>
         </Grid>
     </DockPanel>
 </Window>

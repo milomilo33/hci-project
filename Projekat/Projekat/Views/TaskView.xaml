@@ -47,9 +47,10 @@
         </Menu>
         <Grid Background="White">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="11*" />
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
@@ -62,12 +63,9 @@
             <Button Grid.Row="0" Grid.Column="1" ToolTip="Kliknite da biste dodali zadatak" HorizontalAlignment="Right"  Command="{Binding AddCommand}">Dodaj zadatak</Button>
             <Button Grid.Row="0" Grid.Column="2" ToolTip="Selektujte zadatak iz tabele kako biste ga obrisali" HorizontalAlignment="Right" Style="{StaticResource MaterialDesignRaisedAccentButton}" Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:TaskView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Obriši zadatak</Button>
             
-
-           
-
             <DataGrid Grid.Row="2"
                       Grid.Column="0"
-                      Grid.ColumnSpan="3"
+                      Grid.ColumnSpan="4"
                       ItemsSource="{Binding Zadaci}"
                       CanUserAddRows="False"
                       AutoGenerateColumns="False"

@@ -65,7 +65,7 @@ namespace Projekat.Views
         {
             MapBtn.IsEnabled = false;
             MapControl_Loaded(null, null);
-            
+
 
             if (coordinates.Item1 == -1 && coordinates.Item2 == -1)
             {
@@ -139,14 +139,17 @@ namespace Projekat.Views
                 Adresa = adresaTutorial
             };
 
+            
             Adresa tempAdresa = new Adresa
             {
-                Broj = int.Parse(BrojTB.Text),
                 Ulica = UlicaTB.Text,
                 Grad = GradTB.Text,
                 Drzava = DrzavaTB.Text
             };
 
+            int.TryParse(BrojTB.Text, out int broj);
+            tempAdresa.Broj = broj;
+         
             TempSaradnik = new Saradnik
             {
                 Naziv = NazivTB.Text,
@@ -345,6 +348,8 @@ namespace Projekat.Views
                 resetComponents();
                 enableComponents();
                 StopTutorialBtn.Visibility = System.Windows.Visibility.Hidden;
+                AddBtn.Background = Brushes.Orange;
+                MapBtn.Background = Brushes.White;
             }
             catch (Exception ex) { }
 

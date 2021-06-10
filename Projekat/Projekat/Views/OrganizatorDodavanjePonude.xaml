@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="100"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
+                <RowDefinition Height="70"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
@@ -47,9 +47,16 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
+
+            <Button x:Name="StartTutorialBtn" Content="Započni tutorial" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="3" Width="150" Click="ExecuteTutorial"></Button>
+            <Button x:Name="StopTutorialBtn" Content="Zaustavi tutorial" HorizontalAlignment="Right" Grid.Row="0" Grid.Column="3" Width="150" Visibility="Hidden" Click="StopTutorial"></Button>
+
+
             <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Saradnik</TextBlock>
 
+            
             <ComboBox
+            x:Name="SaradnikCB"
             Grid.Column="1" Grid.Row="2"
             materialDesign:HintAssist.Hint="Search"
             materialDesign:HintAssist.HintOpacity=".26"
@@ -88,9 +95,9 @@
             <TextBlock Grid.Row="4" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Opis</TextBlock>
             <TextBox  x:Name="textName2" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2" BorderBrush="Gray" BorderThickness="1" Text="{Binding Opis}"/>
 
-            <Button Style="{StaticResource MaterialDesignRaisedButton}" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Height="35" Command="{Binding DodajCommand}" Content="Dodaj" />
+            <Button x:Name="AddBtn" Style="{StaticResource MaterialDesignRaisedButton}" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center" Height="35" Command="{Binding DodajCommand}" Content="Dodaj" />
 
-            <Button Command="{Binding OdustaniCommand}" Grid.Column="3" Grid.Row="10" VerticalAlignment="Center" Height="35" Style="{StaticResource MaterialDesignRaisedAccentButton}">Odustani</Button>
+            <Button x:Name="CloseBtn" Command="{Binding OdustaniCommand}" Grid.Column="3" Grid.Row="10" VerticalAlignment="Center" Height="35" Style="{StaticResource MaterialDesignRaisedAccentButton}">Odustani</Button>
         </Grid>
     </DockPanel>
 </Window>

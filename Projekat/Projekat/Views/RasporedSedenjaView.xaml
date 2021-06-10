@@ -56,21 +56,23 @@
         </Menu>
 
         <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="0.2*" />
-                <ColumnDefinition Width="4*" />
-            </Grid.ColumnDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.2*" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.1*" />
-                <RowDefinition Height="0.5*" />
-                <RowDefinition Height="2.5*" />
-                <RowDefinition Height="2.5*" />
-                <RowDefinition Height="0.5*" />
-            </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="2.5*" />
+                    <RowDefinition Height="0.5*" />
+                </Grid.RowDefinitions>
 
-            <Button
+                <Button
+                x:Name="DodajBtn"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Command="{Binding DodajNerasporedjenogGostaCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
@@ -81,14 +83,14 @@
                 Margin="15,0"
                 Grid.Row="1"
                 ToolTip="Kliknite da biste dodali novog gosta u događaj">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon VerticalAlignment="Center"
                                                             Kind="AccountAdd" Height="25" Width="25" Margin="0,0,10,0" />
-                    <TextBlock Text="Dodaj gosta" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+                        <TextBlock Text="Dodaj gosta" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
 
-            <!--<ListBox Grid.Row="2" Grid.RowSpan="2" Name="ListBoxNerasporedjeniGosti" ItemsSource="{Binding NerasporedjeniGosti}">
+                <!--<ListBox Grid.Row="2" Grid.RowSpan="2" Name="ListBoxNerasporedjeniGosti" ItemsSource="{Binding NerasporedjeniGosti}">
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel/>
@@ -119,48 +121,48 @@
                 </ListBox.ItemTemplate>
             </ListBox>-->
 
-            <ListView Grid.Row="2" Grid.RowSpan="2" Name="ListViewNerasporedjeniGosti" ItemsSource="{Binding NerasporedjeniGosti}"
+                <ListView Grid.Row="2" Grid.RowSpan="2" Name="ListViewNerasporedjeniGosti" ItemsSource="{Binding NerasporedjeniGosti}"
                       PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown"
                       utility:DragDropExtension.ScrollOnDragDrop="True"
-                      Drop="ListView_Drop" AllowDrop="True">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel/>
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
+                      Drop="ListView_Drop" AllowDrop="True" SelectionChanged="ListViewNerasporedjeniGosti_SelectionChanged">
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel/>
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
 
-                <!--<ListView.ItemContainerStyle>
+                    <!--<ListView.ItemContainerStyle>
                     <Style TargetType="ListViewItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                     </Style>
                 </ListView.ItemContainerStyle>-->
 
-                <ListView.View>
-                    <GridView>
-                        <GridView.ColumnHeaderContainerStyle>
-                            <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource {x:Type GridViewColumnHeader}}">
-                                <Setter Property="IsHitTestVisible" Value="False"/>
-                                <Setter Property="ContentTemplate">
-                                    <Setter.Value>
-                                        <DataTemplate>
-                                            <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
-                                        </DataTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                            </Style>
-                        </GridView.ColumnHeaderContainerStyle>
-                        <GridViewColumn Header="Neraspoređeni gosti">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding ImeIPrezime}" TextWrapping="Wrap" />
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                        <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <Button Command="{Binding ElementName=ListViewNerasporedjeniGosti,
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource {x:Type GridViewColumnHeader}}">
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
+                                    <Setter Property="ContentTemplate">
+                                        <Setter.Value>
+                                            <DataTemplate>
+                                                <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                            </DataTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Header="Neraspoređeni gosti">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ImeIPrezime}" TextWrapping="Wrap" />
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <Button Command="{Binding ElementName=ListViewNerasporedjeniGosti,
                                                             Path=DataContext.ObrisiNerasporedjenogGostaCommand}"
                                                             ToolTip="Kliknite da biste obrisali ovog gosta iz događaja"
                                                             HorizontalAlignment="Right"
@@ -170,79 +172,79 @@
                                                                                  RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}},
                                                                                  Converter={StaticResource InverseBoolToVisConverter}}"
                                                             BorderThickness="0">
-                                            <Button.CommandParameter>
-                                                <MultiBinding Converter="{StaticResource MultipleCommandParamConverter}">
-                                                    <Binding Path="ImeIPrezime" />
-                                                    <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}" />
-                                                </MultiBinding>
-                                            </Button.CommandParameter>
-                                            <materialDesign:PackIcon VerticalAlignment="Center"
+                                                <Button.CommandParameter>
+                                                    <MultiBinding Converter="{StaticResource MultipleCommandParamConverter}">
+                                                        <Binding Path="ImeIPrezime" />
+                                                        <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}" />
+                                                    </MultiBinding>
+                                                </Button.CommandParameter>
+                                                <materialDesign:PackIcon VerticalAlignment="Center"
                                                                 Kind="TrashCanCircle" Height="30" Width="30" />
-                                        </Button>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                                            </Button>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-            <StackPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Background="Orange">
-                <TextBlock HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center">OVDE IDE SLIKA PROSTORIJE</TextBlock>
-            </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="2" Grid.RowSpan="2" Background="Orange">
+                    <TextBlock HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center">OVDE IDE SLIKA PROSTORIJE</TextBlock>
+                </StackPanel>
 
 
-            <ListBox ItemsSource="{Binding RasporedSedenja}" Name="ListBoxRasporedSedenja" Grid.Row="3" Grid.Column="2" BorderBrush="AliceBlue" utility:DragDropExtension.ScrollOnDragDrop="True">
-                <ListBox.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid/>
-                    </ItemsPanelTemplate>
-                </ListBox.ItemsPanel>
+                <ListBox ItemsSource="{Binding RasporedSedenja}" Name="ListBoxRasporedSedenja" Grid.Row="3" Grid.Column="2" BorderBrush="AliceBlue" utility:DragDropExtension.ScrollOnDragDrop="True" SelectionChanged="ListBoxRasporedSedenja_SelectionChanged">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
 
-                <!--<ListBox.ItemContainerStyle>
+                    <!--<ListBox.ItemContainerStyle>
                     <Style TargetType="ListBoxItem">
                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     </Style>
                 </ListBox.ItemContainerStyle>-->
 
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
 
-                        <ListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="ListViewGostiZaStolom" ItemsSource="{Binding GostiZaStolom}"
+                            <ListView HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Name="ListViewGostiZaStolom" ItemsSource="{Binding GostiZaStolom}"
                                   PreviewMouseLeftButtonDown="ListView_PreviewMouseLeftButtonDown"
                                   Drop="ListView_Drop" AllowDrop="True">
-                            <ListView.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <StackPanel/>
-                                </ItemsPanelTemplate>
-                            </ListView.ItemsPanel>
+                                <ListView.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel/>
+                                    </ItemsPanelTemplate>
+                                </ListView.ItemsPanel>
 
-                            <ListView.View>
-                                <GridView>
-                                    <GridView.ColumnHeaderContainerStyle>
-                                        <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource {x:Type GridViewColumnHeader}}">
-                                            <Setter Property="IsHitTestVisible" Value="False"/>
-                                            <Setter Property="ContentTemplate">
-                                                <Setter.Value>
-                                                    <DataTemplate>
-                                                        <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
-                                                    </DataTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                        </Style>
-                                    </GridView.ColumnHeaderContainerStyle>
-                                    <GridViewColumn Header="{Binding Naziv}">
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <TextBlock Text="{Binding ImeIPrezime}" TextWrapping="Wrap"/>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                    <GridViewColumn>
-                                        <GridViewColumn.CellTemplate>
-                                            <DataTemplate>
-                                                <StackPanel>
-                                                    <Button Command="{Binding ElementName=ListBoxRasporedSedenja,
+                                <ListView.View>
+                                    <GridView>
+                                        <GridView.ColumnHeaderContainerStyle>
+                                            <Style TargetType="{x:Type GridViewColumnHeader}" BasedOn="{StaticResource {x:Type GridViewColumnHeader}}">
+                                                <Setter Property="IsHitTestVisible" Value="False"/>
+                                                <Setter Property="ContentTemplate">
+                                                    <Setter.Value>
+                                                        <DataTemplate>
+                                                            <TextBlock TextWrapping="Wrap" Text="{Binding}"></TextBlock>
+                                                        </DataTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </GridView.ColumnHeaderContainerStyle>
+                                        <GridViewColumn Header="{Binding Naziv}">
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding ImeIPrezime}" TextWrapping="Wrap"/>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                        <GridViewColumn>
+                                            <GridViewColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <StackPanel>
+                                                        <Button Command="{Binding ElementName=ListBoxRasporedSedenja,
                                                             Path=DataContext.ObrisiNerasporedjenogGostaCommand}"
                                                             ToolTip="Kliknite da biste obrisali ovog gosta iz događaja"
                                                             HorizontalAlignment="Right"
@@ -253,30 +255,30 @@
                                                                                  Converter={StaticResource InverseBoolToVisConverter}}"
                                                             BorderThickness="0">
 
-                                                        <Button.CommandParameter>
-                                                            <MultiBinding Converter="{StaticResource MultipleCommandParamConverter}">
-                                                                <Binding Path="ImeIPrezime" />
-                                                                <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}" />
-                                                            </MultiBinding>
-                                                        </Button.CommandParameter>
-                                                        
-                                                        <materialDesign:PackIcon VerticalAlignment="Center"
+                                                            <Button.CommandParameter>
+                                                                <MultiBinding Converter="{StaticResource MultipleCommandParamConverter}">
+                                                                    <Binding Path="ImeIPrezime" />
+                                                                    <Binding RelativeSource="{RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}" />
+                                                                </MultiBinding>
+                                                            </Button.CommandParameter>
+
+                                                            <materialDesign:PackIcon VerticalAlignment="Center"
                                                                 Kind="TrashCanCircle" Height="30" Width="30" />
-                                                    </Button>
-                                                </StackPanel>
-                                            </DataTemplate>
-                                        </GridViewColumn.CellTemplate>
-                                    </GridViewColumn>
-                                </GridView>
-                            </ListView.View>
-                        </ListView>
+                                                        </Button>
+                                                    </StackPanel>
+                                                </DataTemplate>
+                                            </GridViewColumn.CellTemplate>
+                                        </GridViewColumn>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
 
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
 
 
-            <Button Grid.Row="4"
+                <Button x:Name="PotvrdiBtn" Grid.Row="4"
                 Style="{StaticResource MaterialDesignRaisedButton}"
                 Command="{Binding PotvrdiIzmeneCommand}"
                 Visibility="{Binding Path=Organizovan, Converter={StaticResource InverseBoolToVisConverter}}"
@@ -285,14 +287,14 @@
                 materialDesign:ButtonAssist.CornerRadius="6"
                 Height="40" FontSize="18" Margin="15,0"
                 ToolTip="Kliknite da biste potvrdili izmene gostiju i rasporeda sedenja">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon VerticalAlignment="Center"
                                                             Kind="CheckOutline" Height="30" Width="30" Margin="0,0,10,0" />
-                    <TextBlock Text="Potvrdi izmene" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+                        <TextBlock Text="Potvrdi izmene" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
 
-            <Button Grid.Row="4" Grid.Column="2"
+                <Button x:Name="PonistiBtn" Grid.Row="4" Grid.Column="2"
                 Style="{StaticResource MaterialDesignRaisedAccentButton}"
                 Command="{Binding PovratakCommand}"
                 Visibility="{Binding Path=Organizovan, Converter={StaticResource InverseBoolToVisConverter}}"
@@ -301,12 +303,21 @@
                 materialDesign:ButtonAssist.CornerRadius="6"
                 Height="40" FontSize="18" Margin="15,0"
                 ToolTip="Kliknite da biste poništili izmene gostiju i rasporeda sedenja i vratili se na prethodnu stranicu">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon VerticalAlignment="Center"
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon VerticalAlignment="Center"
                                                             Kind="CloseOutline" Height="30" Width="30" Margin="0,0,10,0" />
-                    <TextBlock Text="Poništi izmene" VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
+                        <TextBlock Text="Poništi izmene" VerticalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button x:Name="StartTutorialBtn" Click="ExecuteTutorial" Content="Započni tutorial" Background="White" Grid.Column="3" Grid.Row="4" HorizontalAlignment="Left" Height="40" Width="200" FontSize="18"></Button>
+                <Button x:Name="StopTutorialBtn" Click="StopTutorialBtn_Click" Content="Zaustavi tutorial" Visibility="Hidden" Grid.Column="3" Background="white" Grid.Row="4" HorizontalAlignment="Left" Height="40" Width="200" FontSize="18"></Button>
+            </Grid>
+            <Grid Name="TutorialGrid" Visibility="Collapsed">
+                <Label Name="DragDrop" Background="LightBlue" HorizontalAlignment="Left" Margin="170,125,0,0" VerticalAlignment="Top" Width="37">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                                Kind="SelectDrag" Height="30" Width="30" RenderTransformOrigin="0.489,0.511" />
+                </Label>
+            </Grid>
         </Grid>
     </DockPanel>
 </UserControl>

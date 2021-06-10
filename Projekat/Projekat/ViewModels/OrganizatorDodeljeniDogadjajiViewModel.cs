@@ -194,7 +194,27 @@ namespace Projekat.ViewModels
                                                    Include("Zadaci.IzabraniPredlog.Ponuda.Saradnik.Adresa").
                                                    SingleOrDefault(d => d.Id == SelectedDogadjaj.Id).
                                                    Zadaci;
-                    Predlog predlog = zadaci.Find(z => z.Tip == Zadatak.TipZadatka.GLAVNI).IzabraniPredlog;
+                    if (zadaci == null || zadaci.Count() == 0)
+                    {
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Niste izabrali ponudu za ovaj događaj!";
+                        dialog.DataContext = dialogModel;
+                        dialog.Owner = window;
+                        dialog.ShowDialog();
+
+                        return;
+                    }
+                    //Predlog predlog = zadaci.Single(z => z.Tip == Zadatak.TipZadatka.GLAVNI).IzabraniPredlog;
+                    Predlog predlog = null;
+                    foreach (Zadatak z in zadaci)
+                    {
+                        if (z.Tip == Zadatak.TipZadatka.GLAVNI)
+                        {
+                            predlog = z.IzabraniPredlog;
+                        }
+                    }
                     if (predlog == null)
                     {
                         SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
@@ -260,7 +280,7 @@ namespace Projekat.ViewModels
 
             Dialog dialog = new Dialog();
             DialogViewModel dialogModel = new DialogViewModel();
-            dialogModel.Message = $"Da li ste sigurni da obrišete događaj?";
+            dialogModel.Message = $"Da li ste sigurni da želite da obrišete događaj?";
             dialog.DataContext = dialogModel;
             dialog.Owner = window;
             dialog.ShowDialog();

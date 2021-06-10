@@ -188,13 +188,25 @@ namespace Projekat.ViewModels
             get
             {
                 if (_obrisiOrganizatoraCommand == null)
-                    _obrisiOrganizatoraCommand = new RelayCommand(_obrisiOrganizatoraCommand => ObrisiOrganizatora());
+                    _obrisiOrganizatoraCommand = new RelayCommand(window => ObrisiOrganizatora((Window) window));
                 return _obrisiOrganizatoraCommand;
             }
         }
 
-        public void ObrisiOrganizatora()
+        public void ObrisiOrganizatora(Window window)
         {
+            Dialog dialog = new Dialog();
+            DialogViewModel dialogModel = new DialogViewModel();
+            dialogModel.Message = $"Da li ste sigurni da želite da obrišete izbor organizatora?";
+            dialog.DataContext = dialogModel;
+            dialog.Owner = window;
+            dialog.ShowDialog();
+
+            if (dialogModel.odgovor.Equals("Ne"))
+            {
+                return;
+            }
+
             Organizator = null;
             ImeOrganizatora = null;
         }
@@ -230,6 +242,18 @@ namespace Projekat.ViewModels
 
         private void KreirajDogadjaj(Window window)
         {
+            Dialog confirmDialog = new Dialog();
+            DialogViewModel confirmDialogModel = new DialogViewModel();
+            confirmDialogModel.Message = $"Da li ste sigurni da želite da kreirate događaj?";
+            confirmDialog.DataContext = confirmDialogModel;
+            confirmDialog.Owner = window;
+            confirmDialog.ShowDialog();
+
+            if (confirmDialogModel.odgovor.Equals("Ne"))
+            {
+                return;
+            }
+
             string validationMessage = ValidationMessage();
 
             if (string.IsNullOrWhiteSpace(validationMessage))

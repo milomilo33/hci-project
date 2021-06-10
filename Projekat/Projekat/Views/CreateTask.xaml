@@ -51,7 +51,7 @@
             <TextBlock Grid.Row="1" Grid.Column="6" Grid.ColumnSpan="2" TextAlignment="Left" VerticalAlignment="Center"> Tip zadatka</TextBlock>
             <ComboBox x:Name="TipCB" Grid.Row="2" Grid.Column="6" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Tipovi}"
                     SelectedValue="{Binding IzabranTip, Mode=TwoWay}"
-                      IsEditable="True"
+                    IsEditable="False"
                     Width="160"/>
             <TextBlock Grid.Row="3" Grid.Column="1" TextAlignment="Left" VerticalAlignment="Center"> Opis</TextBlock>
             <TextBox x:Name="OpisTB" Grid.Row="4" Grid.Column="1"  Grid.ColumnSpan="7" Height="35" Text="{Binding Opis}" BorderBrush="Gray" BorderThickness="1"/>

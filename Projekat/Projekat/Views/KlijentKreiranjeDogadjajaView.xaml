@@ -107,7 +107,8 @@
                 Grid.Row="2" Grid.Column="4"
                 Padding="0,4,16,4"
                 Style="{StaticResource MaterialDesignRaisedAccentButton}"
-                Command="{Binding ObrisiOrganizatoraCommand}">
+                Command="{Binding ObrisiOrganizatoraCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">
 
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon VerticalAlignment="Center"

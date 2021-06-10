@@ -82,14 +82,14 @@ namespace Projekat.ViewModels
             get
             {
                 if (_submitCommand == null)
-                    _submitCommand = new RelayCommand(_submitCommand => Add());
+                    _submitCommand = new RelayCommand(window => Add((Window) window));
                 return _submitCommand;
             }
         }
 
         public Action Close { get ; set; }
 
-        private void Add()
+        private void Add(Window window)
         {
             
             using (var db = new DatabaseContext())
@@ -117,7 +117,7 @@ namespace Projekat.ViewModels
             dialogModel.IsError = false;
             dialogModel.Message = "Uspešno kreiran zadatak!";
             dialog.DataContext = dialogModel;
-            //dialog.Owner = window;
+            dialog.Owner = window;
             dialog.ShowDialog();
             CloseWindow();
          
@@ -133,7 +133,7 @@ namespace Projekat.ViewModels
         {
             IdDogadjaja = id;
             ObservableCollection<string> list = new ObservableCollection<string>();
-            if (ZadatakService.proveraDaLiPostoji(IdDogadjaja))
+            if (!ZadatakService.proveraDaLiPostoji(IdDogadjaja))
             {
                 list.Add("Glavni zahtev");
                 list.Add("Dodatni zahtev");

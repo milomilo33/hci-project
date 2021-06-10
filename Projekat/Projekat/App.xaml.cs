@@ -32,7 +32,7 @@ namespace Projekat
             MainWindow.Show();
 
 
-           // InicijalizacijaPodataka();
+            InicijalizacijaPodataka();
 
 
             base.OnStartup(e);
@@ -254,8 +254,7 @@ namespace Projekat
                 //pred1.Status = Predlog.STATUS.
                 pred1.Zadatak = z5;
                 z5.IzabraniPredlog = pred1;
-                z1.IzabraniPredlog = pred1;
-                z2.IzabraniPredlog = pred1;
+               
                 d1.Zadaci.Add(z1);
                 d1.Zadaci.Add(z2);
 

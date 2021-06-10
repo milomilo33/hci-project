@@ -7,7 +7,7 @@
         xmlns:viewModel="clr-namespace:Projekat.ViewModels" 
         xmlns:controls="clr-namespace:Microsoft.Toolkit.Wpf.UI.Controls;assembly=Microsoft.Toolkit.Wpf.UI.Controls"
         mc:Ignorable="d"
-        Title="Dodaj saradnika" Height="500" Width="800">
+        Title="Dodaj saradnika" Height="500" Width="800" WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
 

@@ -65,6 +65,7 @@ namespace Projekat.ViewModels
                 dialogModel.IsError = true;
                 dialogModel.Message = "Niste odabrali organizatora za brisanje.";
                 newDialog.DataContext = dialogModel;
+                newDialog.Owner = window;
                 newDialog.ShowDialog();
                 return;
             }
@@ -81,6 +82,7 @@ namespace Projekat.ViewModels
                     DialogViewModel viewModel = new DialogViewModel();
                     viewModel._message = "Da li ste sigurni da želite da obrišete organizatora?";
                     dialog.DataContext = viewModel;
+                    dialog.Owner = window;
                     dialog.ShowDialog();
 
                     if (viewModel.odgovor == "Da")
@@ -128,7 +130,7 @@ namespace Projekat.ViewModels
             get
             {
                 if (_addOrganizatorCommand == null)
-                    _addOrganizatorCommand = new RelayCommand(_addOrganizatorCommand => AddOrganizatorEvent());
+                    _addOrganizatorCommand = new RelayCommand(window => AddOrganizatorEvent((Window) window));
                 return _addOrganizatorCommand;
             }
         }
@@ -139,12 +141,12 @@ namespace Projekat.ViewModels
             get
             {
                 if (_editOrganizatorCommand == null)
-                    _editOrganizatorCommand = new RelayCommand(_editOrganizatorCommand => EditOrganizatorEvent());
+                    _editOrganizatorCommand = new RelayCommand(window => EditOrganizatorEvent((Window) window));
                 return _editOrganizatorCommand;
             }
         }
 
-        private void EditOrganizatorEvent()
+        private void EditOrganizatorEvent(Window window)
         {
             
             if(SelectedOrganizator == null)
@@ -154,6 +156,7 @@ namespace Projekat.ViewModels
                 dialogModel.IsError = true;
                 dialogModel.Message = "Niste odabrali organizatora za izmenu.";
                 newDialog.DataContext = dialogModel;
+                newDialog.Owner = window;
                 newDialog.ShowDialog();
                 return;
             }
@@ -172,17 +175,19 @@ namespace Projekat.ViewModels
             editVM.IsEdit = true;
             AddOrganizator edit = new AddOrganizator(this);
             edit.DataContext = editVM;
-            edit.Show();
+            edit.Owner = window;
+            edit.ShowDialog();
             Console.WriteLine(editVM.Ulica);
 
         }
 
-        private void AddOrganizatorEvent()
+        private void AddOrganizatorEvent(Window window)
         {
             AddOrganizatorViewModel addVM = new AddOrganizatorViewModel(); 
             AddOrganizator add = new AddOrganizator(this);
             add.DataContext = addVM;
-            add.Show();
+            add.Owner = window;
+            add.ShowDialog();
         }
 
         private ICommand _pocetnaStranicaCommand;

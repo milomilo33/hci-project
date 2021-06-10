@@ -316,7 +316,7 @@
                 <Button x:Name="StopTutorialBtn" Click="StopTutorialBtn_Click" Content="Zaustavi tutorial" Visibility="Hidden" Grid.Column="3" Background="white" Grid.Row="4" HorizontalAlignment="Left" Height="40" Width="200" FontSize="18"></Button>
             </Grid>
             <Grid Name="TutorialGrid" Visibility="Collapsed">
-                <Label Name="DragDrop" Background="LightBlue" HorizontalAlignment="Left" Margin="170,125,0,0" VerticalAlignment="Top" Width="37">
+                <Label Name="DragDropLabel" Background="LightBlue" HorizontalAlignment="Left" Margin="170,125,0,0" VerticalAlignment="Top" Width="37">
                     <materialDesign:PackIcon VerticalAlignment="Center"
                                                                 Kind="SelectDrag" Height="30" Width="30" RenderTransformOrigin="0.489,0.511" />
                 </Label>

@@ -47,7 +47,7 @@ namespace Projekat.Views
 
             if (data != null)
             {
-               // DragDrop.DoDragDrop(parent, data, DragDropEffects.Move);
+                DragDrop.DoDragDrop(parent, data, DragDropEffects.Move);
             }
 
             //CommandManager.InvalidateRequerySuggested();
@@ -227,15 +227,22 @@ namespace Projekat.Views
                         DragDrop.Margin.Right, DragDrop.Margin.Bottom);
                     Thread.Sleep(500);
                 }));*/
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    Thickness Margin = DragDropLabel.Margin;
+                    Margin.Left = 170;
+                    Margin.Top = 125;
+                    DragDropLabel.Margin = Margin;
+                }));
 
                 //TutorialGrid.Visibility = Visibility.Visible;
                 startAnimation();
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    Thickness Margin = DragDrop.Margin;
+                    Thickness Margin = DragDropLabel.Margin;
                     Margin.Left = 160;
                     Margin.Top = 120;
-                    DragDrop.Margin = Margin;
+                    DragDropLabel.Margin = Margin;
                     NerasporedjeniTemp.Remove(NerasporedjeniTemp.First(s => s.ImeIPrezime == "Marko Marković"));
                     var temp = StoloviTemp;
                     temp.First(s => s.Naziv == "Sto 1").GostiZaStolom.Add(new Gost { ImeIPrezime = "Marko Marković" });
@@ -287,10 +294,10 @@ namespace Projekat.Views
                     {
                         this.Dispatcher.Invoke((Action)(() =>
                         {
-                            Thickness Margin = DragDrop.Margin;
+                            Thickness Margin = DragDropLabel.Margin;
                             Margin.Left += 10;
                             Margin.Top += 15;
-                            DragDrop.Margin = Margin;
+                            DragDropLabel.Margin = Margin;
                         }));
                         Thread.Sleep(100);
                     }

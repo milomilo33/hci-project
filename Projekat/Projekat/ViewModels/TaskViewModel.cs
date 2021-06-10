@@ -75,13 +75,45 @@ namespace Projekat.ViewModels
         }
         public void Add(Window window)
         {
-            CreateTask view = new CreateTask(this);
-            KreiranjeZadatkaViewModel viewModel = new KreiranjeZadatkaViewModel(_idDogadjaja);
-            view.DataContext = viewModel;
-            view.Owner = window;
-            view.Show();
+            string s = "";
+            using (var db = new DatabaseContext())
+            {
+                var d = db.Dogadjaji.Find(IdDogadjaja);
+                s = d.Status;
 
+            }
+            if (s.Equals("Čeka se odgovor klijenta"))
+            {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Nije moguće kreirati novi zadatak, čeka se odgovor klijenta!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
 
+            }
+            else if (s.Equals("Organizovan"))
+            {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                dialogModel.IsError = true;
+                dialogModel.Message = "Nije moguće kreirati novi zadatak, događaj je već organizovan!";
+                dialog.DataContext = dialogModel;
+                dialog.Owner = window;
+                dialog.ShowDialog();
+
+            }
+            else
+            {
+
+                CreateTask view = new CreateTask(this);
+                KreiranjeZadatkaViewModel viewModel = new KreiranjeZadatkaViewModel(_idDogadjaja);
+                view.DataContext = viewModel;
+                view.Owner = window;
+                view.ShowDialog();
+
+            }
         }
 
         public void refresh()
@@ -153,12 +185,12 @@ namespace Projekat.ViewModels
                 s = d.Status;
                
             }
-            if (s.Equals("Čeka se odgovor klijenta"))
+            if (!ZadatakServce.proveraDaLiPostoji(IdDogadjaja))
             {
                 SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
                 SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = true;
-                dialogModel.Message = "Predlozi su već poslati klijentu!";
+                dialogModel.Message = "Mora da postoji glavni zadatak!";
                 dialog.DataContext = dialogModel;
                 dialog.Owner = window;
                 dialog.ShowDialog();
@@ -166,32 +198,57 @@ namespace Projekat.ViewModels
             }
             else
             {
-
-                if (ZadatakServce.proveraGlavniZadatak(IdDogadjaja))
-                {
-                    using (var db = new DatabaseContext())
-                    {
-                        var d = db.Dogadjaji.Find(IdDogadjaja);
-                        d.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_KLIJENT;
-                        db.SaveChanges();
-                    }
-                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
-                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
-                    dialogModel.IsError = false;
-                    dialogModel.Message = "Uspešno ste poslali predloge klijentu!";
-                    dialog.DataContext = dialogModel;
-                    dialog.Owner = window;
-                    dialog.ShowDialog();
-                }
-                else
+                if (s.Equals("Čeka se odgovor klijenta"))
                 {
                     SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
                     SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                     dialogModel.IsError = true;
-                    dialogModel.Message = "Morate da prihvatite ponudu za glavni zadatak!";
+                    dialogModel.Message = "Predlozi su već poslati klijentu!";
                     dialog.DataContext = dialogModel;
                     dialog.Owner = window;
                     dialog.ShowDialog();
+
+                }
+                else if (s.Equals("Organizovan"))
+                {
+                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = "Događaj je već organizovan!";
+                    dialog.DataContext = dialogModel;
+                    dialog.Owner = window;
+                    dialog.ShowDialog();
+
+                }
+                else
+                {
+
+                    if (ZadatakServce.proveraGlavniZadatak(IdDogadjaja))
+                    {
+                        using (var db = new DatabaseContext())
+                        {
+                            var d = db.Dogadjaji.Find(IdDogadjaja);
+                            d.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_KLIJENT;
+                            db.SaveChanges();
+                        }
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = false;
+                        dialogModel.Message = "Uspešno ste poslali predloge klijentu!";
+                        dialog.DataContext = dialogModel;
+                        dialog.Owner = window;
+                        dialog.ShowDialog();
+                    }
+                    else
+                    {
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Morate da prihvatite ponude za sve zadatke!";
+                        dialog.DataContext = dialogModel;
+                        dialog.Owner = window;
+                        dialog.ShowDialog();
+                    }
                 }
             }
         }
@@ -247,7 +304,7 @@ namespace Projekat.ViewModels
                 viewModel.Opis = SelectedZadatak.Opis;
                 view.DataContext = viewModel;
                 view.Owner = window;
-                view.Show();
+                view.ShowDialog();
             }
         }
 
@@ -284,7 +341,7 @@ namespace Projekat.ViewModels
             else
             {
                 var zad = ZadatakServce.getZadatakSaPredlogom(SelectedZadatak.Id);
-                if (zad.IzabraniPredlog != null)
+                if (zad.IzabraniPredlog != null && status.Equals("Čeka se odgovor klijenta") || zad.IzabraniPredlog != null && status.Equals("Organizovan"))
                 {
                     SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
                     SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
@@ -302,7 +359,7 @@ namespace Projekat.ViewModels
                     viewModel.IdZadatka = SelectedZadatak.Id;
                     view.DataContext = viewModel;
                     view.Owner = window;
-                    view.Show();
+                    view.ShowDialog();
                 }
             }
 
@@ -352,10 +409,11 @@ namespace Projekat.ViewModels
         public void Delete(Window window)
         {
             
-            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
-            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+            
             if(SelectedZadatak == null)
             {
+                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = true;
                 dialogModel.Message = "Morate selektovati zadatak kako biste ga obrisali!";
                 dialog.DataContext = dialogModel;
@@ -369,6 +427,8 @@ namespace Projekat.ViewModels
                     var dogadjaj = db.Dogadjaji.Find(IdDogadjaja);
                     if (dogadjaj.StatusEnum == Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_KLIJENT || dogadjaj.StatusEnum == Dogadjaj.STATUS_DOGADJAJA.ORGANIZOVAN)
                     {
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                         dialogModel.IsError = true;
                         dialogModel.Message = "Nije moguće obrisati izabrani zadatak!";
                         dialog.DataContext = dialogModel;
@@ -380,6 +440,8 @@ namespace Projekat.ViewModels
                         var zadatak = db.Zadaci.Find(SelectedZadatak.Id);
                         if (zadatak.Tip == Zadatak.TipZadatka.GLAVNI)
                         {
+                            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                             dialogModel.IsError = true;
                             dialogModel.Message = "Nije moguće obrisati glavni zadatak!";
                             dialog.DataContext = dialogModel;
@@ -390,6 +452,8 @@ namespace Projekat.ViewModels
                         {
                             db.Zadaci.Remove(zadatak);
                             db.SaveChanges();
+                            SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                            SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                             dialogModel.IsError = false;
                             dialogModel.Message = "Uspešno ste obrisali izabrani zadatak!";
                             dialog.DataContext = dialogModel;

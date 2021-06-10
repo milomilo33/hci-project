@@ -37,19 +37,23 @@ namespace Projekat.Service
         public bool proveraDaLiPostoji(int id)
         {
           
-            bool value = true;
+            bool value = false;
             ObservableCollection<Zadatak> zadaci = new ObservableCollection<Zadatak>();
             using (var db = new DatabaseContext())
             {
                 zadaci = new ObservableCollection<Zadatak>(db.Zadaci.Include("Dogadjaj").Where(d => d.Dogadjaj.Id.Equals(id)));
+            }
+            if (zadaci.Count == 0)
+            {
+                value = false;
+                return value;
             }
             foreach (Zadatak z in zadaci)
             {
                 if (z.Tip == Zadatak.TipZadatka.GLAVNI)
                 {
                     
-                    
-                    value = false;
+                    value = true;
 
                 }
             }
@@ -63,6 +67,11 @@ namespace Projekat.Service
             using (var db = new DatabaseContext())
             {
                 zadaci = new ObservableCollection<Zadatak>(db.Zadaci.Include("Dogadjaj").Include("IzabraniPredlog").Where(d => d.Dogadjaj.Id.Equals(id)));
+            }
+            if(zadaci.Count == 0)
+            {
+                value = false;
+                return value;
             }
             foreach(Zadatak z in zadaci){
                 //if(z.Tip == Zadatak.TipZadatka.GLAVNI)

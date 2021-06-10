@@ -71,6 +71,7 @@ namespace Projekat.ViewModels
                 dialogModel.IsError = true;
                 dialogModel.Message = "Niste odabrali saradnika za brisanje.";
                 newDialog.DataContext = dialogModel;
+                newDialog.Owner = window;
                 newDialog.ShowDialog();
                 return;
             }
@@ -86,6 +87,7 @@ namespace Projekat.ViewModels
                     DialogViewModel viewModel = new DialogViewModel();
                     viewModel._message = "Da li ste sigurni da želite da izbrišete saradnika?";
                     dialog.DataContext = viewModel;
+                    dialog.Owner = window;
                     dialog.ShowDialog();
 
                     if (viewModel.odgovor == "Da")
@@ -130,17 +132,18 @@ namespace Projekat.ViewModels
             get
             {
                 if (_addSaradnikCommand == null)
-                    _addSaradnikCommand = new RelayCommand(_addOrganizatorCommand => AddSaradnikEvent());
+                    _addSaradnikCommand = new RelayCommand(window => AddSaradnikEvent((Window) window));
                     return _addSaradnikCommand;
             }
         }
 
-        private void AddSaradnikEvent()
+        private void AddSaradnikEvent(Window window)
         {
             AddSaradnikViewModel addVM = new AddSaradnikViewModel();
             AddSaradnik add = new AddSaradnik(this);
             add.DataContext = addVM;
-            add.Show();
+            add.Owner = window;
+            add.ShowDialog();
         }
 
         private ICommand _editCommand;
@@ -149,12 +152,12 @@ namespace Projekat.ViewModels
             get
             {
                 if (_editCommand == null)
-                    _editCommand = new RelayCommand(_addOrganizatorCommand => EditSaradnikEvent());
+                    _editCommand = new RelayCommand(window => EditSaradnikEvent((Window) window));
                 return _editCommand;
             }
         }
 
-        private void EditSaradnikEvent()
+        private void EditSaradnikEvent(Window window)
         {
             
 
@@ -165,6 +168,7 @@ namespace Projekat.ViewModels
                 dialogModel.IsError = true;
                 dialogModel.Message = "Niste odabrali saradnika za izmenu.";
                 newDialog.DataContext = dialogModel;
+                newDialog.Owner = window;
                 newDialog.ShowDialog();
                 return;
             }
@@ -186,7 +190,8 @@ namespace Projekat.ViewModels
             editVM.Id = SelectedSaradnik.Id;
             AddSaradnik edit = new AddSaradnik(this);
             edit.DataContext = editVM;
-            edit.Show();
+            edit.Owner = window;
+            edit.ShowDialog();
             Console.WriteLine(editVM.Ulica);
         }
 

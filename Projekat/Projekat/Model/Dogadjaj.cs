@@ -107,5 +107,20 @@ namespace Projekat.Model
         public string MestoOdrzavanja { get; set; }
 
         public List<Komentar> Komentari { get; set; }
+
+        private bool? _deleted;
+        public bool? Deleted
+        {
+            get
+            {
+                if (_deleted == null)
+                    _deleted = false;
+                return _deleted;
+            }
+            set
+            {
+                _deleted = value;
+            }
+        }
     }
 }

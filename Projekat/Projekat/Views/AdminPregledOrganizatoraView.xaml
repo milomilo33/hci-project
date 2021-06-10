@@ -9,7 +9,7 @@
              d:DesignHeight="450" d:DesignWidth="1200">
     <Grid>
         <DockPanel>
-            <Menu DockPanel.Dock="Top" Background="LightGray">
+            <Menu DockPanel.Dock="Top">
                 <Menu.ItemsPanel>
                     <ItemsPanelTemplate>
                         <DockPanel HorizontalAlignment="Stretch"></DockPanel>
@@ -57,9 +57,9 @@
                     <RowDefinition Height="auto"></RowDefinition>
                     <RowDefinition Height="3*"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Button Grid.Column="1" Margin="10" Grid.Row="0" ToolTip="Kliknite kako biste dodali novog organizatora" Content="Dodaj organizatora" Command="{Binding AddOrganizatorCommand}"></Button>
-                <Button Grid.Column="3" Margin="10" Grid.Row="0" ToolTip="Kliknite kako biste izmenili organizatora" Command="{Binding EditOrganizatorCommand}" Content="Izmeni organizatora"></Button>
-                <Button Grid.Column="5" Margin="10" Grid.Row="0" ToolTip="Kliknite kako biste obrisali organizatora" Command="{Binding DeleteCommand}" Content="Obriši organizatora"></Button>
+                <Button Grid.Column="1" Margin="10" Grid.Row="0" ToolTip="Kliknite kako biste dodali novog organizatora" Content="Dodaj organizatora"  Command="{Binding Path=DataContext.AddOrganizatorCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledOrganizatoraView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"></Button>
+                <Button Grid.Column="3" Margin="10" Grid.Row="0" ToolTip="Kliknite kako biste izmenili organizatora"  Command="{Binding Path=DataContext.EditOrganizatorCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledOrganizatoraView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Content="Izmeni organizatora"></Button>
+                <Button Grid.Column="5" Margin="10" Grid.Row="0" ToolTip="Kliknite kako biste obrisali organizatora"   Command="{Binding Path=DataContext.DeleteCommand,RelativeSource={RelativeSource AncestorType= {x:Type local:AdminPregledOrganizatoraView}}}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" Content="Obriši organizatora"></Button>
                 
                 
                 <ListBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="7" ItemsSource="{Binding Organizatori}"

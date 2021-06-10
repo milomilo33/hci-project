@@ -194,7 +194,27 @@ namespace Projekat.ViewModels
                                                    Include("Zadaci.IzabraniPredlog.Ponuda.Saradnik.Adresa").
                                                    SingleOrDefault(d => d.Id == SelectedDogadjaj.Id).
                                                    Zadaci;
-                    Predlog predlog = zadaci.Find(z => z.Tip == Zadatak.TipZadatka.GLAVNI).IzabraniPredlog;
+                    if (zadaci == null || zadaci.Count() == 0)
+                    {
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Niste izabrali ponudu za ovaj događaj!";
+                        dialog.DataContext = dialogModel;
+                        dialog.Owner = window;
+                        dialog.ShowDialog();
+
+                        return;
+                    }
+                    //Predlog predlog = zadaci.Single(z => z.Tip == Zadatak.TipZadatka.GLAVNI).IzabraniPredlog;
+                    Predlog predlog = null;
+                    foreach (Zadatak z in zadaci)
+                    {
+                        if (z.Tip == Zadatak.TipZadatka.GLAVNI)
+                        {
+                            predlog = z.IzabraniPredlog;
+                        }
+                    }
                     if (predlog == null)
                     {
                         SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
@@ -243,16 +263,58 @@ namespace Projekat.ViewModels
 
         private readonly IKomentarService KomentarService = new KomentarService();
 
+        private ICommand _obrisiCommand;
+        public ICommand ObrisiCommand
+        {
+            get
+            {
+                if (_obrisiCommand == null)
+                    _obrisiCommand = new RelayCommand(window => ObrisiDogadjaj((Window)window));
+                return _obrisiCommand;
+            }
+        }
+
+        private void ObrisiDogadjaj(Window window)
+        {
+            Dogadjaj selectedDogadjajAtEvent = SelectedDogadjaj;
+
+            Dialog dialog = new Dialog();
+            DialogViewModel dialogModel = new DialogViewModel();
+            dialogModel.Message = $"Da li ste sigurni da želite da obrišete događaj?";
+            dialog.DataContext = dialogModel;
+            dialog.Owner = window;
+            dialog.ShowDialog();
+
+            if (dialogModel.odgovor.Equals("Ne"))
+            {
+                return;
+            }
+
+            using (var db = new DatabaseContext())
+            {
+                Dogadjaji.Remove(selectedDogadjajAtEvent);
+                db.Dogadjaji.SingleOrDefault(d => d.Id == selectedDogadjajAtEvent.Id).Deleted = true;
+                db.SaveChanges();
+            }
+
+            SuccessOrErrorDialog successDialog = new SuccessOrErrorDialog();
+            SuccessOrErrorDialogViewModel successDialogModel = new SuccessOrErrorDialogViewModel();
+            successDialogModel.Message = $"Uspešno ste obrisali događaj {selectedDogadjajAtEvent.Id}";
+            successDialog.DataContext = successDialogModel;
+            successDialog.Owner = window;
+            successDialog.ShowDialog();
+        }
+
         public ICommand DetailsCommand
         {
             get
             {
                 if (_detailsCommand == null)
-                    _detailsCommand = new RelayCommand(_detailsCommand => DetailsEvent());
+                    _detailsCommand = new RelayCommand(window => DetailsEvent((Window) window));
                 return _detailsCommand;
             }
         }
-        public void DetailsEvent()
+        public void DetailsEvent(Window window)
         {
             Details details = new Details();
             DetailsViewModel detailsModel = new DetailsViewModel();
@@ -268,7 +330,7 @@ namespace Projekat.ViewModels
             detailsModel.MestoOdrzavanja = SelectedDogadjaj.MestoOdrzavanja;
             detailsModel.BrojGostiju = SelectedDogadjaj.BrojGostiju;
             details.DataContext = detailsModel;
-            details.Show();
+            details.ShowDialog();
 
         }
         

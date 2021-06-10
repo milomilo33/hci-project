@@ -550,7 +550,6 @@ namespace Projekat.ViewModels
             {
                 var res = new StreamReader(resp.GetResponseStream()).ReadToEnd();
                 result = JArray.Parse(res);
-
             }
 
             if(result.IsNullOrEmpty())

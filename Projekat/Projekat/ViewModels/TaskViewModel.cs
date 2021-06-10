@@ -185,23 +185,12 @@ namespace Projekat.ViewModels
                 s = d.Status;
                
             }
-            if (s.Equals("Čeka se odgovor klijenta"))
+            if (!ZadatakServce.proveraDaLiPostoji(IdDogadjaja))
             {
                 SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
                 SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                 dialogModel.IsError = true;
-                dialogModel.Message = "Predlozi su već poslati klijentu!";
-                dialog.DataContext = dialogModel;
-                dialog.Owner = window;
-                dialog.ShowDialog();
-
-            }
-            else if (s.Equals("Organizovan"))
-            {
-                SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
-                SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
-                dialogModel.IsError = true;
-                dialogModel.Message = "Događaj je već organizovan!";
+                dialogModel.Message = "Mora da postoji glavni zadatak!";
                 dialog.DataContext = dialogModel;
                 dialog.Owner = window;
                 dialog.ShowDialog();
@@ -209,32 +198,57 @@ namespace Projekat.ViewModels
             }
             else
             {
-
-                if (ZadatakServce.proveraGlavniZadatak(IdDogadjaja))
-                {
-                    using (var db = new DatabaseContext())
-                    {
-                        var d = db.Dogadjaji.Find(IdDogadjaja);
-                        d.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_KLIJENT;
-                        db.SaveChanges();
-                    }
-                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
-                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
-                    dialogModel.IsError = false;
-                    dialogModel.Message = "Uspešno ste poslali predloge klijentu!";
-                    dialog.DataContext = dialogModel;
-                    dialog.Owner = window;
-                    dialog.ShowDialog();
-                }
-                else
+                if (s.Equals("Čeka se odgovor klijenta"))
                 {
                     SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
                     SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
                     dialogModel.IsError = true;
-                    dialogModel.Message = "Morate da prihvatite ponude za sve zadatke!";
+                    dialogModel.Message = "Predlozi su već poslati klijentu!";
                     dialog.DataContext = dialogModel;
                     dialog.Owner = window;
                     dialog.ShowDialog();
+
+                }
+                else if (s.Equals("Organizovan"))
+                {
+                    SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                    SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                    dialogModel.IsError = true;
+                    dialogModel.Message = "Događaj je već organizovan!";
+                    dialog.DataContext = dialogModel;
+                    dialog.Owner = window;
+                    dialog.ShowDialog();
+
+                }
+                else
+                {
+
+                    if (ZadatakServce.proveraGlavniZadatak(IdDogadjaja))
+                    {
+                        using (var db = new DatabaseContext())
+                        {
+                            var d = db.Dogadjaji.Find(IdDogadjaja);
+                            d.StatusEnum = Dogadjaj.STATUS_DOGADJAJA.CEKA_SE_KLIJENT;
+                            db.SaveChanges();
+                        }
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = false;
+                        dialogModel.Message = "Uspešno ste poslali predloge klijentu!";
+                        dialog.DataContext = dialogModel;
+                        dialog.Owner = window;
+                        dialog.ShowDialog();
+                    }
+                    else
+                    {
+                        SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
+                        SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();
+                        dialogModel.IsError = true;
+                        dialogModel.Message = "Morate da prihvatite ponude za sve zadatke!";
+                        dialog.DataContext = dialogModel;
+                        dialog.Owner = window;
+                        dialog.ShowDialog();
+                    }
                 }
             }
         }
@@ -327,7 +341,7 @@ namespace Projekat.ViewModels
             else
             {
                 var zad = ZadatakServce.getZadatakSaPredlogom(SelectedZadatak.Id);
-                if (zad.IzabraniPredlog != null)
+                if (zad.IzabraniPredlog != null && status.Equals("Čeka se odgovor klijenta") || zad.IzabraniPredlog != null && status.Equals("Organizovan"))
                 {
                     SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
                     SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();

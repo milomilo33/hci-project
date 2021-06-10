@@ -103,6 +103,7 @@ namespace Projekat
                 z1.Opis = "Pronaći restoran";
                 z1.Tip = Zadatak.TipZadatka.GLAVNI;
 
+
                 Zadatak z2 = new Zadatak();
                 z2.Id = 2;
                 z2.Naziv = "Cveće";
@@ -211,8 +212,7 @@ namespace Projekat
 
                 d2.Zadaci = new List<Zadatak>();
 
-                d1.Zadaci.Add(z1);
-                d1.Zadaci.Add(z2);
+               
 
                 d2.Zadaci.Add(z3);
                 d2.Zadaci.Add(z4);
@@ -252,6 +252,9 @@ namespace Projekat
                 //pred1.Status = Predlog.STATUS.
                 pred1.Zadatak = z5;
                 z5.IzabraniPredlog = pred1;
+               
+                d1.Zadaci.Add(z1);
+                d1.Zadaci.Add(z2);
 
                 db.Dogadjaji.Add(d3);
                 db.Zadaci.Add(z5);

@@ -35,7 +35,7 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="1.5*"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="4*"/>
@@ -49,6 +49,8 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
 
+        <Button x:Name="ExecuteTutorialBtn" Content="Započni tutorial" Background="White" Grid.Column="1" HorizontalAlignment="Right" Click="ExecuteTutorial"></Button>
+        <Button x:Name="StopTutorialBtn" Content="Zaustavi tutorial" Background="White" Grid.Column="1" HorizontalAlignment="Right" Visibility="Collapsed" Click="StopTutorial"></Button>
         <materialDesign:PackIcon Grid.Row="1" Grid.ColumnSpan="2"
                                 Kind="AccountAddOutline" 
                                 VerticalAlignment="Center" 
@@ -58,13 +60,13 @@
         <StackPanel Grid.Row="3" Grid.ColumnSpan="2">
             <TextBlock Margin="10,0,0,0" Text="Ime i prezime gosta"
                        HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox Margin="10,10" Text="{Binding ImeIPrezimeGosta}"></TextBox>
+            <TextBox x:Name="ImeGostaTB" Margin="10,10" Text="{Binding ImeIPrezimeGosta}"></TextBox>
         </StackPanel>
 
-        <Button Content="Dodaj" Width="100" Height="25" FontSize="13" Grid.Row="5"
+        <Button x:Name="DodajGostaBtn" Content="Dodaj" Width="100" Height="25" FontSize="13" Grid.Row="5"
                     Command="{Binding DodajCommand, Mode=OneWay}" 
                     CommandParameter="{Binding ElementName=DodajGostaDialog}"/>
-        <Button Content="Odustani" Width="100" Height="25" FontSize="13" Grid.Row="5" Grid.Column="1"
+        <Button x:Name="OdustaniBtn" Content="Odustani" Width="100" Height="25" FontSize="13" Grid.Row="5" Grid.Column="1"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}"
                     Command="{Binding OdustaniCommand, Mode=OneWay}" 
                     CommandParameter="{Binding ElementName=DodajGostaDialog}"/>

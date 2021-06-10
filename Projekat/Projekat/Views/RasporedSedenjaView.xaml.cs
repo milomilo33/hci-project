@@ -3,8 +3,10 @@ using Projekat.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+
 
 namespace Projekat.Views
 {
@@ -44,7 +47,7 @@ namespace Projekat.Views
 
             if (data != null)
             {
-                DragDrop.DoDragDrop(parent, data, DragDropEffects.Move);
+               // DragDrop.DoDragDrop(parent, data, DragDropEffects.Move);
             }
 
             //CommandManager.InvalidateRequerySuggested();
@@ -161,6 +164,264 @@ namespace Projekat.Views
             var backup = viewModel.RasporedSedenja;
             viewModel.RasporedSedenja = null;
             viewModel.RasporedSedenja = backup;
+        }
+
+        public IEnumerable CurrentNerasporedjeni { get; set; }
+        public IEnumerable CurrentStolovi { get; set; }
+        public ObservableCollection<Gost> NerasporedjeniTemp { get; set; }
+        public ObservableCollection<KapacitetStola> StoloviTemp { get; set; }
+        public Thread TutorialThread { get; set; }
+        public void ExecuteTutorial(object sender, RoutedEventArgs e)
+        {
+            NerasporedjeniTemp = new ObservableCollection<Gost>();
+            NerasporedjeniTemp.Add(new Gost { ImeIPrezime = "Marko Marković" });
+
+            CurrentStolovi = ListBoxRasporedSedenja.ItemsSource;
+            CurrentNerasporedjeni = ListViewNerasporedjeniGosti.ItemsSource;
+
+            NerasporedjeniTemp.Add(new Gost
+            {
+                ImeIPrezime = "Petar Petrović"
+            });
+            
+            NerasporedjeniTemp.Add(new Gost
+            {
+                ImeIPrezime = "Pera Perić"
+            });
+            
+            NerasporedjeniTemp.Add(new Gost
+            {
+                ImeIPrezime = "Nina Ninić"
+            });
+
+            List<Gost> sto1 = new List<Gost>();
+            sto1.Add(new Gost { ImeIPrezime = "Vera Milev" });
+            sto1.Add(new Gost { ImeIPrezime = "Goca Božinovska" });
+
+            List<Gost> sto2 = new List<Gost>();
+            sto2.Add(new Gost { ImeIPrezime = "Gost Gostkovski" });
+            sto2.Add(new Gost { ImeIPrezime = "Gost Gostović" });
+
+            StoloviTemp = new ObservableCollection<KapacitetStola>();
+            StoloviTemp.Add(new KapacitetStola { GostiZaStolom = new List<Gost>(), Kapacitet = 4, Naziv = "Sto 1" });
+            StoloviTemp.Add(new KapacitetStola { GostiZaStolom = sto2, Kapacitet = 5, Naziv = "Sto 2" });
+            StoloviTemp.Add(new KapacitetStola { GostiZaStolom = sto1, Kapacitet = 5, Naziv = "Sto 3" });
+
+            TutorialThread = new Thread(CallTutorialMehotds);
+            TutorialThread.Start();
+        }
+
+        private void CallTutorialMehotds()
+        {
+            while (true)
+            {
+                ToggleStopVisibility();
+                DisableComponents();
+                clearComponents();
+
+                toggleGridEnable();
+                Thread.Sleep(500);
+                /*this.Dispatcher.Invoke((Action)(() =>
+                {
+                    DragDrop.Margin = new Thickness(DragDrop.Margin.Left + 100, DragDrop.Margin.Top + 100,
+                        DragDrop.Margin.Right, DragDrop.Margin.Bottom);
+                    Thread.Sleep(500);
+                }));*/
+
+                //TutorialGrid.Visibility = Visibility.Visible;
+                startAnimation();
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    Thickness Margin = DragDrop.Margin;
+                    Margin.Left = 160;
+                    Margin.Top = 120;
+                    DragDrop.Margin = Margin;
+                    NerasporedjeniTemp.Remove(NerasporedjeniTemp.First(s => s.ImeIPrezime == "Marko Marković"));
+                    var temp = StoloviTemp;
+                    temp.First(s => s.Naziv == "Sto 1").GostiZaStolom.Add(new Gost { ImeIPrezime = "Marko Marković" });
+                    StoloviTemp = new ObservableCollection<KapacitetStola>(temp);
+                    ListBoxRasporedSedenja.Items.Refresh();
+                    //.First(s => s.Naziv == "Sto 1").GostiZaStolom.Add(new Gost { ImeIPrezime = "Marko Marković" });
+                }));
+                
+                toggleGrid();
+                Thread.Sleep(500);
+                buttonDemo(PotvrdiBtn);
+                rollbackComponents();
+            }
+        }
+
+        private void toggleGrid()
+        {
+            try
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    TutorialGrid.Visibility = System.Windows.Visibility.Collapsed; 
+                }));
+            }
+            catch (Exception ex) { }
+        }
+
+        private void rollbackComponents()
+        {
+            this.Dispatcher.Invoke((Action)(() =>
+            {
+                var temp = StoloviTemp.First(s => s.Naziv == "Sto 1").GostiZaStolom;
+                temp.RemoveAt(temp.Count - 1);
+                NerasporedjeniTemp.Insert(0, new Gost
+                {
+                    ImeIPrezime = "Marko Marković"
+                });
+
+                    
+            }));
+        }
+
+        private void startAnimation()
+        {
+            try
+            {
+                
+                    for (int i = 0; i < 20; i++)
+                    {
+                        this.Dispatcher.Invoke((Action)(() =>
+                        {
+                            Thickness Margin = DragDrop.Margin;
+                            Margin.Left += 10;
+                            Margin.Top += 15;
+                            DragDrop.Margin = Margin;
+                        }));
+                        Thread.Sleep(100);
+                    }
+            }
+            catch { }
+        }
+
+       private void clearComponents()
+        {
+            try
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    ListViewNerasporedjeniGosti.ItemsSource = NerasporedjeniTemp;
+                    ListBoxRasporedSedenja.ItemsSource = StoloviTemp;
+
+                }));
+            }
+            catch (Exception e) { }
+        }
+
+        private void resetComponents()
+        {
+            try
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    ListViewNerasporedjeniGosti.ItemsSource = CurrentNerasporedjeni;
+                    ListBoxRasporedSedenja.ItemsSource = CurrentStolovi;
+                    ListBoxRasporedSedenja.Items.Refresh();
+                }));
+            }
+            catch (Exception e) { }
+        }
+
+        private void buttonDemo(Button button)
+        {
+            try
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    button.IsEnabled = true;
+                    button.Background = Brushes.GreenYellow;
+                }));
+                Thread.Sleep(300);
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    BrushConverter bc = new BrushConverter();
+                    button.Background = (System.Windows.Media.Brush)bc.ConvertFrom("#4267B2");
+                    button.IsEnabled = false;
+                }));
+            }
+            catch (Exception ex) { }
+
+        }
+
+        private void DisableComponents()
+        {
+            try
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    ListBoxRasporedSedenja.IsEnabled = false;
+                    ListViewNerasporedjeniGosti.IsEnabled = false;
+                    DodajBtn.IsEnabled = false;
+                    PotvrdiBtn.IsEnabled = false;
+                    PonistiBtn.IsEnabled = false;
+                    
+                }));
+            }
+            catch (Exception e) { }
+        }
+
+        private void ToggleStopVisibility()
+        {
+            try
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    StopTutorialBtn.Visibility = System.Windows.Visibility.Visible;
+                }));
+            }
+            catch (Exception ex) { }
+
+        }
+
+
+        private void enableComponents()
+        {
+            ListBoxRasporedSedenja.IsEnabled = true;
+            ListViewNerasporedjeniGosti.IsEnabled = true;
+            DodajBtn.IsEnabled = true;
+            PonistiBtn.IsEnabled = true;
+            PotvrdiBtn.IsEnabled = true;
+        }
+
+        private void ListBoxRasporedSedenja_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ListViewNerasporedjeniGosti_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void StopTutorialBtn_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                toggleGrid();
+                resetComponents();
+                enableComponents();
+                TutorialThread.Abort();
+                StopTutorialBtn.Visibility = System.Windows.Visibility.Hidden;
+                PotvrdiBtn.Background = Brushes.Orange;
+            }
+            catch (Exception ex) { }
+        }
+
+        private void toggleGridEnable()
+        {
+            try
+            {
+                this.Dispatcher.Invoke((Action)(() =>
+                {
+                    TutorialGrid.Visibility = System.Windows.Visibility.Visible;
+                    
+                }));
+            }
+            catch (Exception ex) { }
         }
     }
 }

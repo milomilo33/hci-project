@@ -3,9 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:h="clr-namespace:Projekat.ViewModels"
              xmlns:local="clr-namespace:Projekat.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1280">
+             d:DesignHeight="720" d:DesignWidth="1280"
+             h:HelpProvider.HelpKey="Login">
 
     <Grid>
         <!--<Grid.ColumnDefinitions>
@@ -51,7 +53,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="1" Grid.Column="1">E-mail</Label>
-        <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Email}"></TextBox>
+        <TextBox  Grid.Row="2" Grid.Column="1" Text="{Binding Email}"></TextBox>
         <Label Grid.Row="4" Grid.Column="1">Lozinka</Label>
         <PasswordBox Grid.Row="5" Grid.Column="1" Name="Pass"></PasswordBox>
         <Button Grid.Row="7" Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=Pass}" Grid.Column="1">Prijava</Button>

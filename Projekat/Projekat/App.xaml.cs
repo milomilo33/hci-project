@@ -20,7 +20,7 @@ namespace Projekat
         protected override void OnStartup(StartupEventArgs e)
         {
             NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(navigationStore);
+            navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
 
 
             MainWindow = new MainWindow()
@@ -29,9 +29,19 @@ namespace Projekat
             };
             MainWindow.Show();
 
-           // InicijalizacijaPodataka();
+            using (var key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(
+                @"Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", true))
+            {
+                string path;
+                path = System.IO.Path.GetDirectoryName(
+                    System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase);
+                var app = System.IO.Path.GetFileName(path);
+                key.SetValue(app, 11001, Microsoft.Win32.RegistryValueKind.DWord);
+                key.Close();
+            }
+                //           InicijalizacijaPodataka();
 
-            base.OnStartup(e);
+                base.OnStartup(e);
 
         }
 

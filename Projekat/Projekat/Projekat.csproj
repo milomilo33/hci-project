@@ -323,7 +323,9 @@
     <Compile Include="ViewModels\AdminPregledOrganizatoraViewModel.cs" />
     <Compile Include="ViewModels\DetailsViewModel.cs" />
     <Compile Include="ViewModels\EventListViewModel.cs" />
+    <Compile Include="ViewModels\HelpProvider.cs" />
     <Compile Include="ViewModels\IzmenaZadatkaViewModel.cs" />
+    <Compile Include="ViewModels\JavaScriptControlHelper.cs" />
     <Compile Include="ViewModels\KomunikacijaViewModel.cs" />
     <Compile Include="ViewModels\IzmjenaPonudeViewModel.cs" />
     <Compile Include="ViewModels\KreiranjeZadatkaViewModel.cs" />
@@ -386,6 +388,9 @@
     </Compile>
     <Compile Include="Views\EventListView.xaml.cs">
       <DependentUpon>EventListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HelpViewer.xaml.cs">
+      <DependentUpon>HelpViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IzmenaZadatkaView.xaml.cs">
       <DependentUpon>IzmenaZadatkaView.xaml</DependentUpon>
@@ -513,6 +518,10 @@
     <Page Include="Views\EventListView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\HelpViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\IzmenaZadatkaView.xaml">
       <Generator>MSBuild:Compile</Generator>

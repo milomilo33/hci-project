@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Projekat.Stores;
+using Projekat.ViewModels;
+using Projekat.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +26,29 @@ namespace Projekat
         public MainWindow()
         {
             InitializeComponent();
+        }
+        private void CommandBinding_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            
+            IInputElement focusedControl = FocusManager.GetFocusedElement(Application.Current.Windows[0]);
+            if (focusedControl is DependencyObject)
+            {
+               
+                string str = HelpProvider.GetHelpKey((DependencyObject)focusedControl);
+                if (str != null)
+                {
+                    HelpProvider.ShowHelp(str, this);
+                    return;
+                }
+			}
+           
+			var context =((MainViewModel) this.DataContext).CurrentViewModel;
+           
+
+            var helpViewer = context is ViewModelBase navigationModelView ? new HelpViewer(navigationModelView.GetType(), this)
+                : new HelpViewer(context.GetType(), this);
+
+            helpViewer.Show();
         }
     }
 }

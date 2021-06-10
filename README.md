@@ -9,8 +9,8 @@
   cd help-hci </br>
   vuepress dev </br>
   
-<strong> Uputsvto za pokretanje aplikacije </strong> </br>
-  Dvoklik na Projekat.exe
+<strong> Uputstvo za pokretanje aplikacije </strong> </br>
+  Dvoklik na Release/Projekat.exe
   
   
   

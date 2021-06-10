@@ -18,7 +18,9 @@
         mc:Ignorable="d"
 
         Title="MainWindow" Height="720" Width="1280">
-
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
     <ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewmodels:OrganizatorHomeViewModel}">

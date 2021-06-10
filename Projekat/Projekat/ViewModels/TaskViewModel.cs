@@ -327,7 +327,7 @@ namespace Projekat.ViewModels
             else
             {
                 var zad = ZadatakServce.getZadatakSaPredlogom(SelectedZadatak.Id);
-                if (zad.IzabraniPredlog != null)
+                if (zad.IzabraniPredlog != null && status.Equals("Čeka se odgovor klijenta") || zad.IzabraniPredlog != null && status.Equals("Organizovan"))
                 {
                     SuccessOrErrorDialog dialog = new SuccessOrErrorDialog();
                     SuccessOrErrorDialogViewModel dialogModel = new SuccessOrErrorDialogViewModel();

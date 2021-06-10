@@ -96,11 +96,21 @@ namespace Projekat.ViewModels
 
                 using (var db = new DatabaseContext())
                 {
-                    var zadatak = db.Zadaci.Find(IdZadatka);
+                    var zadatak = db.Zadaci.Include("Dogadjaj").SingleOrDefault(d => d.Id == IdZadatka);
                     var ponuda = db.Ponude.Find(SelectedPonuda.Id);
                     zadatak.IzabraniPredlog = p;
                     p.Zadatak = zadatak;
                     p.Ponuda = ponuda;
+
+                    if (zadatak.Tip == Zadatak.TipZadatka.GLAVNI)
+                    {
+                        Dogadjaj dog = db.Dogadjaji.Include("NerasporedjeniGosti")
+                                                   .Include("RasporedSedenja")
+                                                   .SingleOrDefault(d => d.Id == zadatak.Dogadjaj.Id);
+                        dog.NerasporedjeniGosti = null;
+                        dog.RasporedSedenja = null;
+                    }
+
                     db.Predlozi.Add(p);
                     db.SaveChanges();
                 }

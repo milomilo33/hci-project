@@ -98,6 +98,10 @@ namespace Projekat.ViewModels
                 zadatak.Naziv = Naziv;
                 zadatak.Opis = Opis;
                 //zadatak.Status = "Na čekanju";
+                if (IzabranTip == null)
+                {
+                    return;
+                }
                 if(IzabranTip.Equals("Glavni zahtev"))
                 {
                     zadatak.Tip = Zadatak.TipZadatka.GLAVNI;

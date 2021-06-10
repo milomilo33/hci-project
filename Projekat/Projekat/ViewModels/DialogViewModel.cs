@@ -12,7 +12,20 @@ namespace Projekat.ViewModels
 {
     public class DialogViewModel: ViewModelBase
     {
-        public String odgovor;
+        private String _odgovor;
+        public String odgovor
+        {
+            get
+            {
+                if (_odgovor == null)
+                    return "Ne";
+                return _odgovor;
+            }
+            set
+            {
+                _odgovor = value;
+            }
+        }
         private readonly NavigationStore _navigationStore;
         private ICommand _daCommand;
         private ICommand _neCommand;

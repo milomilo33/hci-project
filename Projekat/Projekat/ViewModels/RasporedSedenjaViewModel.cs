@@ -21,7 +21,7 @@ namespace Projekat.ViewModels
 
         private ViewModelBase _previousViewModel;
 
-        private Dogadjaj _dogadjaj;
+        public Dogadjaj _dogadjaj;
 
         public Window _window;
 
@@ -50,7 +50,25 @@ namespace Projekat.ViewModels
 
             _window = window;
             Organizovan = organizovan;
+
+            using (var db = new DatabaseContext())
+            {
+                List<Zadatak> zad = db.Dogadjaji.Include("Zadaci.IzabraniPredlog.Ponuda.Saradnik")
+                                                .SingleOrDefault(d => d.Id == dogadjaj.Id)
+                                                .Zadaci;
+                foreach (Zadatak z in zad)
+                {
+                    if (z.Tip == Zadatak.TipZadatka.GLAVNI)
+                    {
+                        Slika = z.IzabraniPredlog.Ponuda.Saradnik.Slika;
+
+                        break;
+                    }
+                }
+            }
         }
+
+        public string Slika { get; set; }
 
         private bool _organizovan;
         public bool Organizovan

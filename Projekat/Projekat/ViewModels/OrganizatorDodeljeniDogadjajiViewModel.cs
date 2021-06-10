@@ -243,6 +243,48 @@ namespace Projekat.ViewModels
 
         private readonly IKomentarService KomentarService = new KomentarService();
 
+        private ICommand _obrisiCommand;
+        public ICommand ObrisiCommand
+        {
+            get
+            {
+                if (_obrisiCommand == null)
+                    _obrisiCommand = new RelayCommand(window => ObrisiDogadjaj((Window)window));
+                return _obrisiCommand;
+            }
+        }
+
+        private void ObrisiDogadjaj(Window window)
+        {
+            Dogadjaj selectedDogadjajAtEvent = SelectedDogadjaj;
+
+            Dialog dialog = new Dialog();
+            DialogViewModel dialogModel = new DialogViewModel();
+            dialogModel.Message = $"Da li ste sigurni da obrišete događaj?";
+            dialog.DataContext = dialogModel;
+            dialog.Owner = window;
+            dialog.ShowDialog();
+
+            if (dialogModel.odgovor.Equals("Ne"))
+            {
+                return;
+            }
+
+            using (var db = new DatabaseContext())
+            {
+                Dogadjaji.Remove(selectedDogadjajAtEvent);
+                db.Dogadjaji.SingleOrDefault(d => d.Id == selectedDogadjajAtEvent.Id).Deleted = true;
+                db.SaveChanges();
+            }
+
+            SuccessOrErrorDialog successDialog = new SuccessOrErrorDialog();
+            SuccessOrErrorDialogViewModel successDialogModel = new SuccessOrErrorDialogViewModel();
+            successDialogModel.Message = $"Uspešno ste obrisali događaj {selectedDogadjajAtEvent.Id}";
+            successDialog.DataContext = successDialogModel;
+            successDialog.Owner = window;
+            successDialog.ShowDialog();
+        }
+
         public ICommand DetailsCommand
         {
             get

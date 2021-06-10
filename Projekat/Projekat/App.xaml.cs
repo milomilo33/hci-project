@@ -22,7 +22,7 @@ namespace Projekat
             NavigationStore navigationStore = new NavigationStore();
 
             navigationStore.CurrentViewModel = new LoginViewModel(navigationStore);
-            //navigationStore.CurrentViewModel = new OrganizatorHomeViewModel(navigationStore);
+
 
 
             MainWindow = new MainWindow()
@@ -31,7 +31,9 @@ namespace Projekat
             };
             MainWindow.Show();
 
+
             InicijalizacijaPodataka();
+
 
             base.OnStartup(e);
 
@@ -49,7 +51,7 @@ namespace Projekat
                 adr.Drzava = "Srbija";
                 db.Adrese.Add(adr);
 
-
+                
                 Administrator a = new Administrator();
                 a.BrojTelefona = "069222222";
                 a.Email = "example@mail.com";
@@ -162,6 +164,7 @@ namespace Projekat
                 s1.Tip = "Lokal";
                 
                 s1.Adresa = adr;
+                s1.Slika = "/Images/stolovi.png";
 
                 List<Ponuda> ponude = new List<Ponuda>();
                 ponude.Add(p1);

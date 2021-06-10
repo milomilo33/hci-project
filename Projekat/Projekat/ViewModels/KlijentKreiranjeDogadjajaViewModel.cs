@@ -303,7 +303,7 @@ namespace Projekat.ViewModels
             }
             if (Budzet <= 0)
             {
-                message += "Morate navesti validan budžet za događaj!\n\n";
+                message += "Morate navesti budžet za događaj!\n\n";
             }
             if (DatumOdrzavanja == null)
             {

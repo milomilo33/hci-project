@@ -1,0 +1,96 @@
+﻿<Window x:Class="Projekat.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Projekat"
+        xmlns:viewmodels="clr-namespace:Projekat.ViewModels"
+        xmlns:views="clr-namespace:Projekat.Views"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+
+        Title="MainWindow" Height="720" Width="1280">
+    <Window.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.Help" Executed="CommandBinding_Executed"/>
+    </Window.CommandBindings>
+    <ContentControl Content="{Binding CurrentViewModel}">
+        <ContentControl.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:OrganizatorHomeViewModel}">
+                <views:OrganizatorHomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentHomeViewModel}">
+                <views:KlijentHomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:LoginViewModel}">
+                <views:LoginView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:RegistrationViewModel}">
+                <views:RegistrationView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:PregledPonudaViewModel}">
+                <views:PregledPonuda />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:OrganizatorEventTableViewModel}">
+                <views:OrganizatorEventTable />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminHomeViewModel}">
+                <views:AdminHomeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:EventListViewModel}">
+                <views:EventListView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentPregledOrganizatoraViewModel}">
+                <views:KlijentPregledOrganizatoraView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:OrganizatorDodeljeniDogadjajiViewModel}">
+                <views:OrganizatorDodeljeniDogadjaji />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:TaskViewModel}">
+                <views:TaskView />
+             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminPregledOrganizatoraViewModel}">
+                <views:AdminPregledOrganizatoraView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminPregledSaradnikaViewModel}">
+                <views:AdminPregledSaradnika />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentKreiranjeDogadjajaViewModel}">
+                <views:KlijentKreiranjeDogadjajaView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:KlijentKreiranjeDogadjajaOdabirOrganizatoraViewModel}">
+                <views:KlijentKreiranjeDogadjajaOdabirOrganizatoraView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:OrganizatorProfilViewModel}">
+                <views:OrganizatorProfil />
+             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:AdminPregledKlijenataViewModel}">
+                <views:AdminPregledKlijenataView />
+
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:PregledPredlogaViewModel}">
+                <views:PregledPredlogaView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:RasporedSedenjaViewModel}">
+                <views:RasporedSedenjaView />
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewmodels:PromenaLozinkeViewModel}">
+                <views:PromenaLozinkeView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:PregledPredlogaDodatniZahteviViewModel}">
+                <views:PregledPredlogaDodatniZahteviView />
+
+            </DataTemplate>
+        </ContentControl.Resources>
+    </ContentControl>
+</Window>

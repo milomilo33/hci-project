@@ -1,0 +1,64 @@
+﻿<Window x:Class="Projekat.Views.PredloziZaZadatak"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
+        xmlns:viewmodels="clr-namespace:Projekat.ViewModels"
+        xmlns:local="clr-namespace:Projekat.Views"
+        mc:Ignorable="d"
+        Height="450" Width="800">
+    <Window.DataContext>
+    <viewmodels:PredloziZaZadatakViewModel/>
+    </Window.DataContext>
+    <DockPanel Background="White">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10*" />
+                <ColumnDefinition Width="2.5*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="10*" />
+
+            </Grid.RowDefinitions>
+
+
+            <Button Grid.Row="0" Grid.Column="1" HorizontalAlignment="Right" Command="{Binding AcceptCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">Prihvati ponudu</Button>
+            <DataGrid Grid.Row="2"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      ItemsSource="{Binding Ponude}"
+                      CanUserAddRows="False"
+                      AutoGenerateColumns="False"
+                      HeadersVisibility="All"
+                      IsReadOnly="True"
+                      CanUserSortColumns="True"
+                      SelectionMode="Single"
+                      SelectedItem="{Binding SelectedPonuda}"
+                      Background="White">
+                <DataGrid.Columns>
+                    <DataGridTextColumn
+                                Binding="{Binding Id}"
+                                Header="Id"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+                    <materialDesign:DataGridTextColumn
+                                Header="Opis ponude"
+                                Binding="{Binding Opis}"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}">
+                    </materialDesign:DataGridTextColumn>
+                    <DataGridTextColumn
+                                Binding="{Binding Saradnik.Naziv}"
+                                Header="Saradnik"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+                    <DataGridTextColumn
+                                Binding="{Binding Cena}"
+                                Header="Cena"
+                                ElementStyle="{StaticResource MaterialDesignDataGridTextColumnStyle}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </DockPanel>
+</Window>

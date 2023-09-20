@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="Projekat.Views.AdminHomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Projekat.Views"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="720" d:DesignWidth="1280">
+    <DockPanel>
+        <Menu DockPanel.Dock="Top" Height="50">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <DockPanel HorizontalAlignment="Stretch"></DockPanel>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+
+            <Button
+                Background="Transparent"
+                BorderThickness="0"
+                ToolTip="Kliknite da biste pogledali svoj profil"
+                VerticalAlignment="Center"
+                Command="{Binding ProfilCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon VerticalAlignment="Center"
+                                                           Kind="AccountCircle" Height="25" Width="25" Margin="0,0,10,0" />
+                    <TextBlock Text="Profil" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+
+            <MenuItem Header="Pocetna strana" FontWeight="DemiBold"></MenuItem>
+
+            <MenuItem  Width="100"  Command="{Binding OdjavaCommand}"  HorizontalAlignment="Right"  ToolTip="Kliknite da biste se odjavili">
+                <MenuItem.Header>
+                    <materialDesign:PackIcon VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                           Kind="Logout" Height="35" Width="25"   />
+                </MenuItem.Header>
+            </MenuItem>
+        </Menu>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*" />
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="5*" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Column="1" Grid.Row="1" Height="50" 
+                    materialDesign:ButtonAssist.CornerRadius="25"
+                    ToolTip="Kliknite da biste videli organizatore"
+                    Command="{Binding PregledOrganizatoraCommand}">Pogledajte organizatore</Button>
+            <Button Grid.Column="3" Grid.Row="1" Height="50" 
+                    materialDesign:ButtonAssist.CornerRadius="25"
+                    ToolTip="Kliknite da biste videli saradnike"
+                    Command="{Binding PregledSaradnikaCommand}">Pogledajte saradnike</Button>
+            <Button Grid.Column="5" Grid.Row="1" Height="50" 
+                    materialDesign:ButtonAssist.CornerRadius="25"
+                    ToolTip="Kliknite da biste videli klijente"
+                     Command="{Binding PregledKlijenataCommand}">Pogledajte klijente</Button>
+            <Button Grid.Column="7" Grid.Row="1" Height="50" 
+                    materialDesign:ButtonAssist.CornerRadius="25" 
+                    ToolTip="Kliknite da biste videli dogadjaje"
+                    Command="{Binding EventListViewCommand}">Pregledajte događaje</Button>
+
+        </Grid>
+
+    </DockPanel>
+</UserControl>
